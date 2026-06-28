@@ -1,358 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BikeCiaSystem - Home</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/home.css" />
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styleLogin.css" />
+  </head>
 
-<body>
-
-  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
-    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
-      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
-        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
-        <span class="brand-text">BikeCiaSystem</span>
-      </div>
-      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-    </div>
-    <ul class="nav nav-pills flex-column mt-2 px-2">
-      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
-      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
-    </ul>
-  </nav>
-
-  <div class="d-md-none">
-    <nav class="navbar bg-light">
-      <div class="container-fluid">
-        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
-        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="#"></a>
+        <img class="img-logo" src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo da empresa">
       </div>
     </nav>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Menu</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+
+    
+    <main class="main">
+      <div class="form-box">
+        <form id="form-login">
+          <h4 class="mb-4 text-center card-login">Login</h4>
+
+          <div class="mb-3">
+            <label for="input-email" class="form-label">E-mail:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="input-email"
+              placeholder="exemplo@email.com"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="input-senha" class="form-label">Senha:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="input-senha"
+              placeholder="Digite sua senha"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Entrar</button>
+
+         
+        </form>
       </div>
-      <div class="offcanvas-body p-0">
-        <ul class="nav nav-pills flex-column">
-          <li class="nav-item"><a class="nav-link active" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
-          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
-          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
-          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
-          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
 
-  <main id="mainContent" class="main-content">
-    <div class="home-wrapper container-fluid">
+      <div class="div-aviso"></div>
+    </main>
 
-      <section class="hero-panel">
-        <div class="hero-text">
-          <p class="hero-label">PAINEL INICIAL</p>
-          <h1>Bem-vindo ao Sistema</h1>
-          <p class="hero-subtitle">Acompanhe os principais indicadores do sistema.</p>
-        </div>
-      </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-      <section class="dashboard-section">
-        <div class="row g-3">
-          <div class="col-12 col-md-6 col-xl-3">
-            <div class="metric-card">
-              <span>Total de Vendas</span>
-              <h2 id="metric-total-vendas">—</h2>
-              <p id="metric-total-vendas-sub">Carregando...</p>
-            </div>
-          </div>
+    <script>
+      const API_URL = "https://projetoapidevendaestagio.onrender.com/api/usuario/login"; 
+      const divAviso = document.querySelector(".div-aviso");
+      const form = document.getElementById("form-login");
 
-          <div class="col-12 col-md-6 col-xl-3">
-            <div class="metric-card">
-              <span>Clientes</span>
-              <h2 id="metric-clientes">—</h2>
-              <p id="metric-clientes-sub">Carregando...</p>
-            </div>
-          </div>
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-          <div class="col-12 col-md-6 col-xl-3">
-            <div class="metric-card">
-              <span>Produtos</span>
-              <h2 id="metric-produtos">—</h2>
-              <p id="metric-produtos-sub">Carregando...</p>
-            </div>
-          </div>
+        const email = document.getElementById("input-email").value.trim();
+        const senha = document.getElementById("input-senha").value.trim();
 
-          <div class="col-12 col-md-6 col-xl-3">
-            <div class="metric-card">
-              <span>Serviços</span>
-              <h2 id="metric-servicos">—</h2>
-              <p id="metric-servicos-sub">Carregando...</p>
-            </div>
-          </div>
-        </div>
+        if (!email || !senha) {
+          mostrarAviso("Preencha todos os campos!", "erro");
+          return;
+        }
 
-        <div class="row g-3 mt-1">
-          <div class="col-12 col-xl-8">
-            <div class="chart-card">
-              <div class="chart-header">
-                <h3>Vendas por mês</h3>
-                <span id="chart-vendas-ano">—</span>
-              </div>
+        const dadosLogin = {
+          Email: email,
+          Senha: senha
+        };
 
-              <div class="fake-bar-chart" id="bar-chart"></div>
+        try {
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dadosLogin)
+          });
 
-              <div class="chart-labels" id="bar-labels"></div>
-            </div>
-          </div>
+          if (!response.ok) {
+            const erroTexto = await response.text();
+            throw new Error(`Erro ${response.status}: ${erroTexto}`);
+          }
 
-          <div class="col-12 col-xl-4">
-            <div class="chart-card">
-              <div class="chart-header">
-                <h3>Resumo</h3>
-                <span>Status</span>
-              </div>
+          const resposta = await response.json();
+          localStorage.setItem("JWT", "Bearer " + resposta.tokenJWT);
 
-              <div class="fake-donut" id="donut-resumo">
-                <div class="donut-center">
-                  <strong id="donut-percent">—</strong>
-                  <small>Pagas</small>
-                </div>
-              </div>
 
-              <div class="status-list" id="status-list">
-                <div><span></span> Pagas: <strong id="status-pagas" class="ms-1">—</strong></div>
-                <div><span></span> Em andamento: <strong id="status-andamento" class="ms-1">—</strong></div>
-                <div><span></span> Em aberto: <strong id="status-aberto" class="ms-1">—</strong></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('toggleSidebar');
-    const brandBtn = document.getElementById('brandButton');
-    const main = document.getElementById('mainContent');
-
-    function updateMargin() {
-      if (window.innerWidth >= 768) {
-        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
-      } else {
-        main.style.marginLeft = '0';
-      }
-    }
-
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
-      updateMargin();
-    });
-
-    brandBtn.addEventListener('click', () => {
-      if (sidebar.classList.contains('collapsed')) {
-        sidebar.classList.remove('collapsed');
-        updateMargin();
-      }
-    });
-
-    updateMargin();
-    window.addEventListener('resize', updateMargin);
-  </script>
-
-  <script>
-
-    const API   = "https://projetoapidevendaestagio.onrender.com/api";
-    const TOKEN = () => localStorage.getItem("JWT");
-    const MESES = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
-    const LIMITE_ESTOQUE_BAIXO = 5;
-
-    function fmtMoeda(v) {
-      return "R$ " + Number(v || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    async function getJson(rota) {
-      const res = await fetch(`${API}/${rota}`, { headers: { Authorization: TOKEN() } });
-      if (!res.ok) throw new Error(`Erro ${res.status} em ${rota}`);
-      return res.json();
-    }
-
-    async function carregarDashboard() {
-      const [vendasR, clientesR, produtosR, servicosR] = await Promise.allSettled([
-        getJson("venda"),
-        getJson("cliente"),
-        getJson("produto"),
-        getJson("servico")
-      ]);
-
-      const vendas   = vendasR.status   === "fulfilled" ? vendasR.value   : [];
-      const clientes = clientesR.status === "fulfilled" ? clientesR.value : [];
-      const produtos = produtosR.status === "fulfilled" ? produtosR.value : [];
-      const servicos = servicosR.status === "fulfilled" ? servicosR.value : [];
-
-      preencherTotalVendas(vendas);
-      preencherClientes(clientes);
-      preencherProdutos(produtos);
-      preencherServicos(servicos, vendas);
-      preencherGraficoVendas(vendas);
-      preencherResumo(vendas);
-    }
-
-    function preencherTotalVendas(vendas) {
-      const total = vendas.reduce((s, vt) => s + Number(vt?.venda?.valorTotalComDesconto || 0), 0);
-      document.getElementById("metric-total-vendas").textContent = fmtMoeda(total);
-
-      const agora = new Date();
-      const mesAtual = agora.getMonth(), anoAtual = agora.getFullYear();
-      const mesAnterior = mesAtual === 0 ? 11 : mesAtual - 1;
-      const anoAnterior = mesAtual === 0 ? anoAtual - 1 : anoAtual;
-
-      let totalAtual = 0, totalAnterior = 0;
-      vendas.forEach(vt => {
-        const d = new Date(vt?.venda?.dataCriacao);
-        const val = Number(vt?.venda?.valorTotalComDesconto || 0);
-        if (d.getMonth() === mesAtual && d.getFullYear() === anoAtual) totalAtual += val;
-        if (d.getMonth() === mesAnterior && d.getFullYear() === anoAnterior) totalAnterior += val;
-      });
-
-      const sub = document.getElementById("metric-total-vendas-sub");
-      if (totalAnterior > 0) {
-        const variacao = ((totalAtual - totalAnterior) / totalAnterior) * 100;
-        const sinal = variacao >= 0 ? "+" : "";
-        sub.textContent = `${sinal}${variacao.toFixed(0)}% vs mês anterior`;
-      } else {
-        sub.textContent = `${fmtMoeda(totalAtual)} este mês`;
-      }
-    }
-
-    function preencherClientes(clientes) {
-      document.getElementById("metric-clientes").textContent = clientes.length;
-
-      const agora = new Date();
-      const novos = clientes.filter(c => {
-        const d = new Date(c?.dataCriacao);
-        return d.getMonth() === agora.getMonth() && d.getFullYear() === agora.getFullYear();
-      }).length;
-      document.getElementById("metric-clientes-sub").textContent =
-        novos > 0 ? `+${novos} novo(s) este mês` : "Nenhum novo este mês";
-    }
-
-    function preencherProdutos(produtos) {
-      document.getElementById("metric-produtos").textContent = produtos.length;
-
-      const emFalta = produtos.filter(p =>
-        (p?.estoque?.quantidadeEmEstoque ?? 0) <= LIMITE_ESTOQUE_BAIXO
-      ).length;
-      document.getElementById("metric-produtos-sub").textContent =
-        emFalta > 0 ? `${emFalta} com estoque baixo` : "Estoque saudável";
-    }
-
-    function preencherServicos(servicos, vendas) {
-      document.getElementById("metric-servicos").textContent = servicos.length;
-
-      const contagem = {};
-      vendas.forEach(vt => {
-        (vt?.venda?.servicosVenda || []).forEach(sv => {
-          const nome = sv?.servico?.nomeServico;
-          if (nome) contagem[nome] = (contagem[nome] || 0) + 1;
-        });
-      });
-
-      const maisVendido = Object.entries(contagem).sort((a, b) => b[1] - a[1])[0];
-      document.getElementById("metric-servicos-sub").textContent =
-        maisVendido ? `Mais vendido: ${maisVendido[0]}` : "Sem vendas ainda";
-    }
-
-    function preencherGraficoVendas(vendas) {
-      const anoAtual = new Date().getFullYear();
-      const totaisPorMes = new Array(12).fill(0);
-
-      vendas.forEach(vt => {
-        const d = new Date(vt?.venda?.dataCriacao);
-        if (d.getFullYear() === anoAtual) {
-          totaisPorMes[d.getMonth()] += Number(vt?.venda?.valorTotalComDesconto || 0);
+          mostrarAviso("Login realizado com sucesso!", "sucesso");
+          setTimeout(() => (window.location.href = "home.html"), 1500);
+        } catch (error) {
+          console.error("Erro no login:", error);
+          mostrarAviso(error.message, "erro");
         }
       });
 
-      document.getElementById("chart-vendas-ano").textContent = anoAtual;
+      function mostrarAviso(mensagem, tipo) {
+        divAviso.textContent = mensagem;
+        divAviso.classList.add("div-aviso-subir", tipo);
+        setTimeout(() => {
+          divAviso.classList.remove("div-aviso-subir");
+          setTimeout(() => {
+            divAviso.textContent = "";
+            divAviso.classList.remove(tipo);
+          }, 2000);
+        }, 2000);
+      }
+    </script>
 
-      const maxValor = Math.max(...totaisPorMes, 1);
-      const barChart = document.getElementById("bar-chart");
-      const barLabels = document.getElementById("bar-labels");
-      barChart.innerHTML = "";
-      barLabels.innerHTML = "";
+    <footer>
+    <p>© 2025 BikeCiaSystem</p>
+  </footer>
 
-      totaisPorMes.forEach((valor, i) => {
-        const altura = maxValor > 0 ? Math.max((valor / maxValor) * 100, valor > 0 ? 8 : 2) : 2;
-        const bar = document.createElement("div");
-        bar.style.height = `${altura}%`;
-        bar.title = `${MESES[i]}: ${fmtMoeda(valor)}`;
-        barChart.appendChild(bar);
-
-        const lbl = document.createElement("span");
-        lbl.textContent = MESES[i];
-        barLabels.appendChild(lbl);
-      });
-    }
-
-    function preencherResumo(vendas) {
-      let pagas = 0, andamento = 0, aberto = 0;
-
-      vendas.forEach(vt => {
-        const t = vt?.transacao;
-        if (!t) { aberto++; return; }
-        if (t.transacaoEmCurso === true && t.pago === true)       pagas++;
-        else if (t.transacaoEmCurso === true && t.pago === false) andamento++;
-        else                                                       aberto++;
-      });
-
-      const total = pagas + andamento + aberto;
-      const pctPagas = total > 0 ? Math.round((pagas / total) * 100) : 0;
-
-      document.getElementById("donut-percent").textContent = `${pctPagas}%`;
-      document.getElementById("status-pagas").textContent = pagas;
-      document.getElementById("status-andamento").textContent = andamento;
-      document.getElementById("status-aberto").textContent = aberto;
-
-      const donut = document.getElementById("donut-resumo");
-      const gPagas = total > 0 ? (pagas / total) * 360 : 0;
-      const gAndamento = total > 0 ? (andamento / total) * 360 : 0;
-      const fimPagas = gPagas;
-      const fimAndamento = gPagas + gAndamento;
-      donut.style.background =
-        `conic-gradient(#198754 0deg ${fimPagas}deg, #ffc107 ${fimPagas}deg ${fimAndamento}deg, #d0d3d8 ${fimAndamento}deg 360deg)`;
-    }
-
-    carregarDashboard().catch(e => console.error("Erro ao carregar dashboard:", e));
-  </script>
-<script src="js/controle_acesso.js"></script>
-</body>
+  </body>
 </html>
