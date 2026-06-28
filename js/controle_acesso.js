@@ -23,7 +23,7 @@
   function aplicar() {
     if (!tokenValido()) {
       localStorage.removeItem('JWT');
-      window.location.replace('login.html');
+      window.location.replace('index.html');
       return;
     }
 
