@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Cliente</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/editar_cliente.css">
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-5">
+      <div class="form-box">
+        <h3 class="text-center mb-4">Editar Cliente</h3>
+
+        <form id="form-editar">
+          <div class="mb-3">
+            <label class="form-label">Nome/Razão Social:</label>
+            <input type="text" id="nome" class="form-control" required>
+          </div>
+
+          <div id="div-nome-fantasia" class="mb-3" style="display: none;">
+            <label class="form-label">Nome Fantasia(opcional):</label>
+            <input type="text" id="inputNomeFantasia" class="form-control">
+          </div>  
+
+          <div id="div-inscricao-estadual" class="mb-3" style="display: none;">
+            <label class="form-label">Incrição Estadual(opcional):</label>
+            <input type="text" id="inputInscricaoEstadual" class="form-control">
+          </div>  
+
+          <div class="mb-3">
+            <label class="form-label">Telefone:</label>
+            <input type="text" id="telefone" class="form-control" required>
+          </div>  
+
+          <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Logradouro:</label>
+            <input type="text" id="logradouro" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Numero:</label>
+            <input type="text" id="numero" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Cidade:</label>
+            <input type="text" id="cidade" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">UF:</label>
+            <input type="text" id="uf" maxlength="2" class="form-control" required>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4">Salvar Alterações</button>
+            <a href="buscar_clientes.html" class="btn btn-secondary px-4">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="div-aviso"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_URL = "https://projetoapidevendaestagio.onrender.com/api/cliente";
+    const campoNomeFantasia = document.getElementById("div-nome-fantasia");
+    const campoInscricaoEstadual = document.getElementById("div-inscricao-estadual");
+    const inputNomeFantasia = document.getElementById("inputNomeFantasia");
+    const inputInscricaoEstadual = document.getElementById("inputInscricaoEstadual");
+    const divAviso = document.getElementsByClassName("div-aviso")[0];
+
+    let cliente;
+
+    async function carregarDados() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) {
+        mostrarAviso("ID inválido!", "erro");
+        window.location.href = "buscar_clientes.html";
+        return;
+      }
+
+      try {
+        const resp = await fetch(`${API_URL}/${id}`, {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+        if (!resp.ok) throw new Error(`Erro ${resp.status}: não foi possível carregar o cliente.`);
+
+        cliente = await resp.json();
+        if (cliente.tipoCliente === "PessoaJuridica") {
+          campoNomeFantasia.classList.add("div-PessoaJuridica");
+          campoInscricaoEstadual.classList.add("div-PessoaJuridica");
+          inputNomeFantasia.value = cliente.nomeFantasia;
+          inputInscricaoEstadual.value = cliente.inscricaoEstadual;
+        }
+
+        document.getElementById("nome").value = cliente.nome || cliente.razaoSocial || "";
+        document.getElementById("telefone").value = cliente.telefone || "";
+        document.getElementById("email").value = cliente.email || "";
+        document.getElementById("logradouro").value = cliente.endereco?.logradouro || "";
+        document.getElementById("numero").value = cliente.endereco?.numero || "";
+        document.getElementById("cidade").value = cliente.endereco?.cidade || "";
+        document.getElementById("uf").value = cliente.endereco?.siglaUf || "";
+
+      } catch (erro) {
+        mostrarAviso("Erro ao buscar cliente: " + erro.message, "erro");
+        setTimeout(() => {
+          window.location.href = "buscar_clientes.html";
+        }, 8000);
+      }
+    }
+
+    document.getElementById("form-editar").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = new URLSearchParams(window.location.search).get("id");
+
+      if (cliente.tipoCliente == "PessoaFisica") {
+        const clienteAtualizado = {
+          nome: document.getElementById("nome").value,
+          telefone: document.getElementById("telefone").value,
+          email: document.getElementById("email").value,
+          cpf: "",
+          endereco: {
+            logradouro: document.getElementById("logradouro").value,
+            numero: document.getElementById("numero").value,
+            cidade: document.getElementById("cidade").value,
+            siglaUf: document.getElementById("uf").value
+          }
+        };
+
+        try {
+          const resp = await fetch(`${API_URL}/fisico/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            body: JSON.stringify(clienteAtualizado)
+          });
+
+          if (resp.ok) {
+            mostrarAviso("Cliente atualizado", "sucesso");
+            setTimeout(() => {
+              window.location.href = "buscar_clientes.html";
+            }, 1500);
+          } else {
+            const erroTexto = await resp.text();
+            mostrarAviso(`Erro ao atualizar cliente: ${resp.status} - ${erroTexto}`, "erro");
+          }
+        } catch (erro) {
+          mostrarAviso("Falha na conexão com o servidor: " + erro.message, "erro");
+        }
+      }
+
+      if (cliente.tipoCliente == "PessoaJuridica") {
+        const clienteAtualizado = {
+          razaoSocial: document.getElementById("nome").value,
+          nomeFantasia: inputNomeFantasia.value,
+          inscricaoEstadual: inputInscricaoEstadual.value,
+          telefone: document.getElementById("telefone").value,
+          email: document.getElementById("email").value,
+          cnpj: "",
+          endereco: {
+            logradouro: document.getElementById("logradouro").value,
+            numero: document.getElementById("numero").value,
+            cidade: document.getElementById("cidade").value,
+            siglaUf: document.getElementById("uf").value
+          }
+        };
+
+        try {
+          const resp = await fetch(`${API_URL}/juridico/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            body: JSON.stringify(clienteAtualizado)
+          });
+
+          if (resp.ok) {
+            mostrarAviso("Cliente atualizado", "sucesso");
+            setTimeout(() => {
+              window.location.href = "buscar_clientes.html";
+            }, 1500);
+          } else {
+            const erroTexto = await resp.text();
+            mostrarAviso(`Erro ao atualizar cliente: ${resp.status} - ${erroTexto}`, "erro");
+          }
+        } catch (erro) {
+          mostrarAviso("Falha na conexão com o servidor: " + erro.message, "erro");
+        }
+      }
+    });
+
+    function mostrarAviso(mensagem, tipo) {
+      divAviso.textContent = mensagem;
+      divAviso.classList.add("div-aviso-subir", tipo);
+      setTimeout(() => {
+        divAviso.classList.remove("div-aviso-subir");
+        setTimeout(() => {
+          divAviso.textContent = "";
+          divAviso.classList.remove(tipo);
+        }, 5000);
+      }, 2000);
+    }
+
+    document.addEventListener("DOMContentLoaded", carregarDados);
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+<script src="js/controle_acesso.js"></script>
+</body>
+</html>

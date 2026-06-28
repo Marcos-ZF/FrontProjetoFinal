@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Produtos</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleListaProdutos.css">
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-5">
+      <div class="form-box">
+
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-4 gap-3">
+          <h2 class="text-center mb-0">Lista de Produtos</h2>
+
+          <div class="d-flex align-items-center gap-2">
+            <input
+              type="text"
+              id="input-buscar-produtos-por-nome"
+              class="form-control"
+              placeholder="Buscar por Nome ou Cod"
+            >
+            <button class="btn btn-primary" onclick="buscarPorNome()">Buscar</button>
+          </div>
+        </div>
+
+        <div class="table-scroll-mobile">
+          <table class="table table-striped align-middle text-center">
+            <thead class="table-secondary text-center">
+              <tr>
+                <th class="text-start ps-3">Nome</th>
+                <th style="text-align: right; padding-right: 12px;">Código de Barra</th>
+                <th class="text-end">Quantidade</th>
+                <th class="text-end">Preço (R$)</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+
+            <tbody id="tabela-produto">
+              <tr><td colspan="5" class="text-muted">Carregando produtos...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <a href="produtos.html" 
+           class="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow"
+           style="width: 60px; height: 60px; font-size: 28px; display: flex; align-items: center; justify-content: center;">
+           +
+        </a>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="bi bi-box-seam me-2"></i>Detalhes do Produto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="detalhes-body"></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalExcluirProduto" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="modal-titulo-exclusao-produto">Confirmar exclusão</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+
+          <div class="modal-body" id="texto-modal-exclusao-produto">
+            Deseja excluir este produto?
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_URL = "https://projetoapidevendaestagio.onrender.com/api/produto";
+
+    function formatarPreco(valor) {
+      if (valor === null || valor === undefined || valor === "" || isNaN(valor)) {
+        return "-";
+      }
+      return Number(valor).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        useGrouping: false
+      });
+    }
+
+    let idProdutoParaExcluir = null;
+    let modalExcluir = null;
+    let produtosCache = [];
+    let modalDetalhesInstance = null;
+
+    function verDetalhesProduto(id) {
+      const p = produtosCache.find(x => x.id === id);
+      if (!p) return;
+      const descricao = (p.descricao && p.descricao.trim() !== "") ? p.descricao : "-";
+      const dataCriacao = p.dataCriacao ? new Date(p.dataCriacao).toLocaleString("pt-BR") : "-";
+      document.getElementById("detalhes-body").innerHTML = `
+        <div class="row g-2">
+          <div class="col-md-6"><strong>Nome:</strong> ${p.nomeProduto || "-"}</div>
+          <div class="col-md-6"><strong>Código de Barra:</strong> ${p.codigoDeBarra || "-"}</div>
+          <div class="col-md-6"><strong>Quantidade em Estoque:</strong> ${p.estoque?.quantidadeEmEstoque ?? "-"}</div>
+          <div class="col-md-6"><strong>Preço:</strong> R$ ${formatarPreco(p.precoUnitario)}</div>
+          <div class="col-md-6"><strong>Data de Criação:</strong> ${dataCriacao}</div>
+          <div class="col-12"><hr class="my-2"></div>
+          <div class="col-12"><strong>Descrição:</strong><br>${descricao}</div>
+        </div>`;
+      if (!modalDetalhesInstance) modalDetalhesInstance = new bootstrap.Modal(document.getElementById("modalDetalhes"));
+      modalDetalhesInstance.show();
+    }
+    let filtroNomeAtual = "";
+
+    async function carregarProduto(nomeFiltro = "") {
+      const tabela = document.getElementById("tabela-produto");
+      tabela.innerHTML = `<tr><td colspan="6" class="text-muted">Carregando...</td></tr>`;
+
+      try {
+        const resposta = await fetch(API_URL,{
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+
+        if (!resposta.ok) {
+          tabela.innerHTML =
+            `<tr><td colspan="6" class="text-danger">Erro: ${resposta.status} - ${resposta.statusText}</td></tr>`;
+          return;
+        }
+
+        const produtos = await resposta.json();
+        produtosCache = produtos;
+
+        if (!Array.isArray(produtos) || produtos.length === 0) {
+          tabela.innerHTML = `<tr><td colspan="6" class="text-muted">Nenhum produto encontrado.</td></tr>`;
+          return;
+        }
+
+        let produtosFiltrados = produtos;
+        if (nomeFiltro.trim() !== "") {
+          const filtro = nomeFiltro.trim().toLowerCase();
+          produtosFiltrados = produtos.filter(p =>
+            (p.nomeProduto || "").toLowerCase().includes(filtro)
+          );
+        }
+
+        if (produtosFiltrados.length === 0) {
+          tabela.innerHTML = `<tr><td colspan="6" class="text-muted">Nenhum produto encontrado com esse nome.</td></tr>`;
+          return;
+        }
+
+        tabela.innerHTML = "";
+
+        produtosFiltrados.forEach(p => {
+          const preco = formatarPreco(p.precoUnitario);
+
+          const linha = `
+            <tr>
+              <td class="text-start ps-3">${p.nomeProduto}</td>
+              <td style="text-align: right; padding-right: 12px;">${p.codigoDeBarra}</td>
+              <td class="text-end">${p.estoque.quantidadeEmEstoque}</td>
+              <td class="text-end">${preco}</td>
+              <td class="text-center">
+                <button class="btn btn-info btn-sm" onclick="verDetalhesProduto('${p.id}')">Detalhes</button>
+                <button class="btn btn-warning btn-sm" onclick="editarProduto('${p.id}')">Editar</button>
+                <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${p.id}', ${p.podeExcluir})">Excluir</button>
+              </td>
+            </tr>
+          `;
+          tabela.innerHTML += linha;
+        });
+
+      } catch (erro) {
+        tabela.innerHTML =
+          `<tr><td colspan="6" class="text-danger">Erro ao carregar: ${erro.message}</td></tr>`;
+      }
+    }
+
+    async function buscarPorNome() {
+      const termo = document.getElementById("input-buscar-produtos-por-nome").value.trim();
+      filtroNomeAtual = termo;
+
+      const tabela = document.getElementById("tabela-produto");
+
+      if (termo === "") {
+        carregarProduto();
+        return;
+      }
+
+      tabela.innerHTML = `<tr><td colspan="6" class="text-muted">Buscando produto...</td></tr>`;
+
+      try {
+        const respostaCodigo = await fetch(`${API_URL}/busca-por-codigo-de-barra/${encodeURIComponent(termo)}`, {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+
+        if (respostaCodigo.ok) {
+          const dados = await respostaCodigo.json();
+
+          const produtosCodigo = Array.isArray(dados) ? dados : (dados ? [dados] : []);
+
+          if (produtosCodigo.length > 0) {
+            tabela.innerHTML = "";
+            produtosCache = produtosCodigo;
+
+            produtosCodigo.forEach(p => {
+              const preco = formatarPreco(p.precoUnitario);
+
+              const linha = `
+                <tr>
+                  <td class="text-start ps-3">${p.nomeProduto}</td>
+                  <td class="text-start ps-3">${p.codigoDeBarra}</td>
+                  <td class="text-end">${p.estoque.quantidadeEmEstoque}</td>
+                  <td class="text-end">${preco}</td>
+                  <td class="text-center">
+                    <button class="btn btn-info btn-sm" onclick="verDetalhesProduto('${p.id}')">Detalhes</button>
+                    <button class="btn btn-warning btn-sm" onclick="editarProduto('${p.id}')">Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${p.id}', ${p.podeExcluir})">Excluir</button>
+                  </td>
+                </tr>
+              `;
+              tabela.innerHTML += linha;
+            });
+
+            return; 
+          }
+        }
+
+        await carregarProduto(termo);
+
+      } catch (erro) {
+        console.error("Erro na busca por código de barras, tentando por nome:", erro);
+        await carregarProduto(termo);
+      }
+    }
+
+    function abrirModalExclusao(id, podeExcluir) {
+      const modalEl = document.getElementById("modalExcluirProduto");
+      const modalBody = document.getElementById("texto-modal-exclusao-produto");
+      const modalTitulo = document.getElementById("modal-titulo-exclusao-produto");
+      const btnConfirmar = document.getElementById("btn-confirmar-exclusao");
+
+      const podeExcluirDeFato = (podeExcluir !== false);
+
+      if (podeExcluirDeFato) {
+        idProdutoParaExcluir = id;
+
+        modalTitulo.textContent = "Confirmar exclusão";
+        modalBody.textContent = "Deseja excluir este produto?";
+
+        btnConfirmar.classList.remove("d-none");
+        btnConfirmar.disabled = false;
+
+      } else {
+        idProdutoParaExcluir = null;
+
+        modalTitulo.textContent = "Não é possível excluir";
+        modalBody.textContent =
+          "O produto está registrado em uma venda e não pode ser excluído.";
+
+        btnConfirmar.classList.add("d-none");
+      }
+
+      if (!modalExcluir) {
+        modalExcluir = new bootstrap.Modal(modalEl);
+      }
+
+      modalExcluir.show();
+    }
+
+    async function excluirProduto() {
+      if (!idProdutoParaExcluir) return;
+
+      try {
+        const resposta = await fetch(`${API_URL}/${idProdutoParaExcluir}`, {
+          method: "DELETE",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+
+        if (resposta.ok) {
+          carregarProduto(filtroNomeAtual);
+        } else {
+          console.error("Erro ao excluir:", resposta.statusText);
+        }
+      } catch (e) {
+        console.error("Erro ao conectar:", e.message);
+      } finally {
+        if (modalExcluir) modalExcluir.hide();
+        idProdutoParaExcluir = null;
+      }
+    }
+
+    function editarProduto(id) {
+      window.location.href = `editar_produto.html?id=${id}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarProduto();
+      document
+        .getElementById("btn-confirmar-exclusao")
+        .addEventListener("click", excluirProduto);
+    });
+  </script>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+
+</body>
+</html>

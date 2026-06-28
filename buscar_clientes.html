@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sidebar Minimizable - Bootstrap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleListaProdutos.css">
+</head>
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container-fluid p-4">
+      <div class="container-fluid mt-5">
+    <div class="form-box">
+
+      <div class="cabecalho-fixo">
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-3 gap-3">
+          <h2 class="mb-0">Lista de Clientes</h2>
+
+          <div class="d-flex align-items-center gap-2">
+            <input
+              type="text"
+              id="input-buscar-clientes-por-nome"
+              class="form-control"
+              placeholder="Buscar por Nome ou CPF"
+            >
+            <button class="btn btn-primary" onclick="buscarClientes()">Buscar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-scroll-mobile">
+        <table class="table table-striped align-middle text-center">
+          <thead class="table-secondary">
+            <tr>
+              <th>Tipo</th>
+              <th>Nome / Razão Social</th>
+              <th style="text-align: right; padding-right: 12px;">CPF / CNPJ</th>
+              <th>Cidade</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-clientes">
+            <tr><td colspan="5" class="text-muted text-center">Carregando clientes...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="cadastro.html" 
+         class="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow"
+         style="width: 60px; height: 60px; font-size: 28px; display: flex; align-items: center; justify-content: center;">+</a>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-person-lines-fill me-2"></i>Detalhes do Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="detalhes-body"></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalExcluirCliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="modal-titulo-exclusao">Confirmar exclusão</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="texto-modal-exclusao">
+          Deseja excluir este cliente?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_URL = "https://projetoapidevendaestagio.onrender.com/api/cliente";
+    const API_URL_POR_NOME = API_URL + "/buscar-clientes-por-nome/";
+    const API_URL_DOCUMENTO = API_URL + "/buscar-cliente-por-documento-indentificador";
+
+    let filtroAtual = "";
+    let modalExcluir = null;
+    let idParaExcluir = null;
+
+    function formatarCpf(v) {
+      if (!v) return "-";
+      v = v.replace(/\D/g, "");
+      return v.length === 11 ? v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") : v;
+    }
+
+    function formatarCnpj(v) {
+      if (!v) return "-";
+      v = v.replace(/\D/g, "");
+      return v.length === 14 ? v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5") : v;
+    }
+
+    function formatarTelefone(v) {
+      if (!v) return "-";
+      v = v.replace(/\D/g, "");
+      if (v.length === 10) return v.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+      if (v.length === 11) return v.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+      return v;
+    }
+
+    let clientesCache = [];
+    let modalDetalhesInstance = null;
+
+    function preencherTabela(clientes) {
+      const tabela = document.getElementById("tabela-clientes");
+      tabela.innerHTML = "";
+      clientesCache = clientes || [];
+
+      if (!clientes || clientes.length === 0) {
+        tabela.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Nenhum cliente encontrado.</td></tr>`;
+        return;
+      }
+
+      clientes.forEach(c => {
+        const tipo   = c.tipoCliente === "PessoaFisica" ? "Física" : "Jurídica";
+        const nome   = c.tipoCliente === "PessoaFisica" ? c.nome : c.razaoSocial;
+        const docRaw = c.tipoCliente === "PessoaFisica" ? c.cpf : c.cnpj;
+        const doc    = c.tipoCliente === "PessoaFisica" ? formatarCpf(docRaw) : formatarCnpj(docRaw);
+
+        const linha = `
+          <tr>
+            <td>${tipo}</td>
+            <td>${nome}</td>
+            <td style="text-align: right; padding-right: 12px;">${doc}</td>
+            <td>${c.endereco?.cidade || "-"}</td>
+            <td>
+              <button class="btn btn-info btn-sm botoes-acoes" onclick="verDetalhes('${c.id}')">Detalhes</button>
+              <button class="btn btn-warning btn-sm botoes-acoes" onclick="editarCliente('${c.id}')">Editar</button>
+              <button class="btn btn-danger btn-sm botoes-acoes" onclick="abrirModalExclusao('${c.id}', ${c.podeExcluir})">Excluir</button>
+            </td>
+          </tr>
+        `;
+        tabela.innerHTML += linha;
+      });
+    }
+
+    function verDetalhes(id) {
+      const c = clientesCache.find(x => x.id === id);
+      if (!c) return;
+
+      const tipo = c.tipoCliente === "PessoaFisica" ? "Física" : "Jurídica";
+      const nome = c.tipoCliente === "PessoaFisica" ? c.nome : c.razaoSocial;
+
+      let html = `
+        <div class="row g-2">
+          <div class="col-md-6"><strong>Tipo:</strong> ${tipo}</div>
+          <div class="col-md-6"><strong>Nome / Razão Social:</strong> ${nome || "-"}</div>
+          <div class="col-md-6"><strong>Email:</strong> ${c.email || "-"}</div>
+          <div class="col-md-6"><strong>Telefone:</strong> ${formatarTelefone(c.telefone)}</div>`;
+
+      if (c.tipoCliente === "PessoaJuridica") {
+        html += `
+          <div class="col-md-6"><strong>Nome Fantasia:</strong> ${c.nomeFantasia || "-"}</div>
+          <div class="col-md-6"><strong>Inscrição Estadual:</strong> ${c.inscricaoEstadual || "-"}</div>`;
+      }
+
+      html += `
+          <div class="col-12"><hr class="my-2"></div>
+          <div class="col-md-8"><strong>Logradouro:</strong> ${c.endereco?.logradouro || "-"}</div>
+          <div class="col-md-4"><strong>Número:</strong> ${c.endereco?.numero || "-"}</div>
+          <div class="col-md-8"><strong>Cidade:</strong> ${c.endereco?.cidade || "-"}</div>
+          <div class="col-md-4"><strong>UF:</strong> ${c.endereco?.siglaUf || "-"}</div>
+        </div>`;
+
+      document.getElementById("detalhes-body").innerHTML = html;
+      if (!modalDetalhesInstance) modalDetalhesInstance = new bootstrap.Modal(document.getElementById("modalDetalhes"));
+      modalDetalhesInstance.show();
+    }
+
+    async function buscarClientes() {
+      const termo = document.getElementById("input-buscar-clientes-por-nome").value.trim();
+      filtroAtual = termo;
+
+      const tabela = document.getElementById("tabela-clientes");
+      tabela.innerHTML = `<tr><td colspan="10" class="text-center text-muted">Buscando...</td></tr>`;
+
+      if (termo === "") {
+        carregarClientes();
+        return;
+      }
+
+      const somenteNumeros = termo.replace(/\D/g, "");
+
+      try {
+        if (somenteNumeros.length === 11) {
+          const body = {
+            tipoDocumento: "Cpf",
+            numeroDocumento: somenteNumeros
+          };
+
+          const resp = await fetch(API_URL_DOCUMENTO, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            body: JSON.stringify(body)
+          });
+
+          if (resp.ok) {
+            const dados = await resp.json();
+            preencherTabela(Array.isArray(dados) ? dados : [dados]);
+            return;
+          }
+        }
+
+        if (somenteNumeros.length === 14) {
+          const body = {
+            tipoDocumento: "Cnpj",
+            numeroDocumento: somenteNumeros
+          };
+
+          const resp = await fetch(API_URL_DOCUMENTO, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            body: JSON.stringify(body)
+          });
+
+          if (resp.ok) {
+            const dados = await resp.json();
+            preencherTabela(Array.isArray(dados) ? dados : [dados]);
+            return;
+          }
+        }
+
+        const respNome = await fetch(API_URL_POR_NOME + encodeURIComponent(termo), {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+
+        
+
+        if (respNome.ok) {
+          const dados = await respNome.json();
+          preencherTabela(dados);
+          return;
+        }
+
+        tabela.innerHTML = `<tr><td colspan="10" class="text-center text-muted">Nenhum resultado encontrado.</td></tr>`;
+      } 
+      catch (erro) {
+        tabela.innerHTML = `<tr><td colspan="10" class="text-danger">Erro: ${erro.message}</td></tr>`;
+      }
+    }
+
+    async function carregarClientes() {
+      const tabela = document.getElementById("tabela-clientes");
+      tabela.innerHTML = `<tr><td colspan="10" class="text-muted text-center">Carregando...</td></tr>`;
+
+      try {
+        const resposta = await fetch(API_URL, {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+        const dados = await resposta.json();
+        preencherTabela(dados);
+      } catch (erro) {
+        tabela.innerHTML = `<tr><td colspan="10" class="text-danger">Erro ao carregar: ${erro.message}</td></tr>`;
+      }
+    }
+
+    function abrirModalExclusao(id, podeExcluir) {
+        const modalElement = document.getElementById("modalExcluirCliente");
+        const modalBody = document.getElementById("texto-modal-exclusao");
+        const modalTitulo = document.getElementById("modal-titulo-exclusao");
+        const btnConfirmar = document.getElementById("btn-confirmar-exclusao");
+
+        const podeExcluirDeFato = (podeExcluir !== false);
+
+        if (podeExcluirDeFato) {
+          idParaExcluir = id;
+
+          modalTitulo.textContent = "Confirmar exclusão";
+          modalBody.textContent   = "Deseja excluir este cliente?";
+
+          btnConfirmar.classList.remove("d-none");
+          btnConfirmar.disabled = false;
+        } else {
+          idParaExcluir = null;
+
+          modalTitulo.textContent = "Não é possível excluir";
+          modalBody.textContent   = "O cliente está registrado em uma venda e não pode ser excluído.";
+
+          btnConfirmar.classList.add("d-none");
+        }
+
+        if (!modalExcluir) {
+          modalExcluir = new bootstrap.Modal(modalElement);
+        }
+
+        modalExcluir.show();
+      }
+
+
+    async function excluirCliente() {
+      if (!idParaExcluir) return;
+
+      try {
+        const resp = await fetch(`${API_URL}/${idParaExcluir}`, {
+          method: "DELETE",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+        if (resp.ok) carregarClientes(filtroAtual);
+      } 
+      catch (e) {
+        console.error("Erro ao excluir:", e.message);
+      }
+      finally {
+        if (modalExcluir) modalExcluir.hide();
+        idParaExcluir = null;
+      }
+    }
+
+    function editarCliente(id) {
+      window.location.href = `editar_cliente.html?id=${id}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("btn-confirmar-exclusao").addEventListener("click", excluirCliente);
+      carregarClientes();
+    });
+  </script>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+</body>
+</html>

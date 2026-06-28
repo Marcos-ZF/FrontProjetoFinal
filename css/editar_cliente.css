@@ -1,0 +1,220 @@
+:root{
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 80px;
+  --sidebar-bg: #c9c9c9;
+  --sidebar-text: #000000;
+  --sidebar-hover: rgba(255,255,255,0.08);
+}
+
+body {
+  background-color: #f2f2f2;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, var(--sidebar-bg), #c9c9c9);
+  color: var(--sidebar-text);
+  transition: width 0.25s ease;
+  z-index: 1040;
+  overflow: hidden;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+}
+
+.sidebar .sidebar-header{
+  height: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.sidebar .brand-text{
+  font-weight: 600;
+  color: var(--sidebar-text);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar .nav-link{
+  color: rgba(29, 29, 29, 0.95);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 4px 0;
+  font-weight: bold;
+}
+
+.sidebar .nav-link:hover{
+  background: var(--sidebar-hover);
+  color: var(--sidebar-text);
+}
+
+.sidebar .nav-link.active{
+  background: #000;
+  color: #fff;
+}
+
+.sidebar .nav-link .bi{
+  font-size: 1.15rem;
+}
+
+.sidebar .link-text{
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar.collapsed{
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar.collapsed .brand-text,
+.sidebar.collapsed .link-text{
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+}
+
+#toggleSidebar{
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+}
+
+.sidebar .nav-link:focus{
+  outline: 2px dashed rgba(255,255,255,0.25);
+  outline-offset: 2px;
+}
+
+.main-content {
+  transition: margin-left 0.25s ease;
+  min-height: 100vh;
+  padding-top: 1rem;
+}
+
+.form-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+h3 {
+  font-weight: 600;
+  color: #333;
+}
+
+.btn-primary {
+  background-color: #198754;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #157347;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5c636a;
+}
+
+.img-logo{
+  width: 5%;
+  padding-right: 1%;
+}
+
+.div-PessoaJuridica{
+  display: block !important;
+}
+
+.div-aviso {
+  position: fixed;
+  width: min(90vw, 420px);
+  min-height: 160px;
+  z-index: 2000 !important;
+  left: 50%;
+  top: 150%;
+  transform: translateX(-50%);
+  border-radius: 1rem;
+  color: white;
+  transition: top 0.5s ease;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-aviso-subir {
+  top: 28%;
+}
+
+.sucesso {
+  background-color: #4caf50;
+  opacity: 0.9;
+}
+
+.erro {
+  background-color: #f44336;
+  opacity: 0.9;
+}
+
+.form-label.required::after {
+  content: " *";
+  color: #dc3545;      
+  font-weight: 600;
+}
+
+@media (max-width: 767.98px){
+  .sidebar{
+    display: none !important;
+  }
+
+  .main-content{
+    margin-left: 0 !important;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  .container.mt-5 {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .form-box {
+    padding: 1.5rem;
+  }
+
+  .text-center .btn {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .img-logo {
+    width: 30px;
+    padding-right: 0;
+  }
+
+  .div-aviso {
+    font-size: 1rem;
+    min-height: 120px;
+  }
+}

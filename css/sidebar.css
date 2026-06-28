@@ -1,0 +1,119 @@
+:root{
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 80px;
+  --sidebar-bg: #c9c9c9;
+  --sidebar-text: #000000;
+  --sidebar-hover: rgba(255,255,255,0.08);
+  font-weight: bold;
+}
+
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, var(--sidebar-bg), #c9c9c9);
+  color: var(--sidebar-text);
+  transition: width 0.25s ease;
+  z-index: 1040;
+  overflow: hidden;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+}
+
+.sidebar .sidebar-header{
+  height: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.sidebar .brand-text{
+  font-weight: 600;
+  color: var(--sidebar-text);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar .nav-link{
+  color: rgba(29, 29, 29, 0.95);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin: 2px 0;
+  font-weight: bold;
+}
+.sidebar .nav-link:hover{
+  background: var(--sidebar-hover);
+  color: var(--sidebar-text);
+}
+.sidebar .nav-link .bi{
+  font-size: 1.15rem;
+}
+
+.sidebar .link-text{
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar.collapsed{
+  width: var(--sidebar-collapsed-width);
+}
+.sidebar.collapsed .brand-text,
+.sidebar.collapsed .link-text{
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+}
+
+#toggleSidebar{
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+}
+
+.main-content{
+  transition: margin-left 0.25s ease;
+  min-height: 100vh;
+  padding-top: 1rem;
+}
+
+@media (max-width: 767.98px){
+  .sidebar{
+    display: none !important;
+  }
+  .main-content{
+    margin-left: 0 !important;
+  }
+}
+
+.sidebar .nav-link:focus{
+  outline: 2px dashed rgba(255,255,255,0.25);
+  outline-offset: 2px;
+}
+
+.cabecalho-fixo {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0;
+}
+
+.tabela-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 65vh;
+  border-radius: 8px;
+}
+
+.tabela-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: #e9ecef;
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  .tabela-scroll {
+    max-height: 55vh;
+  }
+}

@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Venda</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleVendas.css">
+</head>
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+  <div class="container-fluid mt-4 px-5">
+    <h2 class="text-center mb-4">Nova Venda</h2>
+
+    <form id="form-venda" class="mb-4">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4 position-relative">
+          <label class="form-label">Nome/Razão Social do Cliente:</label>
+          <input type="text" id="input-nomeCliente" class="form-control" placeholder="Digite o nome/ Razão Social da venda ">
+          <ul id="listaDeNomesBuscados"
+              class="autocomplete-list"
+              style="display: none; position: absolute; z-index: 1000;"></ul>
+        </div>
+        
+        <div class="col-md-3">
+          <label class="form-label">CPF/CNPJ do Cliente:</label>
+          <input type="text" id="input-cpfCliente" class="form-control" disabled>
+          <div class="form-text"></div>
+        </div>
+
+
+        <div class="col-md-3 text-end">
+          <button type="button" class="btn btn-success w-100" onclick="finalizarVenda()">
+             💾 Finalizar Venda
+          </button>
+        </div>
+      </div>
+
+      <input type="hidden" id="input-idCliente" value="">
+    </form>
+
+    <form id="form-venda" class="mb-4"> <!-- Vendedor -->
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4 position-relative">
+          <label class="form-label">Nome do Vendedor</label>
+          <input type="text" id="input-nomeVendedor" class="form-control" placeholder="Digite o nome do Vendedor">
+          <ul id="listaDeVendedoresBuscados"
+              class="autocomplete-list"
+              style="display: none; position: absolute; z-index: 1000;"></ul>
+        </div>
+        
+        <div class="col-md-3">
+          <label class="form-label">CPF do Vendedor:</label>
+          <input type="text" id="input-cpfVendedor" class="form-control" disabled>
+          <div class="form-text"></div>
+        </div>
+
+      </div>
+
+      <input type="hidden" id="input-idVendedor" value="">
+    </form>
+
+    <hr>
+
+    <div class="section-venda mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5>Produtos</h5>
+        <button class="btn btn-primary btn-sm" type="button" onclick="abrirModalProduto()">+ Adicionar Produto</button>
+      </div>
+      <div class="table-responsive">
+      <table class="table table-striped text-center align-middle" id="tabela-produtos">
+        <thead class="table-secondary">
+          <tr>
+            <th>Produto</th>
+            <th>Código de Barra</th>
+            <th>Qtd</th>
+            <th>Preço</th>
+            <th>Desconto</th>
+            <th>Total</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+    <div class="section-venda mb-4">
+  
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5>Serviços</h5>
+      <button 
+        class="btn btn-primary btn-sm" 
+        type="button" 
+        onclick="abrirModalServico()">
+        + Adicionar Serviço
+      </button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped text-center align-middle" id="tabela-servicos">
+        <thead class="table-secondary">
+          <tr>
+            <th>Serviço</th>
+            <th>Código</th>
+            <th>Preço</th>
+            <th>Desconto</th>
+            <th>Total</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+    <div class="section-venda mb-4">
+      <h5>Transação / Pagamento</h5>
+      <div class="row g-3">
+        <div class="col-md-2">
+          <label class="form-label">Tipo de Pagamento:</label>
+          <select id="tipo-pagamento" class="form-select">
+            <option value="AVista">À Vista</option>
+            <option value="APrazo">A Prazo</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Meio de Pagamento:</label>
+          <select id="meio-pagamento" class="form-select">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="CartaoDebito">Cartão de Débito</option>
+            <option value="CartaoCredito">Cartão de Crédito</option>
+            <option value="Pix">Pix</option>
+            <option value="Boleto">Boleto</option>
+            <option value="TransferenciaBancaria">Transferência Bancária</option>
+          </select>
+        </div>
+        <div class="col-md-1">
+          <label class="form-label">Parcelas:</label>
+          <input type="number" id="parcelas" class="form-control" value="1" min="1">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" id="label-vencimento">Vencimento (1ª parcela):</label>
+          <input type="date" id="input-vencimento" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Desconto Geral (R$):</label>
+          <input
+            type="number"
+            id="input-desconto"
+            class="form-control"
+            value="0"
+            min="0"
+            step="0.01">
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="text-end">
+      <h4>Total da Venda: R$ <span id="valor-total">0.00</span></h4>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalProduto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <h5 class="mb-3">Adicionar Produto</h5>
+
+        <div class="mb-2 position-relative">
+          <label class="form-label">Nome do Produto</label>
+          <div class="input-group">
+            <input type="text" id="mp-busca" class="form-control" placeholder="Digite parte do nome">
+          </div>
+          <ul id="lista-produtos-buscados"
+              class="autocomplete-list"
+              style="display:none; position:absolute; z-index:1000;"></ul>
+        </div>
+
+        <input type="hidden" id="mp-id-produto">
+
+        <div class="mb-2">
+          <label class="form-label">Nome</label>
+          <input type="text" id="mp-nome" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Código</label>
+          <input type="text" id="mp-codigo" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Quantidade</label>
+          <input type="number" id="mp-qtd" class="form-control" value="1" min="1">
+          <div class="form-text" id="mp-estoque-atual">Estoque atual: —</div>
+        </div>
+
+
+        <div class="mb-2">
+          <label class="form-label">Preço Unitário (R$)</label>
+          <input type="number" id="mp-preco" class="form-control" min="0" step="0.01" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Desconto Unitário (R$)</label>
+          <input type="number" id="mp-desc" class="form-control" min="0" value="0">
+          <span id="span-desconto-unitario-invalido" style="color: red;display: none;">O Desconto por unidade não pode ser maior que o valor do produto</span>
+        </div>
+
+        <div class="text-end mt-3">
+          <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary btn-sm" onclick="confirmarProduto()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalServico" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <h5 class="mb-3">Adicionar Serviço</h5>
+
+        <div class="mb-2 position-relative">
+          <label class="form-label">Nome do Serviço</label>
+          <div class="input-group">
+            <input type="text" id="ms-busca" class="form-control" placeholder="Digite parte do nome">
+          </div>
+          <ul id="lista-servicos-buscados"
+              class="autocomplete-list"
+              style="display:none; position:absolute; z-index:1000;"></ul>
+        </div>
+
+        <input type="hidden" id="ms-id-servico">
+
+        <div class="mb-2">
+          <label class="form-label">Nome</label>
+          <input type="text" id="ms-nome" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Código</label>
+          <input type="text" id="ms-codigo" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Preço (R$)</label>
+          <input type="number" id="ms-preco" class="form-control" min="0" step="0.01" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Desconto (R$)</label>
+          <input type="number" id="ms-desc" class="form-control" min="0" value="0">
+          <span id="span-desconto-servico-invalido" style="color: red;display: none;">O Desconto do serviço não pode ser maior do que o valor do serviço</span>       
+        </div>
+
+        
+
+        <div class="text-end mt-3">
+          <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary btn-sm" onclick="confirmarServico()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="div-aviso"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+      
+  const API_BASE = "https://projetoapidevendaestagio.onrender.com";
+
+  let produtos = [];
+  let servicos = [];
+  let modalProduto;
+  let modalServico;
+  let idCliente;
+  let idVendedor;
+  let estoqueAtualProduto = null;
+
+  function mostrarAviso(mensagem, tipo) {
+
+    let div = document.getElementById("div-aviso");
+
+    if (!div) {
+      div = document.createElement("div");
+      div.id = "div-aviso";
+      div.className = "div-aviso";
+      document.body.appendChild(div);
+    }
+
+    div.className = "div-aviso";
+
+    if (tipo === "sucesso")
+      div.classList.add("sucesso");
+    else
+      div.classList.add("erro");
+
+    div.textContent = mensagem;
+
+    void div.offsetWidth;
+
+    div.classList.add("div-aviso-subir");
+
+    setTimeout(() => {
+      div.classList.remove("div-aviso-subir");
+    }, 4000);
+  }
+
+  function obterParametroUrl(nome) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(nome);
+  }
+
+  function inicializarPaginaVenda() {
+
+    const inputDesconto =
+      document.getElementById("input-desconto");
+
+    inputDesconto.addEventListener("input", atualizarTabela);
+
+    modalProduto =
+      new bootstrap.Modal(document.getElementById("modalProduto"));
+
+    modalServico =
+      new bootstrap.Modal(document.getElementById("modalServico"));
+
+    const selectTipoPagamento =
+      document.getElementById("tipo-pagamento");
+
+    const inputParcelas =
+      document.getElementById("parcelas");
+
+    const inputVencimento = document.getElementById("input-vencimento");
+    const labelVencimento = document.getElementById("label-vencimento");
+
+    // Inicializa a data vencimento com hoje
+    const hoje = new Date().toISOString().split("T")[0];
+    inputVencimento.value = hoje;
+
+    function atualizarCampoParcelas() {
+      if (selectTipoPagamento.value === "AVista") {
+        inputParcelas.value = 1;
+        inputParcelas.disabled = true;
+        inputVencimento.value = new Date().toISOString().split("T")[0];
+        inputVencimento.readOnly = true;
+        inputVencimento.classList.add("bg-light");
+        labelVencimento.textContent = "Vencimento (à vista):";
+      } else {
+        inputParcelas.disabled = false;
+        inputVencimento.readOnly = false;
+        inputVencimento.classList.remove("bg-light");
+        labelVencimento.textContent = "Vencimento (1ª parcela):";
+      }
+    }
+
+    selectTipoPagamento.addEventListener(
+      "change",
+      atualizarCampoParcelas
+    );
+
+    atualizarCampoParcelas();
+  }
+
+  function debounce(func, delay) {
+
+    let timeout = null;
+
+    return (...args) => {
+
+      clearTimeout(timeout);
+
+      timeout = setTimeout(
+        () => func(...args),
+        delay
+      );
+    }
+  }
+
+  // CLIENTE
+
+  const inputNome =
+    document.getElementById("input-nomeCliente");
+
+  let lista =
+    document.getElementById("listaDeNomesBuscados");
+
+  async function BuscarListaQueContemNomeDigitado(nome) {
+
+    const inputCpf =
+      document.getElementById("input-cpfCliente");
+
+    if (!nome) {
+
+      lista.style.display = "none";
+      lista.innerHTML = "";
+      inputCpf.value = "";
+
+      return;
+    }
+
+    try {
+
+      const resposta = await fetch(
+        API_BASE + "/api/cliente/buscar-clientes-por-nome/" + nome, {
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        }
+      );
+
+      const dados = await resposta.json();
+
+      if (!Array.isArray(dados) || dados.length === 0) {
+
+        const li = document.createElement("li");
+
+        lista.style.display = "block";
+
+        li.innerHTML = "Nenhum Registro Encontrado <br>";
+
+        li.classList.add("li-de-clientes");
+
+        lista.appendChild(li);
+
+        return;
+      }
+
+      lista.innerHTML = "";
+
+      dados.forEach(cliente => {
+
+        const li = document.createElement("li");
+
+        let nomeOuRazaoSocial;
+        let cpfOuCnpj;
+
+        if (cliente.tipoCliente === "PessoaFisica") {
+
+          nomeOuRazaoSocial = cliente.nome;
+          cpfOuCnpj = cliente.cpf;
+
+        } else if (cliente.tipoCliente === "PessoaJuridica") {
+
+          nomeOuRazaoSocial = cliente.razaoSocial;
+          cpfOuCnpj = cliente.cnpj;
+
+        } else {
+
+          alert("Tipo de cliente inválido.");
+          return;
+        }
+
+        lista.style.display = "block";
+
+        li.innerHTML =
+          nomeOuRazaoSocial + "<br>" + cpfOuCnpj;
+
+        li.classList.add("li-de-clientes");
+
+        li.addEventListener("click", () => {
+
+          idCliente = cliente.id;
+
+          lista.innerHTML = "";
+
+          inputNome.value = nomeOuRazaoSocial;
+
+          inputCpf.value = cpfOuCnpj;
+
+          lista.style.display = "none";
+        });
+
+        lista.appendChild(li);
+      });
+
+    } catch (erro) {
+
+      mostrarAviso("Erro ao buscar Cliente", "erro");
+    }
+  }
+
+  inputNome.addEventListener(
+    "input",
+    debounce(() => {
+      BuscarListaQueContemNomeDigitado(inputNome.value)
+    }, 50)
+  );
+
+  inputNome.addEventListener("blur", () => {
+
+    setTimeout(() => {
+
+      let lista =
+        document.getElementById("listaDeNomesBuscados");
+
+      lista.innerHTML = "";
+      lista.style.display = "none";
+
+    }, 230)
+  });
+
+  inputNome.addEventListener("focus", () => {
+
+    if (inputNome.value != "") {
+
+      const func = debounce(() => {
+
+        BuscarListaQueContemNomeDigitado(inputNome.value)
+
+      }, 50)
+
+      func();
+    }
+  });
+
+  inputNome.addEventListener("keydown", (event) => {
+
+    const inputCpf =
+      document.getElementById("input-cpfCliente");
+
+    if (event.key === "Backspace" && idCliente != null) {
+
+      inputCpf.value = "";
+
+      idCliente = null;
+    }
+  });
+
+  // VENDEDOR
+
+  const inputNomeVendedor =
+    document.getElementById("input-nomeVendedor");
+
+  const listaVendedores =
+    document.getElementById("listaDeVendedoresBuscados");
+
+  async function buscarVendedorPorNome(nome) {
+
+    const inputCpfVendedor =
+      document.getElementById("input-cpfVendedor");
+
+    if (!nome) {
+
+      listaVendedores.style.display = "none";
+      listaVendedores.innerHTML = "";
+      inputCpfVendedor.value = "";
+
+      return;
+    }
+
+    try {
+
+      const resposta = await fetch(
+        `${API_BASE}/api/vendedor/buscar-por-nome/${nome}`, { headers: { "Authorization": localStorage.getItem("JWT") } }
+      );
+
+      const dados = await resposta.json();
+
+      listaVendedores.innerHTML = "";
+
+      if (!Array.isArray(dados) || dados.length === 0) {
+
+        const li = document.createElement("li");
+
+        li.innerHTML = "Nenhum vendedor encontrado";
+
+        li.classList.add("li-de-clientes");
+
+        listaVendedores.style.display = "block";
+
+        listaVendedores.appendChild(li);
+
+        return;
+      }
+
+      dados.forEach(vendedor => {
+
+        const li = document.createElement("li");
+
+        li.classList.add("li-de-clientes");
+
+        li.innerHTML = `
+          ${vendedor.nomeCompleto}<br>
+          ${vendedor.cpf}
+        `;
+
+        li.addEventListener("click", () => {
+
+          idVendedor = vendedor.id;
+
+          inputNomeVendedor.value =
+            vendedor.nomeCompleto;
+
+          inputCpfVendedor.value =
+            vendedor.cpf;
+
+          listaVendedores.innerHTML = "";
+
+          listaVendedores.style.display = "none";
+        });
+
+        listaVendedores.appendChild(li);
+      });
+
+      listaVendedores.style.display = "block";
+
+    } catch (erro) {
+
+      console.error(erro);
+
+      mostrarAviso(
+        "Erro ao buscar vendedor",
+        "erro"
+      );
+    }
+  }
+
+  inputNomeVendedor.addEventListener(
+    "input",
+    debounce(() => {
+
+      buscarVendedorPorNome(
+        inputNomeVendedor.value
+      );
+
+    }, 200)
+  );
+
+  inputNomeVendedor.addEventListener("blur", () => {
+
+    setTimeout(() => {
+
+      listaVendedores.innerHTML = "";
+
+      listaVendedores.style.display = "none";
+
+    }, 200);
+  });
+
+  inputNomeVendedor.addEventListener("focus", () => {
+
+    if (inputNomeVendedor.value !== "") {
+
+      const func = debounce(() => {
+
+        buscarVendedorPorNome(
+          inputNomeVendedor.value
+        );
+
+      }, 200);
+
+      func();
+    }
+  });
+
+  inputNomeVendedor.addEventListener(
+    "keydown",
+    (event) => {
+
+      const inputCpfVendedor =
+        document.getElementById("input-cpfVendedor");
+
+      if (
+        event.key === "Backspace" &&
+        idVendedor != null
+      ) {
+
+        inputCpfVendedor.value = "";
+
+        idVendedor = null;
+      }
+    }
+  );
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    inicializarPaginaVenda
+  );
+
+      
+      function abrirModalProduto() {
+        document.getElementById("mp-busca").value = "";
+        document.getElementById("mp-id-produto").value = "";
+        document.getElementById("mp-nome").value = "";
+        document.getElementById("mp-codigo").value = "";
+        document.getElementById("mp-qtd").value = 1;
+        document.getElementById("mp-preco").value = "";
+        document.getElementById("mp-desc").value = 0;
+
+        estoqueAtualProduto = null;
+        const inputQtd = document.getElementById("mp-qtd");
+        inputQtd.removeAttribute("max");
+
+        const divEstoque = document.getElementById("mp-estoque-atual");
+        if (divEstoque) divEstoque.textContent = "Estoque atual: —";
+
+        modalProduto.show();
+      }
+
+      const inputBuscaProduto = document.getElementById("mp-busca");
+      const listaProdutosBuscados = document.getElementById("lista-produtos-buscados");
+
+      async function buscarProdutosDigitando(nome) {
+        if (!nome) {
+          listaProdutosBuscados.style.display = "none";
+          listaProdutosBuscados.innerHTML = "";
+          return;
+        }
+
+        try {
+          const resp = await fetch(`${API_BASE}/api/produto`, {
+            headers: { "Authorization": localStorage.getItem("JWT") }
+          });
+          if (!resp.ok) {
+            throw new Error("Erro ao buscar produtos.");
+          }
+
+          const dados = await resp.json();
+          listaProdutosBuscados.innerHTML = "";
+
+          const termo = nome.trim().toLowerCase();
+
+          const produtosFiltrados = (Array.isArray(dados) ? dados : []).filter(p => {
+            const n = (p.nomeProduto || "").toLowerCase();
+            const cod = (p.codigoDeBarra || "").toLowerCase();
+            return n.includes(termo) || cod.includes(termo);
+          });
+
+          if (produtosFiltrados.length === 0) {
+            const li = document.createElement("li");
+            li.innerHTML = "Nenhum produto encontrado";
+            li.classList.add("li-de-clientes");
+            listaProdutosBuscados.appendChild(li);
+            listaProdutosBuscados.style.display = "block";
+            return;
+          }
+
+          produtosFiltrados.forEach(produto => {
+            const li = document.createElement("li");
+            li.classList.add("li-de-clientes");
+            li.innerHTML = `${produto.nomeProduto}<br>${produto.codigoDeBarra || ""}`;
+
+            li.addEventListener("click", () => {
+              document.getElementById("mp-id-produto").value = produto.id;
+              document.getElementById("mp-nome").value = produto.nomeProduto;
+              document.getElementById("mp-codigo").value = produto.codigoDeBarra || "";
+              document.getElementById("mp-preco").value = (produto.precoUnitario || 0).toFixed(2);
+
+              const divEstoque = document.getElementById("mp-estoque-atual");
+              const inputQtd = document.getElementById("mp-qtd");
+              estoqueAtualProduto = produto.estoque?.quantidadeEmEstoque ?? 0;
+
+              if (divEstoque) {
+                divEstoque.textContent = `Estoque atual: ${estoqueAtualProduto}`;
+              }
+
+              if (inputQtd) {
+                inputQtd.max = estoqueAtualProduto > 0 ? estoqueAtualProduto : 1;
+              }
+
+              listaProdutosBuscados.innerHTML = "";
+              listaProdutosBuscados.style.display = "none";
+              inputBuscaProduto.value = produto.nomeProduto;
+            });
+
+            listaProdutosBuscados.appendChild(li);
+          });
+
+          listaProdutosBuscados.style.display = "block";
+        } catch (erro) {
+          console.error(erro);
+          mostrarAviso("Erro ao buscar produtos.", "erro");
+        }
+      }
+
+      inputBuscaProduto.addEventListener(
+        "input",
+        debounce(() => buscarProdutosDigitando(inputBuscaProduto.value), 200)
+      );
+
+      inputBuscaProduto.addEventListener("blur", () => {
+        setTimeout(() => {
+          listaProdutosBuscados.innerHTML = "";
+          listaProdutosBuscados.style.display = "none";
+        }, 200);
+      });
+
+      inputBuscaProduto.addEventListener("focus", () => {
+        if (inputBuscaProduto.value) {
+          const func = debounce(() => buscarProdutosDigitando(inputBuscaProduto.value), 200);
+          func();
+        }
+      });
+
+      document.getElementById("mp-desc").addEventListener("focus",()=>{
+        document.getElementById("span-desconto-unitario-invalido").style.display="none"
+      })
+
+      
+      function confirmarProduto() {
+        const id = document.getElementById("mp-id-produto").value;
+
+        if (!id) {
+          mostrarAviso("Busque e selecione um produto primeiro.", "erro");
+          return;
+        }
+
+        const nome   = document.getElementById("mp-nome").value;
+        const codigo = document.getElementById("mp-codigo").value;
+        const qtd    = parseInt(document.getElementById("mp-qtd").value, 10) || 0;
+        const preco  = parseFloat((document.getElementById("mp-preco").value || "").replace(",", ".")) || 0;
+        const desc   = parseFloat((document.getElementById("mp-desc").value || "").replace(",", ".")) || 0;
+
+        if (qtd <= 0) {
+          mostrarAviso("Quantidade inválida.", "erro");
+          return;
+        }
+
+        if(desc>preco){
+          document.getElementById("span-desconto-unitario-invalido").style.display="inline"
+          return
+        }
+
+        if (estoqueAtualProduto != null && qtd > estoqueAtualProduto) {
+          mostrarAviso(
+            `Quantidade solicitada (${qtd}) maior que o estoque atual (${estoqueAtualProduto}).`,
+            "erro"
+          );
+          return;
+        }
+
+        const total = qtd * (preco-desc);
+
+        produtos.push({ id, nome, codigo, qtd, preco, desc, total });
+
+        atualizarTabela();
+        modalProduto.hide();
+      }
+
+      
+      function abrirModalServico() {
+        document.getElementById("ms-busca").value = "";
+        document.getElementById("ms-id-servico").value = "";
+        document.getElementById("ms-nome").value = "";
+        document.getElementById("ms-codigo").value = "";
+        document.getElementById("ms-preco").value = "";
+        document.getElementById("ms-desc").value = 0;
+
+        modalServico.show();
+      }
+
+      const inputBuscaServico = document.getElementById("ms-busca");
+      const listaServicosBuscados = document.getElementById("lista-servicos-buscados");
+
+      async function buscarServicosDigitando(nome) {
+        if (!nome) {
+          listaServicosBuscados.style.display = "none";
+          listaServicosBuscados.innerHTML = "";
+          return;
+        }
+
+        try {
+          const resp = await fetch(`${API_BASE}/api/servico`, {
+            headers: { "Authorization": localStorage.getItem("JWT") }
+          });
+          if (!resp.ok) {
+            throw new Error("Erro ao buscar serviços.");
+          }
+
+          const dados = await resp.json();
+          listaServicosBuscados.innerHTML = "";
+
+          const termo = nome.trim().toLowerCase();
+
+          const servicosFiltrados = (Array.isArray(dados) ? dados : []).filter(s => {
+            const n = (s.nomeServico || "").toLowerCase();
+            const cod = (s.codigoDoServico || "").toLowerCase();
+            return n.includes(termo) || cod.includes(termo);
+          });
+
+          if (servicosFiltrados.length === 0) {
+            const li = document.createElement("li");
+            li.innerHTML = "Nenhum serviço encontrado";
+            li.classList.add("li-de-clientes");
+            listaServicosBuscados.appendChild(li);
+            listaServicosBuscados.style.display = "block";
+            return;
+          }
+
+          servicosFiltrados.forEach(servico => {
+            const li = document.createElement("li");
+            li.classList.add("li-de-clientes");
+            li.innerHTML = `${servico.nomeServico}<br>${servico.codigoDoServico || ""}`;
+
+            li.addEventListener("click", () => {
+              document.getElementById("ms-id-servico").value = servico.id;
+              document.getElementById("ms-nome").value = servico.nomeServico;
+              document.getElementById("ms-codigo").value = servico.codigoDoServico || "";
+              document.getElementById("ms-preco").value =
+                (servico.precoUnitario ?? servico.precoServico ?? 0).toFixed(2);
+
+              listaServicosBuscados.innerHTML = "";
+              listaServicosBuscados.style.display = "none";
+              inputBuscaServico.value = servico.nomeServico;
+            });
+
+            listaServicosBuscados.appendChild(li);
+          });
+
+          listaServicosBuscados.style.display = "block";
+        } catch (erro) {
+          console.error(erro);
+          mostrarAviso("Erro ao buscar serviços.", "erro");
+        }
+      }
+
+      inputBuscaServico.addEventListener(
+        "input",
+        debounce(() => buscarServicosDigitando(inputBuscaServico.value), 200)
+      );
+
+      inputBuscaServico.addEventListener("blur", () => {
+        setTimeout(() => {
+          listaServicosBuscados.innerHTML = "";
+          listaServicosBuscados.style.display = "none";
+        }, 200);
+      });
+
+      inputBuscaServico.addEventListener("focus", () => {
+        if (inputBuscaServico.value) {
+          const func = debounce(() => buscarServicosDigitando(inputBuscaServico.value), 200);
+          func();
+        }
+      });
+
+      document.getElementById("ms-desc").addEventListener("focus",()=>{
+        document.getElementById("span-desconto-servico-invalido").style.display="none"
+      });
+      
+      function confirmarServico() {
+        const id = document.getElementById("ms-id-servico").value;
+
+        if (!id) {
+          mostrarAviso("Busque e selecione um serviço primeiro.", "erro");
+          return;
+        }
+
+        const nome   = document.getElementById("ms-nome").value;
+        const codigo = document.getElementById("ms-codigo").value;
+        const preco  = parseFloat((document.getElementById("ms-preco").value || "").replace(",", ".")) || 0;
+        const desc   = parseFloat((document.getElementById("ms-desc").value || "").replace(",", ".")) || 0;
+        if(desc>preco){
+          document.getElementById("span-desconto-servico-invalido").style.display="inline"
+          return
+        }
+
+        const total = preco-desc;
+
+        servicos.push({ id, nome, codigo, preco, desc, total });
+
+        atualizarTabela();
+        modalServico.hide();
+      }
+
+      
+      function removerItem(tipo, index) {
+        if (tipo === "produto") {
+          produtos.splice(index, 1);
+        } else {
+          servicos.splice(index, 1);
+        }
+        atualizarTabela();
+      }
+
+      function atualizarTabela() {
+        const tabelaProdutos = document.querySelector("#tabela-produtos tbody");
+        const tabelaServicos = document.querySelector("#tabela-servicos tbody");
+
+        tabelaProdutos.innerHTML = "";
+        tabelaServicos.innerHTML = "";
+
+        produtos.forEach((p, i) => {
+          tabelaProdutos.innerHTML += `
+            <tr>
+              <td>${p.nome}</td>
+              <td>${p.codigo || "-"}</td>
+              <td>${p.qtd}</td>
+              <td>R$ ${p.preco.toFixed(2)}</td>
+              <td>R$ ${p.desc.toFixed(2)}</td>
+              <td>R$ ${p.total.toFixed(2)}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" type="button" onclick="removerItem('produto', ${i})">
+                  Excluir
+                </button>
+              </td>
+            </tr>`;
+        });
+
+        servicos.forEach((s, i) => {
+          tabelaServicos.innerHTML += `
+            <tr>
+              <td>${s.nome}</td>
+              <td>${s.codigo || "-"}</td>
+              <td>R$ ${s.preco.toFixed(2)}</td>
+              <td>R$ ${s.desc.toFixed(2)}</td>
+              <td>R$ ${s.total.toFixed(2)}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" type="button" onclick="removerItem('servico', ${i})">
+                  Excluir
+                </button>
+              </td>
+            </tr>`;
+        });
+
+        const subtotal =
+          produtos.reduce((sum, p) => sum + p.total, 0) +
+          servicos.reduce((sum, s) => sum + s.total, 0);
+
+        const inputDesconto = document.getElementById("input-desconto");
+        let descontoValor = parseFloat(inputDesconto.value) || 0;
+
+        if (descontoValor < 0) {
+          descontoValor = 0;
+          inputDesconto.value = "0";
+        }
+
+        if (descontoValor > subtotal) {
+          descontoValor = subtotal;
+          inputDesconto.value = subtotal.toFixed(2);
+        }
+
+        const totalComDesconto = subtotal - descontoValor;
+        const totalFinal = Math.max(0, totalComDesconto);
+
+        document.getElementById("valor-total").innerText = totalFinal.toFixed(2);
+      }
+
+      async function finalizarVenda() {
+        const descontoGeralValor = parseFloat(document.getElementById("input-desconto").value) || 0;
+        const tipoPagamento = document.getElementById("tipo-pagamento").value;
+        const meioPagamento = document.getElementById("meio-pagamento").value;
+        let parcelas = parseInt(document.getElementById("parcelas").value, 10) || 1;
+
+        if (!idCliente) {
+          mostrarAviso("Selecione/busque um cliente antes de finalizar a venda.", "erro");
+          return;
+        }
+
+        if (produtos.length === 0 && servicos.length === 0) {
+          mostrarAviso("Adicione pelo menos um produto ou serviço à venda.", "erro");
+          return;
+        }
+
+        const vencimento = document.getElementById("input-vencimento").value;
+        if (!vencimento) {
+          mostrarAviso("Informe a data de vencimento da primeira parcela.", "erro");
+          return;
+        }
+
+        if (tipoPagamento === "AVista") {
+          parcelas = 1;
+          const inputParcelas = document.getElementById("parcelas");
+          inputParcelas.value = 1;
+          inputParcelas.disabled = true;
+        }
+
+        if (parcelas <= 0) {
+          mostrarAviso("A quantidade de parcelas deve ser pelo menos 1.", "erro");
+          return;
+        }
+
+        const itensVenda = produtos.map(p => ({
+          idProduto: p.id,
+          quantidade: p.qtd,
+          descontoUnitario: p.desc || 0
+        }));
+
+        const servicosVenda = servicos.map(s => ({
+          idServico: s.id,
+          descontoServico: s.desc || 0
+        }));
+
+        const vendaDto = {
+          IdCliente: idCliente,
+          VendedorId: idVendedor,
+          DescontoSobreTotalVenda: descontoGeralValor,
+          ItensVenda: itensVenda,
+          ServicosVenda: servicosVenda
+        };
+
+        const transacaoDto = {
+          TipoPagamento: tipoPagamento,
+          MeioPagamento: meioPagamento,
+          QuantidadeDeParcelas: parcelas,
+          DataDeVencimentoPrimeiraParcela: document.getElementById("input-vencimento").value
+        };
+
+        const payload = {
+          Venda: vendaDto,
+          Transacao: transacaoDto
+        };
+
+        console.log("JSON que está indo pro backend:");
+        console.log(JSON.stringify(payload, null, 2));
+
+        try {
+          const resp = await fetch(`${API_BASE}/api/venda`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            body: JSON.stringify(payload)
+          });
+
+          const textoResposta = await resp.text();
+
+          if (!resp.ok) {
+            let msgErro = "Erro ao registrar venda.";
+            try {
+              const json = JSON.parse(textoResposta);
+              if (Array.isArray(json)) {
+                msgErro = json.join(" | ");
+              } else if (typeof json === "string") {
+                msgErro = json;
+              }
+            } catch (e) {
+              if (textoResposta) msgErro = textoResposta;
+            }
+            throw new Error(msgErro);
+          }
+
+          let vendaCriada = null;
+          try {
+            vendaCriada = JSON.parse(textoResposta);
+          } catch (e) {}
+
+          mostrarAviso("Venda registrada", "sucesso");
+          console.log("Venda criada:", vendaCriada);
+
+          produtos = [];
+          servicos = [];
+          atualizarTabela();
+          document.getElementById("input-desconto").value = 0;
+
+          setTimeout(() => {
+            window.location.href = "./buscar_vendas.html";
+          }, 1900);
+
+        } catch (erro) {
+          console.error("Erro ao finalizar venda:", erro);
+          mostrarAviso(erro.message, "erro");
+        }
+      }
+    </script>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+<script src="js/controle_acesso.js"></script>
+</body>
+</html>

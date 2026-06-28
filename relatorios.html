@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="css/relatorios.css">
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link active" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-5">
+      <div class="form-box">
+
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-4 gap-3">
+          <h2 class="mb-0">Relatórios</h2>
+        </div>
+
+        <section class="relatorios-container">
+          <button id="botao-mostar-div-produtos-com-maior-faturamento-por-periodo" onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-produtos-com-maior-faturamento-por-periodo')" class="botao-gerar-relatorio-produtos-mais-vendidos botoes-relatorio btn shortcut-btn d-flex justify-content-center align-items-center">
+            Relatório De Produtos Mais Vendidos Por período
+          </button>
+
+          <button id="botao-mostar-div-produtos-em-falta" onclick="mostrarDivParaReceberQuantidadeProdutosEmFalta()" class="botao-gerar-relatorio-produtos-em-falta botoes-relatorio btn shortcut-btn d-flex justify-content-center align-items-center">
+            Relatório De Produtos Em Falta
+          </button>
+
+          <button id="botao-mostar-div-vendas-por-periodo" onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-vendas-por-periodo')" class="botao-gerar-relatorio-de-vendas-por-periodo botoes-relatorio btn shortcut-btn d-flex justify-content-center align-items-center">
+            Relatório De Venda Por Período
+          </button>
+        </section>
+
+      </div>
+    </div>
+
+    <div id="div-gerar-relatorio-produtos-com-maior-faturamento-por-periodo" class="div-relatorios">
+      <h3 class="text-center mt-3 mb-3 titulo-relatorio-produtos-mais-vendidos">Relatório De Produtos Mais vendidos Por Período</h3>
+      <i onclick="ocultarDivParaReceberDataPorPeriodo('div-gerar-relatorio-produtos-com-maior-faturamento-por-periodo','input-data-inicio-produtos-com-maior-faturamento','input-data-fim-produtos-com-maior-faturamento')" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
+      <label for="input-data-inicio-produtos-com-maior-faturamento">Data De Inicio Do Período</label>
+      <input class="form-control" id="input-data-inicio-produtos-com-maior-faturamento" type="date" required>
+      <label for="input-data-fim-produtos-com-maior-faturamento">Data De Fim Do Período</label>
+      <input class="form-control" id="input-data-fim-produtos-com-maior-faturamento" type="date" required>
+      <button onclick="gerarRelatorioDeProdutosComMaiorFaturamentoPorPeriodo()" id="botao-gerar-relatorio-produtos-com-maior-faturamento-por-periodo">Gerar Relatório</button>
+    </div>
+
+    <div id="div-gerar-relatorio-produtos-em-falta" class="div-relatorios">
+      <h3 class="text-center mt-3 mb-3">Relatório De Produtos Em Falta:</h3>
+      <i onclick="ocultarDivParaReceberQuantidadeProdutosEmFalta()" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
+      <label id="labe-quantidade-produtos-em-falta" for="input-quantidade-usada-para-busca-produtos-em-falta">Digite a quantidade limite para buscar produtos com estoque menor ou igual ao valor informado:</label>
+      <input class="form-control" id="input-quantidade-usada-para-busca-produtos-em-falta" type="number" required>
+      <button onclick="gerarRelatorioDeProdutosEmFalta()" id="botao-gerar-relatorio-produtos-em-falta">Gerar Relatório</button>
+    </div>
+
+    <div id="div-gerar-relatorio-vendas-por-periodo" class="div-relatorios">
+      <h3 class="text-center mt-3 mb-3">Relatório De Vendas Por Período</h3>
+      <i onclick="ocultarDivParaReceberDataPorPeriodo('div-gerar-relatorio-vendas-por-periodo','input-data-inicio-venda-p-periodo','input-data-Fim-venda-p-periodo')" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
+      <label for="input-data-inicio-venda-p-periodo">Data De Inicio Do Período</label>
+      <input class="form-control" id="input-data-inicio-venda-p-periodo" type="date" required>
+      <label for="input-data-Fim-venda-p-periodo">Data De Fim Do Período</label>
+      <input class="form-control" id="input-data-Fim-venda-p-periodo" type="date" required>
+      <button onclick="gerarRelatorioDeVendasPorPeriodo()" id="botao-gerar-relatorio-vendas-por-periodo">Gerar Relatório</button>
+    </div>
+
+    <div class="div-aviso"></div>
+  </main>
+
+  <script>
+    const API_URL_PRODUTOS = "https://projetoapidevendaestagio.onrender.com/api/produto/";
+    const API_URL_VENDAS = "https://projetoapidevendaestagio.onrender.com/api/venda/";
+    const divAviso = document.getElementsByClassName("div-aviso")[0];
+    const botaoMostrarDivProdutosComMaiorFaturamentoPorPeriodo = document.getElementById("botao-mostar-div-produtos-com-maior-faturamento-por-periodo");
+    const botaoMostrarDivProdutosEmFalta = document.getElementById("botao-mostar-div-produtos-em-falta");
+    const botaoMostrarDivVEndasPorPeriodo = document.getElementById("botao-mostar-div-vendas-por-periodo");
+    let algumaDivEstaSendoMostrada = false;
+
+    function mostrarDivParaReceberQuantidadeProdutosEmFalta(){
+      if(algumaDivEstaSendoMostrada){
+        return;
+      }
+      const divReceberQuantiadeProdutosEmFalta = document.getElementById("div-gerar-relatorio-produtos-em-falta");
+      divReceberQuantiadeProdutosEmFalta.style.display = "block";
+      let inputQuantidade = document.getElementById("input-quantidade-usada-para-busca-produtos-em-falta").value = 0;
+      algumaDivEstaSendoMostrada = true;
+    }
+
+    function ocultarDivParaReceberQuantidadeProdutosEmFalta(){
+      const divReceberQuantiadeProdutosEmFalta = document.getElementById("div-gerar-relatorio-produtos-em-falta");
+      divReceberQuantiadeProdutosEmFalta.style.display = "none";
+      const inputQuantidadeParaBuscaDeProdutosEmFalta = document.getElementById("input-quantidade-usada-para-busca-produtos-em-falta");
+      let inputQuantidade = document.getElementById("input-quantidade-usada-para-busca-produtos-em-falta").value = 0;
+      algumaDivEstaSendoMostrada = false;
+    }
+
+    function mostrarDivParaReceberDataParaRelatorio(idDaDiv){
+      if(algumaDivEstaSendoMostrada){
+        return;
+      }
+      const div = document.getElementById(idDaDiv);
+      div.style.display = "block";
+      algumaDivEstaSendoMostrada = true;
+    }
+
+    function ocultarDivParaReceberDataPorPeriodo(idDaDiv,idInputInicio,idInputFinal){
+      const div = document.getElementById(idDaDiv);
+      div.style.display = "none";
+      const inputDataInicio = document.getElementById(idInputInicio);
+      inputDataInicio.value = "";
+      const inputDataFim = document.getElementById(idInputFinal);
+      inputDataFim.value = "";
+      algumaDivEstaSendoMostrada = false;
+    }
+
+    function gerarRelatorioDeVendasPorPeriodo(){
+      let dataDeInicioVendaPorPeriodo = document.getElementById("input-data-inicio-venda-p-periodo").value;
+      let dataDeFimVendaPorPeriodo = document.getElementById("input-data-Fim-venda-p-periodo").value;
+
+      if(!dataDeInicioVendaPorPeriodo){
+        mostrarAviso("Data de início precisa ser informada","erro");
+        return;
+      }
+
+      if(!dataDeFimVendaPorPeriodo){
+        mostrarAviso("Data de Fim precisa ser informada","erro");
+        return;
+      }
+
+      const regexData = /^\d{4}-\d{2}-\d{2}$/;
+
+      if(!regexData.test(dataDeInicioVendaPorPeriodo)){
+        mostrarAviso("Data de início está em formato inválido.","erro");
+        return;
+      }
+
+      if(!regexData.test(dataDeFimVendaPorPeriodo)){
+        mostrarAviso("Data de Fim está em formato inválido.","erro");
+        return;
+      }
+
+      if(dataDeInicioVendaPorPeriodo > dataDeFimVendaPorPeriodo){
+        mostrarAviso("A Data de Início do período não pode ser maior do que a data de Fim do Período","erro");
+        return;
+      }
+
+      let body = {
+        DataDeInicioDoPeriodo : dataDeInicioVendaPorPeriodo,
+        DataDeFimDoPeriodo : dataDeFimVendaPorPeriodo
+      };
+      
+      fetch(API_URL_VENDAS+"relatorio-de-vendas-por-periodo",{
+        method : "POST",
+        headers :{ "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT") },
+        body : JSON.stringify(body)
+      })
+      .then(response=>response.blob())
+      .then(blob=>{
+        const url=URL.createObjectURL(blob);
+        window.open(url,"_blank");
+      })
+      .catch(erro=>mostrarAviso(erro,"erro"));
+    }
+
+    function gerarRelatorioDeProdutosComMaiorFaturamentoPorPeriodo(){
+      let dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo=document.getElementById("input-data-inicio-produtos-com-maior-faturamento").value;
+      let dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo=document.getElementById("input-data-fim-produtos-com-maior-faturamento").value;
+
+      if(!dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo){
+        mostrarAviso("Data de início precisa ser informada","erro");
+        return;
+      }
+
+      if(!dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo){
+        mostrarAviso("Data de Fim precisa ser informada","erro");
+        return;
+      }
+
+      const regexData = /^\d{4}-\d{2}-\d{2}$/;
+
+      if(!regexData.test(dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo)){
+        mostrarAviso("Data de início está em formato inválido.","erro");
+        return;
+      }
+
+      if(!regexData.test(dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo)){
+        mostrarAviso("Data de Fim está em formato inválido.","erro");
+        return;
+      }
+
+      let body={
+        DataDeInicioDoPeriodo : dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo,
+        DataDeFimDoPeriodo : dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo
+      };
+      
+      fetch(API_URL_PRODUTOS+"relatorio-produtos-com-maior-faturamento-por-periodo",{
+        method : "POST",
+        headers :{
+          "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT")
+        },
+        body : JSON.stringify(body)
+      })
+      .then(response=>response.blob())
+      .then(blob=>{
+        const url=URL.createObjectURL(blob);
+        window.open(url,"_blank");
+      })
+      .catch(erro=>mostrarAviso(erro,"erro"));
+    }
+
+    function gerarRelatorioDeProdutosEmFalta(){
+      const quantidadeUsadaParaBuscarProdutosEmFalta=document.getElementById("input-quantidade-usada-para-busca-produtos-em-falta").value;
+      
+      if(!quantidadeUsadaParaBuscarProdutosEmFalta){
+        mostrarAviso("Quantidade Para Busca Precisa ser informada","erro");
+        return;
+      }
+
+      if(quantidadeUsadaParaBuscarProdutosEmFalta<0){
+        mostrarAviso("A Qutidade usada para busca não pode ser menor que 0","erro");
+        return;
+      }
+
+      if(quantidadeUsadaParaBuscarProdutosEmFalta>150){
+        mostrarAviso("A Quantidade Usada para produtos em falta não pode ser maior que 150","erro");
+        return;
+      }
+      
+      fetch(API_URL_PRODUTOS+"relatorio-de-produtos-em-falta/"+quantidadeUsadaParaBuscarProdutosEmFalta,{
+        method : "GET",
+        headers :{
+          "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT")
+        }
+      })
+      .then(response=>response.blob())
+      .then(blob=>{
+        const url=URL.createObjectURL(blob);
+        window.open(url,"_blank");
+      })
+      .catch(erro=>mostrarAviso(erro,"erro"));
+    }
+
+    function mostrarAviso(mensagem, tipo) {
+      divAviso.textContent = mensagem;
+      divAviso.classList.add("div-aviso-subir", tipo);
+
+      setTimeout(() => {
+        divAviso.classList.remove("div-aviso-subir");
+
+        setTimeout(() => {
+          divAviso.textContent = "";
+          divAviso.classList.remove(tipo);
+        }, 5000);
+      }, 2300);
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+
+  
+
+</body>
+</html>

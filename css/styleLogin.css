@@ -1,0 +1,125 @@
+body {
+  background-color: #f5f5f5;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  color: #111;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+}
+
+.form-box {
+  background-color: #ffffff;
+  padding: 30px 28px;
+  border-radius: 18px;
+  border: 1px solid #e3e3e3;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 380px;
+  transition: 0.3s;
+}
+
+.form-box:hover {
+  transform: translateY(-3px);
+}
+
+.card-login {
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.form-control:focus {
+  border-color: #111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+  background-color: #111;
+  border: none;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+}
+
+.link-recuperar {
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #555;
+  transition: 0.2s;
+}
+
+.link-recuperar:hover {
+  color: #000;
+}
+
+.div-aviso {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #111;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: 0.3s;
+  font-size: 0.85rem;
+}
+
+.div-aviso-subir {
+  opacity: 1;
+  bottom: 35px;
+}
+
+.sucesso {
+  background-color: #222;
+}
+
+.erro {
+  background-color: #000;
+}
+
+.img-logo {
+  width: 45px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.8rem;
+  color: #777;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+}
+
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container, .container-fluid {
+  flex: 1;
+}

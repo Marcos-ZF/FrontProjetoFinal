@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrada de Estoque</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleEstoque.css">
+
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+          <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-5">
+      <div class="form-box">
+
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-4 gap-3">
+          <h2 class="mb-0"><i class="bi bi-archive me-2 text-secondary"></i>Entrada de Estoque</h2>
+        </div>
+
+        <div class="section-card">
+          <h6><i class="bi bi-clipboard-data text-primary"></i> Dados da Entrada</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">
+                Fornecedor <span class="text-danger">*</span>
+              </label>
+              <div class="position-relative">
+                <input
+                  type="text"
+                  id="input-buscar-fornecedor"
+                  class="form-control"
+                  placeholder="Buscar fornecedor por nome ou CNPJ..."
+                  autocomplete="off"
+                >
+                <div
+                  id="suggestion-box-fornecedor"
+                  class="suggestion-box d-none">
+                </div>
+              </div>
+
+              <input type="hidden" id="input-fornecedor-id">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Data</label>
+              <input type="text" id="input-data" class="form-control bg-light" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h6><i class="bi bi-plus-circle text-success"></i> Adicionar Produto à Entrada</h6>
+          <div class="row g-3 align-items-end">
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Produto <span class="text-danger">*</span></label>
+              <div class="position-relative">
+                <input
+                  type="text"
+                  id="input-buscar-produto"
+                  class="form-control"
+                  placeholder="Buscar por nome ou código de barras..."
+                  autocomplete="off"
+                >
+                <div id="suggestion-box" class="suggestion-box d-none"></div>
+              </div>
+              <input type="hidden" id="input-produto-id">
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Estoque Atual</label>
+              <input type="text" id="input-estoque-atual" class="form-control bg-light text-muted" readonly placeholder="-">
+            </div>
+
+            <div class="col-md-2">
+              <label class="form-label fw-semibold">Quantidade <span class="text-danger">*</span></label>
+              <input type="number" id="input-quantidade" class="form-control" min="1" placeholder="0">
+            </div>
+
+            <div class="col-md-1 d-flex align-items-end">
+              <button class="btn btn-success w-100" onclick="adicionarItem()" title="Adicionar item">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h6>
+            <i class="bi bi-list-ul text-info"></i> Itens da Entrada
+            <span id="badge-total" class="badge-qtd ms-2 d-none">0 item(s)</span>
+          </h6>
+
+          <div class="table-scroll-mobile">
+            <table class="table table-striped align-middle text-center">
+              <thead class="table-secondary text-center">
+                <tr>
+                  <th class="text-start ps-3">Produto</th>
+                  <th>Cód. de Barras</th>
+                  <th>Estoque Atual</th>
+                  <th>Qtd. Entrada</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-itens">
+                <tr id="row-vazio">
+                  <td colspan="5" class="text-muted py-4">
+                    <i class="bi bi-inbox fs-4 d-block mb-1"></i>
+                    Nenhum produto adicionado ainda.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary px-4" onclick="salvarEntrada()">
+            <i class="bi bi-floppy me-2"></i> Salvar Entrada
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmar" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Confirmar Entrada de Estoque</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="modal-confirmar-body">Deseja confirmar a entrada de estoque?</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" id="btn-confirmar-salvar">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-aviso"></div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_PRODUTO    = "https://projetoapidevendaestagio.onrender.com/api/produto";
+    const API_FORNECEDOR = "https://projetoapidevendaestagio.onrender.com/api/fornecedor";
+    const API_ESTOQUE    = "https://projetoapidevendaestagio.onrender.com/api/estoque";
+    const API_ENTRADA    = "https://projetoapidevendaestagio.onrender.com/api/entrada-estoque";
+
+    let itens = [];
+    let produtosCache = [];
+    let fornecedoresCache = [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      preencherData();
+      carregarFornecedores();
+      carregarProdutos();
+      configurarBusca();
+      configurarBuscaFornecedor();
+      document.getElementById("btn-confirmar-salvar").addEventListener("click", confirmarSalvar);
+    });
+
+    function preencherData() {
+      const agora = new Date();
+      document.getElementById("input-data").value =
+        agora.toLocaleDateString("pt-BR") + " " +
+        agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    async function carregarFornecedores() {
+      try {
+        const res = await fetch(API_FORNECEDOR, {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+
+        if (!res.ok) throw new Error(res.statusText);
+
+        fornecedoresCache = await res.json();
+
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function carregarProdutos() {
+      try {
+        const res = await fetch(API_PRODUTO, {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+        if (!res.ok) throw new Error(res.statusText);
+        produtosCache = await res.json();
+      } catch (e) { console.error(e); }
+    }
+
+    function configurarBuscaFornecedor() {
+      const input = document.getElementById("input-buscar-fornecedor");
+      const box   = document.getElementById("suggestion-box-fornecedor");
+
+      input.addEventListener("input", () => {
+        const termo = input.value.trim().toLowerCase();
+        box.innerHTML = "";
+
+        if (termo.length < 1) {
+          box.classList.add("d-none");
+          return;
+        }
+        const filtrados = fornecedoresCache.filter(f =>
+          (f.nomeFantasia || "").toLowerCase().includes(termo) ||
+          (f.nome || "").toLowerCase().includes(termo) ||
+          (f.cnpj || "").toLowerCase().includes(termo)
+        ).slice(0, 10);
+
+        if (!filtrados.length) {
+          box.classList.add("d-none");
+          return;
+        }
+
+        filtrados.forEach(f => {
+
+          const div = document.createElement("div");
+          div.className = "suggestion-item";
+          div.innerHTML = `
+            <span>${f.nomeFantasia || f.nome}</span>
+            <span class="cod">${f.cnpj || ""}</span>
+          `;
+
+          div.addEventListener("click", () => selecionarFornecedor(f));
+          box.appendChild(div);
+        });
+
+        box.classList.remove("d-none");
+      });
+      document.addEventListener("click", e => {
+        if (!input.contains(e.target) && !box.contains(e.target)) {
+          box.classList.add("d-none");
+        }
+      });
+    }
+
+    function configurarBusca() {
+      const input = document.getElementById("input-buscar-produto");
+      const box   = document.getElementById("suggestion-box");
+
+      input.addEventListener("input", () => {
+        const termo = input.value.trim().toLowerCase();
+        box.innerHTML = "";
+        if (termo.length < 1) { box.classList.add("d-none"); return; }
+
+        const filtrados = produtosCache.filter(p =>
+          (p.nomeProduto || "").toLowerCase().includes(termo) ||
+          (p.codigoDeBarra || "").toLowerCase().includes(termo)
+        ).slice(0, 10);
+
+        if (!filtrados.length) { box.classList.add("d-none"); return; }
+
+        filtrados.forEach(p => {
+          const div = document.createElement("div");
+          div.className = "suggestion-item";
+          div.innerHTML = `<span>${p.nomeProduto}</span><span class="cod">${p.codigoDeBarra || ""}</span>`;
+          div.addEventListener("click", () => selecionarProduto(p));
+          box.appendChild(div);
+        });
+        box.classList.remove("d-none");
+      });
+
+      document.addEventListener("click", e => {
+        if (!input.contains(e.target) && !box.contains(e.target)) box.classList.add("d-none");
+      });
+
+      input.addEventListener("keydown", async e => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        const termo = input.value.trim();
+        if (!termo) return;
+        try {
+          const res = await fetch(`${API_PRODUTO}/busca-por-codigo-de-barra/${encodeURIComponent(termo)}`, {
+            method: "GET",
+            headers: { "Authorization": localStorage.getItem("JWT") }
+          });
+          if (res.ok) {
+            const dados = await res.json();
+            const p = Array.isArray(dados) ? dados[0] : dados;
+            if (p) { selecionarProduto(p); return; }
+          }
+        } catch {}
+        const match = produtosCache.find(p => (p.codigoDeBarra || "").toLowerCase() === termo.toLowerCase());
+        if (match) selecionarProduto(match);
+      });
+    }
+
+    function selecionarFornecedor(f) {
+
+      document.getElementById("input-buscar-fornecedor").value = f.nomeFantasia || f.nome;
+      document.getElementById("input-fornecedor-id").value     =  f.id;
+      document.getElementById("suggestion-box-fornecedor").classList.add("d-none");
+    }
+
+    function selecionarProduto(p) {
+      document.getElementById("input-buscar-produto").value = p.nomeProduto;
+      document.getElementById("input-produto-id").value     = p.id;
+      document.getElementById("input-estoque-atual").value  = p.estoque?.quantidadeEmEstoque ?? "-";
+      document.getElementById("suggestion-box").classList.add("d-none");
+      document.getElementById("input-quantidade").focus();
+    }
+
+    function adicionarItem() {
+      const idProduto     = document.getElementById("input-produto-id").value.trim();
+      const nomeProduto   = document.getElementById("input-buscar-produto").value.trim();
+      const estoqueAtual  = document.getElementById("input-estoque-atual").value;
+      const quantidade    = parseInt(document.getElementById("input-quantidade").value.trim(), 10);
+
+      if (!idProduto) { mostrarAlerta("Selecione um produto da lista antes de adicionar.", "warning"); return; }
+      if (isNaN(quantidade) || quantidade <= 0) { mostrarAlerta("Informe uma quantidade válida (maior que zero).", "warning"); return; }
+
+      const jaExiste = itens.find(i => i.idProduto === idProduto);
+      if (jaExiste) { jaExiste.quantidade += quantidade; renderizarTabela(); limparCamposProduto(); return; }
+
+      const produtoObj = produtosCache.find(p => p.id === idProduto);
+      itens.push({ idProduto, nomeProduto, codigoDeBarra: produtoObj?.codigoDeBarra || "-", estoqueAtual, quantidade });
+      renderizarTabela();
+      limparCamposProduto();
+    }
+
+    function removerItem(idx) { itens.splice(idx, 1); renderizarTabela(); }
+
+    function atualizarQuantidade(idx, valor) {
+      const v = parseInt(valor, 10);
+      itens[idx].quantidade = (!isNaN(v) && v > 0) ? v : 1;
+    }
+
+    function renderizarTabela() {
+      const tbody = document.getElementById("tbody-itens");
+      const badge = document.getElementById("badge-total");
+
+      if (!itens.length) {
+        tbody.innerHTML = `<tr id="row-vazio"><td colspan="5" class="text-muted py-4"><i class="bi bi-inbox fs-4 d-block mb-1"></i>Nenhum produto adicionado ainda.</td></tr>`;
+        badge.classList.add("d-none");
+        return;
+      }
+
+      badge.textContent = `${itens.length} item(s)`;
+      badge.classList.remove("d-none");
+
+      tbody.innerHTML = itens.map((it, i) => `
+        <tr>
+          <td class="text-start ps-3">${it.nomeProduto}</td>
+          <td>${it.codigoDeBarra}</td>
+          <td>${it.estoqueAtual}</td>
+          <td>
+            <input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px"
+              value="${it.quantidade}" min="1" onchange="atualizarQuantidade(${i}, this.value)">
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" onclick="removerItem(${i})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>`).join("");
+    }
+
+    function limparCamposProduto() {
+      ["input-buscar-produto","input-produto-id","input-estoque-atual","input-quantidade"]
+        .forEach(id => document.getElementById(id).value = "");
+      document.getElementById("suggestion-box").classList.add("d-none");
+    }
+
+    let modalConfirmar = null;
+
+    function salvarEntrada() {
+      const idFornecedor  = document.getElementById("input-fornecedor-id").value.trim();
+      const nomeFornecedor = document.getElementById("input-buscar-fornecedor").value.trim();
+
+      if (!idFornecedor)  { mostrarAlerta("Selecione um fornecedor.", "warning"); return; }
+      if (!itens.length)  { mostrarAlerta("Adicione pelo menos um produto à entrada.", "warning"); return; }
+
+      document.getElementById("modal-confirmar-body").innerHTML = `
+        <p class="mb-2">Fornecedor: <strong>${nomeFornecedor}</strong></p>
+        <p class="mb-3">Total de itens: <strong>${itens.length}</strong></p>
+        <p class="text-muted small mb-0">Deseja confirmar a entrada de estoque?</p>`;
+
+      if (!modalConfirmar) modalConfirmar = new bootstrap.Modal(document.getElementById("modalConfirmar"));
+      modalConfirmar.show();
+    }
+
+    async function confirmarSalvar() {
+      const payload = {
+        idFornecedor: document.getElementById("input-fornecedor-id").value.trim(),
+        itens: itens.map(it => ({ idProduto: it.idProduto, quantidade: it.quantidade }))
+      };
+
+      try {
+        const res = await fetch(API_ENTRADA, { method: "POST", headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") }, body: JSON.stringify(payload) });
+        if (modalConfirmar) modalConfirmar.hide();
+        if (res.ok) {
+          mostrarResultado("Sucesso!", "Entrada de estoque registrada com sucesso.", "success");
+          itens = []; renderizarTabela();
+          document.getElementById("input-buscar-fornecedor").value = "";
+          document.getElementById("input-fornecedor-id").value = "";
+        } else {
+          mostrarResultado("Erro ao salvar", (await res.text()) || `Erro ${res.status}`, "danger");
+        }
+      } catch (e) {
+        if (modalConfirmar) modalConfirmar.hide();
+        mostrarResultado("Erro de conexão", e.message, "danger");
+      }
+    }
+
+    const divAviso = document.getElementsByClassName("div-aviso")[0];
+
+    function mostrarAviso(mensagem, tipo) {
+      divAviso.textContent = mensagem;
+      divAviso.classList.add("div-aviso-subir", tipo);
+      setTimeout(() => {
+        divAviso.classList.remove("div-aviso-subir");
+        setTimeout(() => {
+          divAviso.textContent = "";
+          divAviso.classList.remove(tipo);
+        }, 5000);
+      }, 2000);
+    }
+
+    function mostrarAlerta(msg) {
+      mostrarAviso(msg, "erro");
+    }
+
+    function mostrarResultado(titulo, mensagem, tipo) {
+      mostrarAviso(mensagem, tipo === "success" ? "sucesso" : "erro");
+    }
+
+    const sidebar   = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const brandBtn  = document.getElementById("brandButton");
+    const main      = document.getElementById("mainContent");
+
+    function updateMargin() {
+      main.style.marginLeft = (window.innerWidth >= 768)
+        ? (sidebar.classList.contains("collapsed") ? "80px" : "240px")
+        : "0";
+    }
+
+    toggleBtn.addEventListener("click", () => { sidebar.classList.toggle("collapsed"); updateMargin(); });
+    brandBtn.addEventListener("click",  () => { sidebar.classList.remove("collapsed"); updateMargin(); });
+    updateMargin();
+    window.addEventListener("resize", updateMargin);
+  </script>
+
+</body>
+</html>

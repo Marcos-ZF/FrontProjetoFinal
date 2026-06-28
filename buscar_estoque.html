@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BikeCiaSystem - Buscar Estoque</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleListaProdutos.css">
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-5">
+      <div class="form-box">
+
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-3 gap-3">
+          <h2 class="mb-0">Entradas de Estoque</h2>
+          <div class="d-flex align-items-center gap-2">
+            <input type="text" id="input-buscar" class="form-control" placeholder="Buscar por código ou fornecedor">
+            <a href="entrada_estoque.html" class="btn btn-success text-nowrap"><i class="bi bi-plus-lg me-1"></i>Nova Entrada</a>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+          <span class="text-muted small me-1">Status:</span>
+          <select id="filtro-status" class="form-select form-select-sm" style="width:auto;">
+            <option value="">Todos</option>
+            <option value="Criada">Criada</option>
+            <option value="Atualizada">Atualizada</option>
+            <option value="Cancelada">Cancelada</option>
+          </select>
+        </div>
+
+        <div class="table-scroll-mobile">
+          <table class="table table-striped align-middle text-center">
+            <thead class="table-secondary">
+              <tr>
+                <th>Código</th>
+                <th>Fornecedor</th>
+                <th>Data</th>
+                <th>Itens</th>
+                <th>Status</th>
+                <th>Situação</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-estoque">
+              <tr><td colspan="7" class="text-muted">Carregando entradas...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-archive me-2"></i>Detalhes da Entrada</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2 mb-3" id="detalhes-cabecalho"></div>
+          <h6 class="mb-2">Itens da Entrada</h6>
+          <table class="table table-striped align-middle text-center mb-0">
+            <thead class="table-secondary">
+              <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody id="detalhes-itens"></tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Confirmar exclusão</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="texto-excluir"></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="div-aviso"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const API = 'https://projetoapidevendaestagio.onrender.com/api/entrada-estoque';
+    const JWT = () => localStorage.getItem('JWT');
+
+    let entradas = [];
+    let modalDetalhes = null;
+    let modalExcluir = null;
+    let idParaExcluir = null;
+
+    function mostrarAviso(msg, tipo) {
+      const div = document.getElementById('div-aviso');
+      div.textContent = msg;
+      div.className = `alert alert-${tipo === 'erro' ? 'danger' : 'success'} position-fixed top-0 start-50 translate-middle-x mt-3 shadow`;
+      div.style.zIndex = '2000';
+      setTimeout(() => { div.className = ''; div.textContent = ''; }, 3500);
+    }
+
+    function nomeFornecedor(ent) {
+      const f = ent?.fornecedor;
+      return f?.nomeFantasia || f?.razaoSocial || '-';
+    }
+
+    function formatarData(iso) {
+      if (!iso) return '-';
+      return new Date(iso).toLocaleString('pt-BR');
+    }
+
+    function badgeStatus(status) {
+      const map = { Criada: 'primary', Atualizada: 'warning', Cancelada: 'danger' };
+      const cor = map[status] || 'secondary';
+      const txtClass = status === 'Atualizada' ? ' text-dark' : '';
+      return `<span class="badge bg-${cor}${txtClass}">${status}</span>`;
+    }
+
+    function badgeSituacao(ativo) {
+      return ativo
+        ? '<span class="badge bg-success">Ativo</span>'
+        : '<span class="badge bg-secondary">Inativo</span>';
+    }
+
+    async function carregarEntradas() {
+      const tbody = document.getElementById('tabela-estoque');
+      tbody.innerHTML = '<tr><td colspan="7" class="text-muted">Carregando entradas...</td></tr>';
+      try {
+        const res = await fetch(API, { headers: { Authorization: JWT() } });
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="7" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
+        entradas = await res.json();
+        aplicarFiltros();
+      } catch {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-danger">Erro de conexão.</td></tr>';
+      }
+    }
+
+    function aplicarFiltros() {
+      const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
+      const status = document.getElementById('filtro-status').value;
+
+      let lista = entradas.slice();
+      if (termo) {
+        lista = lista.filter(ent =>
+          (ent.codigoEntrada || '').toLowerCase().includes(termo) ||
+          nomeFornecedor(ent).toLowerCase().includes(termo)
+        );
+      }
+      if (status) lista = lista.filter(ent => ent.status === status);
+
+      renderEntradas(lista);
+    }
+
+    function renderEntradas(lista) {
+      const tbody = document.getElementById('tabela-estoque');
+      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-muted">Nenhuma entrada encontrada.</td></tr>'; return; }
+      tbody.innerHTML = lista.map(ent => {
+        const qtdItens = (ent.itens || []).length;
+        return `
+          <tr>
+            <td>${ent.codigoEntrada || '-'}</td>
+            <td>${nomeFornecedor(ent)}</td>
+            <td>${formatarData(ent.dataCriacao)}</td>
+            <td>${qtdItens}</td>
+            <td>${badgeStatus(ent.status)}</td>
+            <td>${badgeSituacao(ent.ativo)}</td>
+            <td>
+              <button class="btn btn-info btn-sm me-1" onclick="verDetalhes('${ent.id}')">Detalhes</button>
+              <button class="btn btn-warning btn-sm me-1" onclick="editarEntrada('${ent.id}')">Editar</button>
+              <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${ent.id}', '${(ent.codigoEntrada || '').replace(/'/g, "")}')">Excluir</button>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    function verDetalhes(id) {
+      const ent = entradas.find(e => e.id === id);
+      if (!ent) return;
+
+      document.getElementById('detalhes-cabecalho').innerHTML = `
+        <div class="col-md-6"><strong>Código:</strong> ${ent.codigoEntrada || '-'}</div>
+        <div class="col-md-6"><strong>Fornecedor:</strong> ${nomeFornecedor(ent)}</div>
+        <div class="col-md-6"><strong>Data:</strong> ${formatarData(ent.dataCriacao)}</div>
+        <div class="col-md-3"><strong>Status:</strong> ${badgeStatus(ent.status)}</div>
+        <div class="col-md-3"><strong>Situação:</strong> ${badgeSituacao(ent.ativo)}</div>`;
+
+      const itens = ent.itens || [];
+      const tbody = document.getElementById('detalhes-itens');
+      tbody.innerHTML = itens.length
+        ? itens.map(it => `<tr><td>${it.nomeDoProduto || '-'}</td><td>${it.quantidade}</td></tr>`).join('')
+        : '<tr><td colspan="2" class="text-muted py-2">Nenhum item nesta entrada.</td></tr>';
+
+      if (!modalDetalhes) modalDetalhes = new bootstrap.Modal(document.getElementById('modalDetalhes'));
+      modalDetalhes.show();
+    }
+
+    function editarEntrada(id) {
+      window.location.href = `editar_estoque.html?id=${id}`;
+    }
+
+    function abrirModalExcluir(id, codigo) {
+      idParaExcluir = id;
+      document.getElementById('texto-excluir').textContent =
+        `Tem certeza que deseja cancelar/excluir a entrada "${codigo || id}"?`;
+      if (!modalExcluir) modalExcluir = new bootstrap.Modal(document.getElementById('modalExcluir'));
+      modalExcluir.show();
+    }
+
+    document.getElementById('btn-confirmar-exclusao').addEventListener('click', async () => {
+      if (!idParaExcluir) return;
+      try {
+        const res = await fetch(`${API}/${idParaExcluir}`, { method: 'DELETE', headers: { Authorization: JWT() } });
+        if (modalExcluir) modalExcluir.hide();
+        if (res.ok) { mostrarAviso('Entrada excluída!', 'sucesso'); carregarEntradas(); }
+        else mostrarAviso(`Erro ${res.status} ao excluir.`, 'erro');
+      } catch { mostrarAviso('Erro de conexão.', 'erro'); }
+    });
+
+    document.getElementById('input-buscar').addEventListener('input', aplicarFiltros);
+    document.getElementById('filtro-status').addEventListener('change', aplicarFiltros);
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+    function updateMargin() { main.style.marginLeft = window.innerWidth >= 768 ? (sidebar.classList.contains('collapsed') ? '80px' : '240px') : '0'; }
+    toggleBtn.addEventListener('click', () => { sidebar.classList.toggle('collapsed'); updateMargin(); });
+    brandBtn.addEventListener('click', () => { sidebar.classList.remove('collapsed'); updateMargin(); });
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+
+    carregarEntradas();
+  </script>
+
+  <script src="js/controle_acesso.js"></script>
+</body>
+</html>

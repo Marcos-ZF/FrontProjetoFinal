@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagar Parcelas da Venda</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/pagar_parcelas.css">
+</head>
+
+<body class="bg-light">
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="div-aviso"></div>
+
+    <div class="container my-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Pagamento de Parcelas da Venda</h2>
+        <a href="buscar_vendas.html" class="btn btn-secondary">Voltar</a>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5>Informações da Venda</h5>
+          <div class="row g-2" id="info-venda"></div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="mb-3">Informações da Transação</h5>
+          <div class="row g-2" id="info-transacao"></div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <h5 class="mb-1">Parcelas da Venda</h5>
+            <p class="text-muted mb-0 small" id="texto-resumo-parcelas">Veja e pague as parcelas individualmente.</p>
+          </div>
+          <button type="button" id="btn-ver-parcelas" class="btn btn-primary btn-lg" onclick="abrirModalParcelas()">
+            <i class="bi bi-list-ol me-1"></i>Ver e Pagar Parcelas
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal de Parcelas -->
+  <div class="modal fade" id="modalParcelas" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-list-ol me-2"></i>Parcelas da Venda</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0">
+          <table class="table table-striped align-middle text-center mb-0">
+            <thead class="table-secondary sticky-top">
+              <tr>
+                <th>Nº Parcela</th>
+                <th>Vencimento</th>
+                <th>Valor (R$)</th>
+                <th>Situação</th>
+                <th>Prazo</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-parcelas">
+              <tr><td colspan="6" class="text-muted py-3">Carregando parcelas...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_BASE = "https://projetoapidevendaestagio.onrender.com";
+    const API_VENDA = API_BASE + "/api/venda";
+
+    let vendaCarregada = null;
+    let transacaoAtual = null;
+
+    const divAviso = document.getElementsByClassName("div-aviso")[0];
+
+    function mostrarAviso(mensagem, tipo) {
+      divAviso.textContent = mensagem;
+      divAviso.classList.add("div-aviso-subir", tipo);
+
+      setTimeout(() => {
+        divAviso.classList.remove("div-aviso-subir");
+        setTimeout(() => {
+          divAviso.textContent = "";
+          divAviso.classList.remove(tipo);
+        }, 2000);
+      }, 2000);
+    }
+
+    function obterParametroUrl(nome) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(nome);
+    }
+
+    function formatarData(dataIsoOuString) {
+      if (!dataIsoOuString) return "—";
+      const d = new Date(dataIsoOuString);
+      if (isNaN(d)) return dataIsoOuString;
+      return d.toLocaleString("pt-BR");
+    }
+
+    function preencherInfoVenda(venda) {
+      const div = document.getElementById("info-venda");
+      const cliente = venda.cliente || {};
+      const nomeCliente = cliente.nome || cliente.razaoSocial || "—";
+
+      const codigoVenda =
+        venda.codigoDaVenda ??
+        venda.codigoVenda ??
+        venda.codigo ??
+        venda.codigoDaVendaComMascara ??
+        venda.idVenda;
+
+      div.innerHTML = `
+        <div class="col-md-3"><strong>Código da Venda:</strong> ${codigoVenda}</div>
+        <div class="col-md-3"><strong>Data:</strong> ${formatarData(venda.dataCriacao)}</div>
+        <div class="col-md-3"><strong>Cliente:</strong> ${nomeCliente}</div>
+        <div class="col-md-3"><strong>Total com Desconto (R$):</strong> ${Number(venda.valorTotalComDesconto ?? 0).toFixed(2)}</div>
+      `;
+    }
+
+    function preencherInfoTransacao(transacao) {
+      const div = document.getElementById("info-transacao");
+      if (!transacao) {
+        div.innerHTML = `<div class="col-12 text-muted">Nenhuma transação encontrada para esta venda.</div>`;
+        return;
+      }
+
+      const numeroDeParcelasPagas    = transacao.numeroDeParcelasPagas    ?? 0;
+      const numeroDeParcelasNaoPagas = transacao.numeroDeParcelasNaoPagas ?? 0;
+
+      let numeroDeParcelas =
+        transacao.numeroDeParcelas ??
+        transacao.quantidadeDeParcelas ??
+        0;
+
+      const somaCalculada = numeroDeParcelasPagas + numeroDeParcelasNaoPagas;
+      if (!numeroDeParcelas || numeroDeParcelas < somaCalculada) {
+        numeroDeParcelas = somaCalculada;
+      }
+
+      const situacao = transacao.pago
+        ? "Paga"
+        : (transacao.transacaoEmCurso ? "Em andamento" : "Em aberto");
+
+      div.innerHTML = `
+        <div class="col-md-3"><strong>ID Transação:</strong> ${transacao.idTransacao}</div>
+        <div class="col-md-3"><strong>Data:</strong> ${formatarData(transacao.dataCriacao)}</div>
+        <div class="col-md-3"><strong>Tipo Pagamento:</strong> ${transacao.tipoPagamento}</div>
+        <div class="col-md-3"><strong>Meio Pagamento:</strong> ${transacao.meioPagamento}</div>
+        <div class="col-md-3"><strong>Parcelas Totais:</strong> ${numeroDeParcelas}</div>
+        <div class="col-md-3"><strong>Parcelas Pagas:</strong> ${numeroDeParcelasPagas}</div>
+        <div class="col-md-3"><strong>Parcelas em Aberto:</strong> ${numeroDeParcelasNaoPagas}</div>
+        <div class="col-md-3"><strong>Valor Pago (R$):</strong> ${Number(transacao.valorPago ?? 0).toFixed(2)}</div>
+        <div class="col-md-3"><strong>Situação:</strong> ${situacao}</div>
+      `;
+
+      transacaoAtual = {
+        ...transacao,
+        numeroDeParcelas,
+        numeroDeParcelasPagas,
+        numeroDeParcelasNaoPagas,
+        parcelas: transacao.parcelas || []
+      };
+
+      // Atualiza o resumo e habilita o botão de ver/pagar parcelas
+      const btnVer  = document.getElementById('btn-ver-parcelas');
+      const resumo  = document.getElementById('texto-resumo-parcelas');
+
+      if (transacao.pago || numeroDeParcelasNaoPagas <= 0) {
+        resumo.textContent = "Venda já está totalmente paga.";
+      } else {
+        resumo.textContent = `${numeroDeParcelasNaoPagas} parcela(s) em aberto. Clique para visualizar e pagar.`;
+      }
+    }
+
+    async function carregarVenda() {
+      const idVenda = obterParametroUrl("id");
+      if (!idVenda) {
+        mostrarAviso("ID da venda não informado na URL.", "erro");
+        return;
+      }
+
+      try {
+        const resp = await fetch(`${API_VENDA}/${encodeURIComponent(idVenda)}` , {
+          method: "GET",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+         if (!resp.ok) {
+          throw new Error(`Erro ${resp.status} ao buscar venda.`);
+        }
+        if (!resp.ok) {
+          throw new Error(`Erro ${resp.status} ao buscar venda.`);
+        }
+        const dados = await resp.json();
+
+        vendaCarregada = dados;
+        preencherInfoVenda(dados.venda);
+        preencherInfoTransacao(dados.transacao);
+      } catch (erro) {
+        console.error(erro);
+        mostrarAviso("Erro ao carregar dados da venda.", "erro");
+      }
+    }
+
+    // Paga até a parcela de número informado (inclui ela e as anteriores em aberto).
+    // Valida a ordem: se houver parcela anterior em aberto que não seja sequencial, bloqueia.
+    async function pagarAteParcela(numeroParcela) {
+      if (!transacaoAtual || !transacaoAtual.idTransacao) {
+        mostrarAviso("Transação não carregada.", "erro");
+        return;
+      }
+
+      const parcelas = (transacaoAtual.parcelas || [])
+        .slice()
+        .sort((a, b) => a.numeroDaParcelaDaVenda - b.numeroDaParcelaDaVenda);
+
+      const naoPagas = parcelas.filter(p => !p.pago);
+      if (!naoPagas.length) {
+        mostrarAviso("Não há parcelas em aberto.", "erro");
+        return;
+      }
+
+      // A próxima parcela que o backend pagaria é sempre a de menor número em aberto
+      const proximaAPagar = naoPagas[0].numeroDaParcelaDaVenda;
+
+      // Se a parcela escolhida não é a próxima da fila, avisa qual deve ser paga primeiro
+      if (numeroParcela !== proximaAPagar) {
+        mostrarAviso(`Você deve pagar a parcela nº ${proximaAPagar} primeiro.`, "erro");
+        return;
+      }
+
+      // Quantidade = quantas parcelas em aberto existem até a escolhida (inclusive)
+      const qtd = naoPagas.filter(p => p.numeroDaParcelaDaVenda <= numeroParcela).length;
+
+      const payload = {
+        QuantidadeDeParcelasASerAtualizadaParaPaga: qtd,
+        quantidadeDeParcelasASerAtualizadaParaPaga: qtd
+      };
+
+      try {
+        const resp = await fetch(`${API_VENDA}/${encodeURIComponent(transacaoAtual.idTransacao)}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+          body: JSON.stringify(payload)
+        });
+
+        const texto = await resp.text();
+
+        if (!resp.ok) {
+          let msg = "Erro ao registrar pagamento.";
+          try {
+            const json = JSON.parse(texto);
+            if (Array.isArray(json)) msg = json.join(" | ");
+            else if (typeof json === "string") msg = json;
+          } catch {
+            if (texto) msg = texto;
+          }
+          throw new Error(msg);
+        }
+
+        mostrarAviso(qtd > 1 ? `${qtd} parcelas pagas com sucesso!` : "Parcela paga com sucesso!", "sucesso");
+
+        // Recarrega os dados da venda para refletir o novo estado
+        setTimeout(() => {
+          if (modalParcelas) modalParcelas.hide();
+          carregarVenda().then(() => {
+            // Reabre o modal já atualizado, se ainda houver parcelas
+            setTimeout(abrirModalParcelas, 300);
+          });
+        }, 1200);
+
+      } catch (erro) {
+        console.error("Erro no pagamento:", erro);
+        mostrarAviso(erro.message, "erro");
+      }
+    }
+
+    let modalParcelas = null;
+
+    function abrirModalParcelas() {
+      const parcelas = (transacaoAtual?.parcelas || [])
+        .slice()
+        .sort((a, b) => a.numeroDaParcelaDaVenda - b.numeroDaParcelaDaVenda);
+
+      const tbody = document.getElementById('tbody-parcelas');
+
+      if (!parcelas.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhuma parcela encontrada.</td></tr>';
+      } else {
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        // Identifica a próxima parcela a pagar (menor número em aberto)
+        const naoPagas = parcelas.filter(p => !p.pago);
+        const proximaAPagar = naoPagas.length ? naoPagas[0].numeroDaParcelaDaVenda : null;
+
+        tbody.innerHTML = parcelas.map(p => {
+          const dataVenc = p.dataVencimento ? new Date(p.dataVencimento + 'T00:00:00') : null;
+          const vencimento = dataVenc ? dataVenc.toLocaleDateString('pt-BR') : '—';
+          const valor = Number(p.valorParcela ?? 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+          let badge, prazo, acao;
+          if (p.pago) {
+            badge = '<span class="badge bg-success">Paga</span>';
+            prazo = '<span class="text-success small">Quitada</span>';
+            acao  = '<span class="text-muted small">—</span>';
+          } else {
+            badge = '<span class="badge bg-warning text-dark">Em aberto</span>';
+            if (dataVenc) {
+              const diffDias = Math.round((dataVenc - hoje) / (1000 * 60 * 60 * 24));
+              if (diffDias < 0)        prazo = `<span class="text-danger small">Atrasada (${Math.abs(diffDias)}d)</span>`;
+              else if (diffDias === 0) prazo = '<span class="text-danger small">Vence hoje</span>';
+              else                     prazo = `<span class="text-muted small">Faltam ${diffDias}d</span>`;
+            } else {
+              prazo = '<span class="text-muted small">—</span>';
+            }
+
+            // A próxima da fila fica destacada; as demais ficam clicáveis mas avisam a ordem
+            if (p.numeroDaParcelaDaVenda === proximaAPagar) {
+              acao = `<button class="btn btn-success btn-sm" onclick="pagarAteParcela(${p.numeroDaParcelaDaVenda})">Pagar</button>`;
+            } else {
+              acao = `<button class="btn btn-outline-secondary btn-sm" onclick="pagarAteParcela(${p.numeroDaParcelaDaVenda})">Pagar</button>`;
+            }
+          }
+
+          return `
+            <tr>
+              <td class="fw-semibold">${p.numeroDaParcelaDaVenda}ª</td>
+              <td>${vencimento}</td>
+              <td>R$ ${valor}</td>
+              <td>${badge}</td>
+              <td>${prazo}</td>
+              <td>${acao}</td>
+            </tr>`;
+        }).join('');
+      }
+
+      if (!modalParcelas) modalParcelas = new bootstrap.Modal(document.getElementById('modalParcelas'));
+      modalParcelas.show();
+    }
+
+    document.addEventListener("DOMContentLoaded", carregarVenda);
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+<script src="js/controle_acesso.js"></script>
+</body>
+</html>

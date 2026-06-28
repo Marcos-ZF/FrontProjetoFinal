@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleCadastro.css" />
+
+  <title>Cadastro de Cliente</title>
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container">
+      <main class="main">
+
+        <div class="form-box">
+          <form id="formulario-cliente">
+
+            <h4 class="mb-3 text-center">Cadastro de Cliente</h4>
+
+            <div class="mb-3">
+              <label class="form-label">Tipo de Cliente:</label>
+              <select class="form-select" id="select-tipo-cliente">
+                <option value="">Selecione</option>
+                <option value="fisico">Físico</option>
+                <option value="juridico">Jurídico</option>
+              </select>
+            </div>
+
+            <div id="camposFisico" style="display:none;">
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-nome" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="cpf" class="form-label">CPF: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-cpf" required />
+                <span id="span-cpf-invalido" style="color: red;display: none;">Cpf Inválido</span>
+              </div>
+            </div>
+
+            <div id="camposJuridico" style="display:none;">
+              <div class="mb-3">
+                <label for="razaoSocial" class="form-label">Razão Social: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-razao-social" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="nomeFantasia" class="form-label">Nome Fantasia (opcional):</label>
+                <input type="text" class="form-control" id="input-nome-fantasia" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inscricaoEstadual" class="form-label">Inscrição Estadual (opcional):</label>
+                <input type="text" class="form-control" id="input-inscricao-estadual" />
+                <span id="span-inscricao-estadual-invalido" style="color: red;display: none;">Inscrição estadual inválida</span>
+              </div>
+
+              <div class="mb-3">
+                <label for="cnpj" class="form-label">CNPJ: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-cnpj" required />
+                <span id="span-cnpj-invalido" style="color: red; display: none;">Cnpj Inválido</span>
+              </div>
+            </div>
+
+            <div id="campos-comuns" style="display:none;">
+              <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone: <span style="color: red;">*</span></label>
+                <input type="tel" class="form-control" id="input-telefone" required />
+                <span id="span-telefone-invalido" style="color: red;display: none;">Telefone deve ser somente números</span>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email: <span style="color: red;">*</span></label>
+                <input type="email" class="form-control" id="input-email" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="logradouro" class="form-label">Logradouro: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-logradouro" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="numero" class="form-label">Número: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-numero-do-local" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="cidade" class="form-label">Cidade: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-cidade" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="siglaUF" class="form-label">Sigla UF: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="input-sigla-uf" maxlength="2" required />
+              </div>
+
+              <button type="submit" class="btn btn-primary botao-cadastrar">
+                Cadastrar Cliente
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="div-aviso"></div>
+      </main>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+      const divAviso = document.getElementsByClassName("div-aviso")[0];
+      const selectTipoCliente = document.getElementById("select-tipo-cliente");
+      const camposFisico = document.getElementById("camposFisico");
+      const camposJuridico = document.getElementById("camposJuridico");
+      const camposComuns = document.getElementById("campos-comuns");
+      const formularioCliente = document.getElementById("formulario-cliente");
+      const inputTelefone = document.getElementById("input-telefone");
+      const inputEmail = document.getElementById("input-email");
+      const inputLogradouro = document.getElementById("input-logradouro");
+      const inputNumeroDoLocal = document.getElementById("input-numero-do-local");
+      const inputCidade = document.getElementById("input-cidade");
+      const inputSiglaUf = document.getElementById("input-sigla-uf");
+      
+      const inputNome = document.getElementById("input-nome");
+      const inputCpf = document.getElementById("input-cpf");
+      
+      const inputRazaoSocial = document.getElementById("input-razao-social");
+      const inputNomeFantasia = document.getElementById("input-nome-fantasia");
+      const inputInscricaoEstadual = document.getElementById("input-inscricao-estadual");
+      const inputCnpj = document.getElementById("input-cnpj");
+
+      const spanCpfInvalido = document.getElementById("span-cpf-invalido");
+      const spanCnpjInvalido = document.getElementById("span-cnpj-invalido");
+      const spanInscricaoEstadualInvalido = document.getElementById("span-inscricao-estadual-invalido");
+      const spanTelefoneInvalido = document.getElementById("span-telefone-invalido");
+
+
+      function aplicarMascaraCpf(valor) {
+        let v = valor.replace(/\D/g, "");
+        if (v.length > 11) v = v.slice(0, 11);
+
+        if (v.length > 9) {
+          return v.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2}).*/, "$1.$2.$3-$4");
+        } else if (v.length > 6) {
+          return v.replace(/(\d{3})(\d{3})(\d{0,3}).*/, "$1.$2.$3");
+        } else if (v.length > 3) {
+          return v.replace(/(\d{3})(\d{0,3}).*/, "$1.$2");
+        }
+        return v;
+      }
+
+      function aplicarMascaraCnpj(valor) {
+        let v = valor.replace(/\D/g, "");
+        if (v.length > 14) v = v.slice(0, 14);
+
+        if (v.length > 12) {
+          return v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2}).*/, "$1.$2.$3/$4-$5");
+        } else if (v.length > 8) {
+          return v.replace(/(\d{2})(\d{3})(\d{3})(\d{0,4}).*/, "$1.$2.$3/$4");
+        } else if (v.length > 5) {
+          return v.replace(/(\d{2})(\d{3})(\d{0,3}).*/, "$1.$2.$3");
+        } else if (v.length > 2) {
+          return v.replace(/(\d{2})(\d{0,3}).*/, "$1.$2");
+        }
+        return v;
+      }
+
+      inputCpf.addEventListener("input", () => {
+        inputCpf.value = aplicarMascaraCpf(inputCpf.value);
+        spanCpfInvalido.style.display = "none";
+      });
+
+      inputCnpj.addEventListener("input", () => {
+        inputCnpj.value = aplicarMascaraCnpj(inputCnpj.value);
+        spanCnpjInvalido.style.display = "none";
+      });
+
+      inputInscricaoEstadual.addEventListener("input", () => {
+        spanInscricaoEstadualInvalido.style.display = "none";
+      });
+
+      inputTelefone.addEventListener("input", () => {
+        spanTelefoneInvalido.style.display = "none";
+      });
+
+      selectTipoCliente.addEventListener("change", () => {
+        DefinirOsCamposASeremRequired(selectTipoCliente.value);
+
+        if (selectTipoCliente.value === "fisico") {
+          camposFisico.style.display = "block";
+          camposJuridico.style.display = "none";
+          camposComuns.style.display = "block";
+        } else if (selectTipoCliente.value === "juridico") {
+          camposFisico.style.display = "none";
+          camposJuridico.style.display = "block";
+          camposComuns.style.display = "block";
+        } else {
+          camposFisico.style.display = "none";
+          camposJuridico.style.display = "none";
+          camposComuns.style.display = "none";
+        }
+      });
+
+      formularioCliente.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let regexSomenteNumeros = /^[0-9]+$/;
+        let somenteNumericosNoTelefone = regexSomenteNumeros.test(inputTelefone.value.replace(/\D/g, ""));
+
+        if (!somenteNumericosNoTelefone) {
+          spanTelefoneInvalido.style.display = "inline";
+          return;
+        }
+
+        if (selectTipoCliente.value == "fisico") {
+          const cpfLimpo = inputCpf.value.replace(/\D/g, "");
+          let cpfValido = validarCpf(cpfLimpo);
+
+          if (!cpfValido) {
+            spanCpfInvalido.style.display = "inline";
+            return;
+          }
+
+          enviarDadosParaCriarUsuarioFisicoNaApi(
+            inputLogradouro.value,
+            inputNumeroDoLocal.value,
+            inputCidade.value,
+            inputSiglaUf.value,
+            inputTelefone.value,
+            inputEmail.value,
+            inputNome.value,
+            cpfLimpo 
+          );
+        } else if (selectTipoCliente.value == "juridico") {
+          const cnpjLimpo = inputCnpj.value.replace(/\D/g, "");
+          const inscricaoLimpa = inputInscricaoEstadual.value.replace(/\D/g, "");
+
+          let cnpjValido = validarCnpj(cnpjLimpo);
+          let inscricaoEstadualVazia = (inscricaoLimpa === "");
+          let inscricaoEstadualValidaParaEnviar = false;
+
+          if (inscricaoEstadualVazia) {
+            inscricaoEstadualValidaParaEnviar = true;
+          } else {
+            inscricaoEstadualValidaParaEnviar = validarInscricaoEstadual(inscricaoLimpa);
+          }
+
+          if (!cnpjValido) {
+            spanCnpjInvalido.style.display = "inline";
+            return;
+          }
+          if (!inscricaoEstadualValidaParaEnviar) {
+            spanInscricaoEstadualInvalido.style.display = "inline";
+            return;
+          }
+
+          enviarDadosParaCriarUsuarioJuridicoNaApi(
+            inputLogradouro.value,
+            inputNumeroDoLocal.value,
+            inputCidade.value,
+            inputSiglaUf.value,
+            inputTelefone.value,
+            inputEmail.value,
+            inputRazaoSocial.value,
+            inscricaoLimpa, 
+            inputNomeFantasia.value,
+            cnpjLimpo 
+          );
+        } else {
+          console.log("Tipo de cliente não selecionado.");
+        }
+      });
+
+      function validarCpf(cpf) {
+        let cpfSomenteNumeros = cpf.replace(/\D/g, "");
+
+        if (cpfSomenteNumeros.length != 11) {
+          return false;
+        }
+        if (cpfSomenteNumeros.split("").every(c => c === cpfSomenteNumeros[0])) {
+          return false;
+        }
+        let multiplicador1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+        let multiplicador2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+
+        let modeloCpfValido = cpfSomenteNumeros.substring(0, 9);
+        let soma = 0;
+        for (let i = 0; i < 9; i++) {
+          soma += (parseInt(modeloCpfValido[i], 10) * multiplicador1[i]);
+        }
+        let resto = soma % 11;
+        let primeiroDigitoVerificador = resto < 2 ? 0 : 11 - resto;
+
+        modeloCpfValido += (primeiroDigitoVerificador.toString());
+        soma = 0;
+
+        for (let i = 0; i < 10; i++) {
+          soma += (parseInt(modeloCpfValido[i], 10) * multiplicador2[i]);
+        }
+        resto = soma % 11;
+        let segundoDigitoVerificador = resto < 2 ? 0 : 11 - resto;
+        modeloCpfValido += (segundoDigitoVerificador.toString());
+        if (modeloCpfValido != cpfSomenteNumeros) {
+          return false;
+        }
+        return true;
+      }
+
+      function validarCnpj(cnpj) {
+        let cnpjSomenteNumeros = cnpj.replace(/\D/g, "");
+
+        if (cnpjSomenteNumeros.length != 14) {
+          return false;
+        }
+        if (cnpjSomenteNumeros.split("").every(c => c === cnpjSomenteNumeros[0])) {
+          return false;
+        }
+        let multiplicador1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        let multiplicador2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+        let modeloCnpjValido = cnpjSomenteNumeros.substring(0, 12);
+        let soma = 0;
+        for (let i = 0; i < 12; i++) {
+          soma += (parseInt(modeloCnpjValido[i], 10) * multiplicador1[i]);
+        }
+        let resto = soma % 11;
+        let primeiroDigitoVerificador = resto < 2 ? 0 : 11 - resto;
+
+        modeloCnpjValido += (primeiroDigitoVerificador.toString());
+        soma = 0;
+
+        for (let i = 0; i < 13; i++) {
+          soma += (parseInt(modeloCnpjValido[i], 10) * multiplicador2[i]);
+        }
+        resto = soma % 11;
+        let segundoDigitoVerificador = resto < 2 ? 0 : 11 - resto;
+        modeloCnpjValido += (segundoDigitoVerificador.toString());
+        if (modeloCnpjValido != cnpjSomenteNumeros) {
+          return false;
+        }
+        return true;
+      }
+
+      function validarInscricaoEstadual(inscricaoEstadual) {
+        let inscricaoEstadualSomenteNumeros = inscricaoEstadual.replace(/\D/g, "");
+        if (inscricaoEstadualSomenteNumeros.length === 0) return false;
+        if (inscricaoEstadualSomenteNumeros.split("").every(c => c === inscricaoEstadualSomenteNumeros[0])) {
+          return false;
+        }
+        return true;
+      }
+
+      function enviarDadosParaCriarUsuarioFisicoNaApi(logradouro, numeroDoLocal, cidade, siglaUf, telefone, email, nome, cpf) {
+        let dados = {
+          tipoCliente: 0,
+          endereco: {
+            logradouro,
+            numero: numeroDoLocal,
+            cidade,
+            siglaUf,
+          },
+          telefone,
+          email,
+          nome,
+          cpf
+        };
+
+        fetch("https://projetoapidevendaestagio.onrender.com/api/cliente/fisico", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+          body: JSON.stringify(dados)
+        })
+          .then(async response => {
+            if (!response.ok) {
+              const mensagemDeErro = await response.text();
+              throw new Error(mensagemDeErro);
+            }
+            mostrarAviso("Cliente Cadastrado", "sucesso");
+            setTimeout(() => {
+              window.location.href = "./buscar_clientes.html";
+            }, 1500);
+          })
+          .catch((e) => mostrarAviso(e, "erro"));
+      }
+
+      function enviarDadosParaCriarUsuarioJuridicoNaApi(logradouro, numeroDoLocal, cidade, siglaUf, telefone, email,
+        razaoSocial, inscricaoEstadual, nomeFantasia, cnpj) {
+
+        let dados = {
+          tipoCliente: 1,
+          endereco: {
+            logradouro,
+            numero: numeroDoLocal,
+            cidade,
+            siglaUf,
+          },
+          telefone,
+          email,
+          razaoSocial,
+          inscricaoEstadual,
+          nomeFantasia,
+          cnpj
+        };
+
+        fetch("https://projetoapidevendaestagio.onrender.com/api/cliente/juridico", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+          body: JSON.stringify(dados)
+        })
+          .then(async response => {
+            if (!response.ok) {
+              const mensagemDeErro = await response.text();
+              throw new Error(mensagemDeErro);
+            }
+            mostrarAviso("Cliente Cadastrado", "sucesso");
+            setTimeout(() => {
+              window.location.href = "./buscar_clientes.html";
+            }, 1500);
+          })
+          .catch((e) => mostrarAviso(e, "erro"));
+      }
+
+      function mostrarAviso(mensagem, tipo) {
+        divAviso.textContent = mensagem;
+        divAviso.classList.add("div-aviso-subir", tipo);
+        setTimeout(() => {
+          divAviso.classList.remove("div-aviso-subir");
+          setTimeout(() => {
+            divAviso.textContent = "";
+            divAviso.classList.remove(tipo);
+          }, 5000);
+        }, 2000);
+      }
+
+      function DefinirOsCamposASeremRequired(tipocliente) {
+        if (tipocliente == "fisico") {
+          inputNome.required = true;
+          inputCpf.required = true;
+
+          inputRazaoSocial.required = false;
+          inputCnpj.required = false;
+        }
+        if (tipocliente == "juridico") {
+          inputRazaoSocial.required = true;
+          inputCnpj.required = true;
+
+          inputNome.required = false;
+          inputCpf.required = false;
+        }
+      }
+
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      sidebar.classList.remove('collapsed');
+      updateMargin();
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+
+  <script src="js/controle_acesso.js"></script>
+</body>
+</html>

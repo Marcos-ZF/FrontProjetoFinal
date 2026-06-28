@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Venda</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/editar_venda.css">
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-4">
+
+      <h2 class="text-center mb-4">Editar Venda</h2>
+
+      <div id="sec-geral" class="card p-3 mb-4">
+        <h4>Informações Gerais</h4>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Cliente:</label>
+            <input id="input-cliente" class="form-control">
+            <ul id="listaDeNomesBuscados" style="display: none;position: absolute; z-index: 1000;"></ul>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">CPF/CNPJ:</label>
+            <input id="input-cpf-cnpj" class="form-control" disabled>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">Desconto Geral (R$):</label>
+            <input id="input-desconto-geral" type="number" class="form-control" min="0" value="0" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-3 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h4>Produtos</h4>
+          <button class="btn btn-primary btn-sm" onclick="abrirModalProduto()">+ Produto</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center" id="tabela-produtos">
+            <thead class="table-secondary">
+              <tr>
+                <th>Nome</th>
+                <th>Código</th>
+                <th>Qtd</th>
+                <th>Preço</th>
+                <th>Desconto</th>
+                <th>Total</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card p-3 mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h4>Serviços</h4>
+          <button class="btn btn-primary btn-sm" onclick="abrirModalServico()">+ Serviço</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center" id="tabela-servicos">
+            <thead class="table-secondary">
+              <tr>
+                <th>Nome</th>
+                <th>Código</th>
+                <th>Preço</th>
+                <th>Desconto</th>
+                <th>Total</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card p-3 mb-4">
+        <h4>Transação</h4>
+        <div class="row g-3">
+          <div class="col-md-2">
+            <label class="form-label">Tipo:</label>
+            <select id="input-tipo-pagamento" class="form-select">
+              <option value="AVista">À Vista</option>
+              <option value="APrazo">A Prazo</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Meio:</label>
+            <select id="input-meio" class="form-select">
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="CartaoDebito">Cartão Débito</option>
+              <option value="CartaoCredito">Cartão Crédito</option>
+              <option value="Pix">Pix</option>
+              <option value="Boleto">Boleto</option>
+              <option value="TransferenciaBancaria">Transferência Bancaria</option>
+            </select>
+          </div>
+
+          <div class="col-md-1">
+            <label class="form-label">Parcelas:</label>
+            <input id="input-parcelas" type="number" min="1" class="form-control">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" id="label-vencimento">Vencimento (1ª parcela):</label>
+            <input id="input-vencimento" type="date" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-end">Total: R$ <span id="span-total">0.00</span></h3>
+
+      <div class="text-end mt-3">
+        <button class="btn btn-danger" id="btn-excluir" onclick="abrirModalExclusaoVenda()">Excluir</button>
+        <button class="btn btn-secondary" onclick="history.back()">Cancelar</button>
+        <button class="btn btn-success" onclick="salvarAlteracoes()">Salvar Alterações</button>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="modal fade" id="modalProduto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <h5 class="mb-3">Adicionar Produto</h5>
+
+        <div class="mb-2">
+          <label class="form-label">Nome do Produto</label>
+          <div class="input-group">
+            <input type="text" id="mp-busca" class="form-control" placeholder="Digite parte do nome">
+          </div>
+          <ul id="lista-produtos-buscados" style="display:none; position:absolute; z-index:1000;"></ul>
+        </div>
+
+        <input type="hidden" id="mp-id-produto">
+
+        <div class="mb-2">
+          <label class="form-label">Nome</label>
+          <input type="text" id="mp-nome" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Código</label>
+          <input type="text" id="mp-codigo" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Quantidade</label>
+          <input type="number" id="mp-qtd" class="form-control" value="1" min="1">
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Preço Unitário (R$)</label>
+          <input type="number" id="mp-preco" class="form-control" min="0" step="0.01" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Desconto Unitário (R$)</label>
+          <input type="number" id="mp-desc" class="form-control" min="0" value="0">
+        </div>
+
+        <div class="text-end mt-3">
+          <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary btn-sm" onclick="confirmarProduto()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalServico" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <h5 class="mb-3">Adicionar Serviço</h5>
+
+        <div class="mb-2">
+          <label class="form-label">Nome do Serviço</label>
+          <div class="input-group">
+            <input type="text" id="ms-busca" class="form-control" placeholder="Digite parte do nome">
+          </div>
+          <ul id="lista-servicos-buscados" style="display:none; position:absolute; z-index:1000;"></ul>
+        </div>
+
+        <input type="hidden" id="ms-id-servico">
+
+        <div class="mb-2">
+          <label class="form-label">Nome</label>
+          <input type="text" id="ms-nome" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Código</label>
+          <input type="text" id="ms-codigo" class="form-control" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Preço (R$)</label>
+          <input type="number" id="ms-preco" class="form-control" min="0" step="0.01" readonly>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Desconto (R$)</label>
+          <input type="number" id="ms-desc" class="form-control" min="0" value="0">
+        </div>
+
+        <div class="text-end mt-3">
+          <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary btn-sm" onclick="confirmarServico()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalExcluirVenda" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Confirmar Exclusão</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          Tem certeza que deseja excluir esta venda?
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="btn-confirmar-exclusao" class="btn btn-danger">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div-aviso" id="div-aviso"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_URL      = "https://projetoapidevendaestagio.onrender.com/api/venda";
+    const API_PRODUTO  = "https://projetoapidevendaestagio.onrender.com/api/produto";
+    const API_SERVICO  = "https://projetoapidevendaestagio.onrender.com/api/servico";
+    const divAviso     = document.getElementById("div-aviso");
+
+    let vendaOriginal   = null;
+    let idClienteAtual  = null;
+    let idVendedorAtual = null;
+
+    let idClienteOriginal    = null;
+    let idVendedorOriginal   = null;
+    let descontoGeralOriginal = 0;
+
+    let idsItensDeletados    = [];
+    let idsServicosDeletados = [];
+
+    let itensExistentes    = [];
+    let servicosExistentes = [];
+
+    let itensNovos    = [];
+    let servicosNovos = [];
+
+    let modalProduto, modalServico, modalExcluirVenda;
+
+    function mostrarAviso(msg, tipo) {
+      divAviso.textContent = msg;
+      divAviso.classList.add("div-aviso-subir", tipo);
+      setTimeout(() => {
+        divAviso.classList.remove("div-aviso-subir");
+        setTimeout(() => { divAviso.textContent = ""; divAviso.classList.remove(tipo); }, 5000);
+      }, 2000);
+    }
+
+    function formatar(valor) {
+      return Number(valor || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: false });
+    }
+
+    async function carregarVenda() {
+      const id = new URLSearchParams(window.location.search).get("id");
+      if (!id) { mostrarAviso("ID inválido!", "erro"); setTimeout(() => location.href = "buscar_vendas.html", 1500); return; }
+
+      try {
+        const resp = await fetch(`${API_URL}/${id}`, { headers: { "Authorization": localStorage.getItem("JWT") } });
+        if (!resp.ok) throw new Error();
+        vendaOriginal = await resp.json();
+        preencherCampos();
+      } catch {
+        mostrarAviso("Erro ao carregar venda", "erro");
+        setTimeout(() => location.href = "buscar_vendas.html", 2000);
+      }
+    }
+
+    function preencherCampos() {
+      const v = vendaOriginal.venda;
+      const t = vendaOriginal.transacao;
+      const c = v.cliente;
+
+      idClienteAtual    = c?.id || null;
+      idClienteOriginal = c?.id || null;
+      const nomeCliente = c?.tipoCliente === "PessoaFisica" ? c?.nome : (c?.razaoSocial || c?.nomeFantasia || "");
+      const docCliente  = c?.tipoCliente === "PessoaFisica" ? c?.cpf  : c?.cnpj || "";
+      document.getElementById("input-cliente").value   = nomeCliente || "";
+      document.getElementById("input-cpf-cnpj").value  = docCliente  || "";
+
+      idVendedorAtual    = v.vendedor?.id || null;
+      idVendedorOriginal = v.vendedor?.id || null;
+
+      document.getElementById("input-desconto-geral").value = v.descontoTotalVenda ?? 0;
+
+      document.getElementById("input-tipo-pagamento").value = t?.tipoPagamento || "AVista";
+      document.getElementById("input-meio").value           = t?.meioPagamento || "Dinheiro";
+      document.getElementById("input-parcelas").value       = (t?.numeroDeParcelasPagas ?? 0) + (t?.numeroDeParcelasNaoPagas ?? 0) || 1;
+
+      const parcelas = t?.parcelas || [];
+      const primeiraParcela = parcelas.find(p => p.numeroDaParcelaDaVenda === 1) || parcelas[0];
+      if (primeiraParcela?.dataVencimento) {
+        document.getElementById("input-vencimento").value = primeiraParcela.dataVencimento;
+      } else {
+        document.getElementById("input-vencimento").value = new Date().toISOString().split("T")[0];
+      }
+
+      atualizarCampoParcelas();
+
+      itensExistentes = (v.itensVenda || []).map(i => ({
+        idItem:             i.id,
+        idProduto:          i.produto?.id,
+        nome:               i.produto?.nomeProduto || "-",
+        codigo:             i.produto?.codigoDeBarra || "-",
+        quantidade:         i.quantidade,
+        preco:              i.precoUnitarioDoProdutoNaVenda,
+        desconto:           i.descontoUnitario,
+        quantidadeOriginal: i.quantidade,
+        descontoOriginal:   i.descontoUnitario
+      }));
+
+      servicosExistentes = (v.servicosVenda || []).map(s => ({
+        idServicoVenda:   s.id,
+        idServico:        s.servico?.id,
+        nome:             s.servico?.nomeServico || "-",
+        codigo:           s.servico?.codigoDoServico || "-",
+        preco:            s.precoServicoNaVenda,
+        desconto:         s.descontoServico,
+        descontoOriginal: s.descontoServico
+      }));
+
+      descontoGeralOriginal = v.descontoTotalVenda ?? 0;
+
+      itensNovos          = [];
+      servicosNovos       = [];
+      idsItensDeletados   = [];
+      idsServicosDeletados = [];
+
+      renderizarTudo();
+    }
+
+    function atualizarCampoParcelas() {
+      const tipo      = document.getElementById("input-tipo-pagamento").value;
+      const inputParc = document.getElementById("input-parcelas");
+      const inputVenc = document.getElementById("input-vencimento");
+      if (tipo === "AVista") {
+        inputParc.value    = 1;
+        inputParc.disabled = true;
+        inputVenc.readOnly = true;
+        inputVenc.classList.add("bg-light");
+      } else {
+        inputParc.disabled = false;
+        inputVenc.readOnly = false;
+        inputVenc.classList.remove("bg-light");
+      }
+    }
+
+    function renderizarTudo() {
+      renderizarProdutos();
+      renderizarServicos();
+      calcularTotal();
+    }
+
+    function renderizarProdutos() {
+      const tbody = document.querySelector("#tabela-produtos tbody");
+      tbody.innerHTML = "";
+
+      itensExistentes.forEach((p, i) => {
+        const total = (p.preco - p.desconto) * p.quantidade;
+        tbody.innerHTML += `
+          <tr>
+            <td>${p.nome}</td><td>${p.codigo}</td>
+            <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:70px" min="1" value="${p.quantidade}"
+              onchange="itensExistentes[${i}].quantidade=+this.value; calcularTotal()"></td>
+            <td>R$ ${formatar(p.preco)}</td>
+            <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${p.desconto}"
+              onchange="itensExistentes[${i}].desconto=+this.value; calcularTotal()"></td>
+            <td>R$ ${formatar(total)}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="removerItemExistente(${i})">Remover</button></td>
+          </tr>`;
+      });
+
+      itensNovos.forEach((p, i) => {
+        const total = (p.preco - p.desconto) * p.quantidade;
+        tbody.innerHTML += `
+          <tr class="table-success">
+            <td>${p.nome} <span class="badge bg-success ms-1">Novo</span></td><td>${p.codigo}</td>
+            <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:70px" min="1" value="${p.quantidade}"
+              onchange="itensNovos[${i}].quantidade=+this.value; calcularTotal()"></td>
+            <td>R$ ${formatar(p.preco)}</td>
+            <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${p.desconto}"
+              onchange="itensNovos[${i}].desconto=+this.value; calcularTotal()"></td>
+            <td>R$ ${formatar(total)}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="removerItemNovo(${i})">Remover</button></td>
+          </tr>`;
+      });
+
+      if (!itensExistentes.length && !itensNovos.length) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-muted py-2">Nenhum produto.</td></tr>`;
+      }
+    }
+
+    function renderizarServicos() {
+      const tbody = document.querySelector("#tabela-servicos tbody");
+      tbody.innerHTML = "";
+
+      servicosExistentes.forEach((s, i) => {
+        const total = s.preco - s.desconto;
+        tbody.innerHTML += `
+          <tr>
+            <td>${s.nome}</td><td>${s.codigo}</td>
+            <td>R$ ${formatar(s.preco)}</td>
+            <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${s.desconto}"
+              onchange="servicosExistentes[${i}].desconto=+this.value; calcularTotal()"></td>
+            <td>R$ ${formatar(total)}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="removerServicoExistente(${i})">Remover</button></td>
+          </tr>`;
+      });
+
+      servicosNovos.forEach((s, i) => {
+        const total = s.preco - s.desconto;
+        tbody.innerHTML += `
+          <tr class="table-success">
+            <td>${s.nome} <span class="badge bg-success ms-1">Novo</span></td><td>${s.codigo}</td>
+            <td>R$ ${formatar(s.preco)}</td>
+            <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${s.desconto}"
+              onchange="servicosNovos[${i}].desconto=+this.value; calcularTotal()"></td>
+            <td>R$ ${formatar(total)}</td>
+            <td><button class="btn btn-danger btn-sm" onclick="removerServicoNovo(${i})">Remover</button></td>
+          </tr>`;
+      });
+
+      if (!servicosExistentes.length && !servicosNovos.length) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-muted py-2">Nenhum serviço.</td></tr>`;
+      }
+    }
+
+    function calcularTotal() {
+      let total = 0;
+      [...itensExistentes, ...itensNovos].forEach(p => { total += (p.preco - p.desconto) * p.quantidade; });
+      [...servicosExistentes, ...servicosNovos].forEach(s => { total += s.preco - s.desconto; });
+      total -= Number(document.getElementById("input-desconto-geral").value || 0);
+      document.getElementById("span-total").textContent = formatar(Math.max(0, total));
+    }
+
+    function removerItemExistente(i)    { const it = itensExistentes[i]; if (it?.idItem) idsItensDeletados.push(it.idItem); itensExistentes.splice(i, 1); renderizarTudo(); }
+    function removerItemNovo(i)         { itensNovos.splice(i, 1);         renderizarTudo(); }
+    function removerServicoExistente(i) { const sv = servicosExistentes[i]; if (sv?.idServicoVenda) idsServicosDeletados.push(sv.idServicoVenda); servicosExistentes.splice(i, 1); renderizarTudo(); }
+    function removerServicoNovo(i)      { servicosNovos.splice(i, 1);      renderizarTudo(); }
+
+    function abrirModalProduto() {
+      document.getElementById("mp-busca").value = "";
+      document.getElementById("mp-id-produto").value = "";
+      document.getElementById("mp-nome").value = "";
+      document.getElementById("mp-codigo").value = "";
+      document.getElementById("mp-qtd").value = 1;
+      document.getElementById("mp-preco").value = "";
+      document.getElementById("mp-desc").value = 0;
+      document.getElementById("lista-produtos-buscados").style.display = "none";
+      if (!modalProduto) modalProduto = new bootstrap.Modal(document.getElementById("modalProduto"));
+      modalProduto.show();
+    }
+
+    document.getElementById("mp-busca").addEventListener("input", async function() {
+      const termo = this.value.trim();
+      const lista = document.getElementById("lista-produtos-buscados");
+      if (!termo) { lista.style.display = "none"; return; }
+      try {
+        const res = await fetch(`${API_PRODUTO}/buscar-produtos-por-nome/${encodeURIComponent(termo)}`, { headers: { Authorization: localStorage.getItem("JWT") } });
+        if (!res.ok) return;
+        const dados = await res.json();
+        lista.innerHTML = "";
+        (Array.isArray(dados) ? dados : []).slice(0, 10).forEach(p => {
+          const li = document.createElement("li");
+          li.className = "li-de-clientes";
+          li.innerHTML = `${p.nomeProduto}<br><small>${p.codigoDeBarra || ""}</small>`;
+          li.onclick = () => {
+            document.getElementById("mp-id-produto").value = p.id;
+            document.getElementById("mp-nome").value = p.nomeProduto;
+            document.getElementById("mp-codigo").value = p.codigoDeBarra || "";
+            document.getElementById("mp-preco").value = (p.precoUnitario || 0).toFixed(2);
+            document.getElementById("mp-busca").value = p.nomeProduto;
+            lista.style.display = "none";
+          };
+          lista.appendChild(li);
+        });
+        lista.style.display = dados.length ? "block" : "none";
+      } catch {}
+    });
+
+    function confirmarProduto() {
+      const id = document.getElementById("mp-id-produto").value;
+      if (!id) { mostrarAviso("Selecione um produto.", "erro"); return; }
+      const preco   = parseFloat(document.getElementById("mp-preco").value) || 0;
+      const desconto = parseFloat(document.getElementById("mp-desc").value) || 0;
+      if (desconto > preco) { mostrarAviso("Desconto não pode ser maior que o preço.", "erro"); return; }
+      itensNovos.push({
+        idProduto:  id,
+        nome:       document.getElementById("mp-nome").value,
+        codigo:     document.getElementById("mp-codigo").value,
+        quantidade: parseInt(document.getElementById("mp-qtd").value) || 1,
+        preco,
+        desconto
+      });
+      renderizarTudo();
+      modalProduto.hide();
+    }
+
+    function abrirModalServico() {
+      document.getElementById("ms-busca").value = "";
+      document.getElementById("ms-id-servico").value = "";
+      document.getElementById("ms-nome").value = "";
+      document.getElementById("ms-codigo").value = "";
+      document.getElementById("ms-preco").value = "";
+      document.getElementById("ms-desc").value = 0;
+      document.getElementById("lista-servicos-buscados").style.display = "none";
+      if (!modalServico) modalServico = new bootstrap.Modal(document.getElementById("modalServico"));
+      modalServico.show();
+    }
+
+    document.getElementById("ms-busca").addEventListener("input", async function() {
+      const termo = this.value.trim();
+      const lista = document.getElementById("lista-servicos-buscados");
+      if (!termo) { lista.style.display = "none"; return; }
+      try {
+        const res = await fetch(`${API_SERVICO}/buscar-servicos-por-nome/${encodeURIComponent(termo)}`, { headers: { Authorization: localStorage.getItem("JWT") } });
+        if (!res.ok) return;
+        const dados = await res.json();
+        lista.innerHTML = "";
+        (Array.isArray(dados) ? dados : []).slice(0, 10).forEach(s => {
+          const li = document.createElement("li");
+          li.className = "li-de-clientes";
+          li.innerHTML = `${s.nomeServico}<br><small>${s.codigoDoServico || ""}</small>`;
+          li.onclick = () => {
+            document.getElementById("ms-id-servico").value = s.id;
+            document.getElementById("ms-nome").value = s.nomeServico;
+            document.getElementById("ms-codigo").value = s.codigoDoServico || "";
+            document.getElementById("ms-preco").value = (s.precoServico ?? s.precoUnitario ?? 0).toFixed(2);
+            document.getElementById("ms-busca").value = s.nomeServico;
+            lista.style.display = "none";
+          };
+          lista.appendChild(li);
+        });
+        lista.style.display = dados.length ? "block" : "none";
+      } catch {}
+    });
+
+    function confirmarServico() {
+      const id = document.getElementById("ms-id-servico").value;
+      if (!id) { mostrarAviso("Selecione um serviço.", "erro"); return; }
+      const preco    = parseFloat(document.getElementById("ms-preco").value) || 0;
+      const desconto = parseFloat(document.getElementById("ms-desc").value) || 0;
+      if (desconto > preco) { mostrarAviso("Desconto não pode ser maior que o preço.", "erro"); return; }
+      servicosNovos.push({
+        idServico: id,
+        nome:      document.getElementById("ms-nome").value,
+        codigo:    document.getElementById("ms-codigo").value,
+        preco,
+        desconto
+      });
+      renderizarTudo();
+      modalServico.hide();
+    }
+
+    async function salvarAlteracoes() {
+      const id = new URLSearchParams(window.location.search).get("id");
+
+      const vencimento = document.getElementById("input-vencimento").value;
+      if (!vencimento) { mostrarAviso("Informe a data de vencimento da primeira parcela.", "erro"); return; }
+
+      const vendaPayload = {};
+
+      if (idClienteAtual !== idClienteOriginal) vendaPayload.idCliente = idClienteAtual;
+      else vendaPayload.idCliente = null;
+
+      if (idVendedorAtual !== idVendedorOriginal) vendaPayload.idVendedor = idVendedorAtual;
+      else vendaPayload.idVendedor = null;
+
+      const descontoGeralAtual = Number(document.getElementById("input-desconto-geral").value || 0);
+      if (descontoGeralAtual !== Number(descontoGeralOriginal)) vendaPayload.descontoSobreTotalVenda = descontoGeralAtual;
+      else vendaPayload.descontoSobreTotalVenda = null;
+
+      vendaPayload.idsItensDeletados    = idsItensDeletados.length    ? idsItensDeletados    : null;
+      vendaPayload.idsServicosDeletados = idsServicosDeletados.length ? idsServicosDeletados : null;
+
+      vendaPayload.itensVendaNovos = itensNovos.length
+        ? itensNovos.map(p => ({ idProduto: p.idProduto, quantidade: p.quantidade, descontoUnitario: p.desconto }))
+        : null;
+
+      vendaPayload.servicosVendaNovos = servicosNovos.length
+        ? servicosNovos.map(s => ({ idServico: s.idServico, descontoServico: s.desconto }))
+        : null;
+
+      const itensAtualizados = [];
+      itensExistentes.forEach(p => {
+        const mudouQtd  = p.quantidade !== p.quantidadeOriginal;
+        const mudouDesc = Number(p.desconto) !== Number(p.descontoOriginal);
+        if (mudouQtd || mudouDesc) {
+          itensAtualizados.push({
+            idItem:           p.idItem,
+            quantidade:       mudouQtd  ? p.quantidade : null,
+            descontoUnitario: mudouDesc ? p.desconto   : null
+          });
+        }
+      });
+      vendaPayload.itensVendaAtualizados = itensAtualizados.length ? itensAtualizados : null;
+
+      const servicosAtualizados = [];
+      servicosExistentes.forEach(s => {
+        const mudouDesc = Number(s.desconto) !== Number(s.descontoOriginal);
+        if (mudouDesc) {
+          servicosAtualizados.push({ idServicoVenda: s.idServicoVenda, descontoServico: s.desconto });
+        }
+      });
+      vendaPayload.servicosVendaAtualizados = servicosAtualizados.length ? servicosAtualizados : null;
+
+      const payload = {
+        venda: vendaPayload,
+        transacao: {
+          tipoPagamento:                    document.getElementById("input-tipo-pagamento").value,
+          meioPagamento:                    document.getElementById("input-meio").value,
+          quantidadeDeParcelas:             Number(document.getElementById("input-parcelas").value || 1),
+          dataDeVencimentoPrimeiraParcela: vencimento
+        }
+      };
+
+      console.log("PUT venda payload:", JSON.stringify(payload, null, 2));
+
+      try {
+        const resp = await fetch(`${API_URL}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+          body: JSON.stringify(payload)
+        });
+
+        if (resp.ok) {
+          mostrarAviso("Venda atualizada!", "sucesso");
+          setTimeout(() => location.href = "buscar_vendas.html", 1500);
+        } else {
+          const txt = await resp.text();
+          let msg = "Erro ao atualizar venda.";
+          try { const j = JSON.parse(txt); msg = Array.isArray(j) ? j.join(" | ") : (typeof j === "string" ? j : msg); } catch { if (txt) msg = txt; }
+          mostrarAviso(msg, "erro");
+        }
+      } catch { mostrarAviso("Erro de conexão", "erro"); }
+    }
+
+    function abrirModalExclusaoVenda() {
+      if (!modalExcluirVenda) modalExcluirVenda = new bootstrap.Modal(document.getElementById("modalExcluirVenda"));
+      modalExcluirVenda.show();
+    }
+
+    async function excluirVenda() {
+      const id = new URLSearchParams(window.location.search).get("id");
+      try {
+        const resp = await fetch(`${API_URL}/${id}`, { method: "DELETE", headers: { "Authorization": localStorage.getItem("JWT") } });
+        if (resp.ok) { mostrarAviso("Venda excluída!", "sucesso"); setTimeout(() => location.href = "buscar_vendas.html", 1500); }
+        else mostrarAviso("Erro ao excluir venda", "erro");
+      } catch { mostrarAviso("Erro de conexão", "erro"); }
+    }
+
+    document.getElementById("btn-confirmar-exclusao").addEventListener("click", excluirVenda);
+    document.getElementById("input-desconto-geral").addEventListener("input", calcularTotal);
+    document.getElementById("input-tipo-pagamento").addEventListener("change", atualizarCampoParcelas);
+    document.addEventListener("DOMContentLoaded", carregarVenda);
+  </script>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        updateMargin();
+      }
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+<script src="js/controle_acesso.js"></script>
+</body>
+</html>

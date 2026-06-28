@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BikeCiaSystem - Log de Clientes</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleListaProdutos.css" />
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link active" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container mt-5">
+      <div class="form-box">
+
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-4 gap-3">
+          <h2 class="mb-0"><i class="bi bi-people me-2 text-secondary"></i>Log de Clientes</h2>
+          <a href="logs.html" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Voltar</a>
+        </div>
+
+        <!-- Busca unificada -->
+        <div class="mb-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="position-relative flex-grow-1">
+              <input type="text" id="input-buscar" class="form-control" placeholder="Buscar cliente por nome ou CPF/CNPJ..." autocomplete="off">
+              <div id="suggestion-box" class="position-absolute bg-white border rounded shadow-sm w-100" style="z-index:1000; display:none; max-height:220px; overflow-y:auto;"></div>
+            </div>
+            <button class="btn btn-primary" onclick="buscarPorNome()"><i class="bi bi-search me-1"></i>Buscar</button>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="text-muted small">Tipo de documento:</span>
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="radio" name="tipoDoc" id="radio-cpf" value="Cpf" checked>
+              <label class="form-check-label small" for="radio-cpf">CPF</label>
+            </div>
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="radio" name="tipoDoc" id="radio-cnpj" value="Cnpj">
+              <label class="form-check-label small" for="radio-cnpj">CNPJ</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="info-selecionado" class="alert alert-secondary d-none mb-3 py-2">
+          <i class="bi bi-people me-2"></i>
+          <span id="texto-selecionado"></span>
+        </div>
+
+        <div class="table-scroll-mobile">
+          <table class="table table-striped align-middle text-center">
+            <thead class="table-secondary">
+              <tr>
+                <th>Data</th>
+                <th>Ação</th>
+                <th>Campo Alterado</th>
+                <th>Valor Antigo</th>
+                <th>Valor Novo</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-logs">
+              <tr><td colspan="5" class="text-muted py-4">Busque um cliente para visualizar os logs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const API_BASE = 'https://projetoapidevendaestagio.onrender.com/api/cliente';
+    const JWT      = () => localStorage.getItem('JWT');
+
+    let clientes = [];
+
+    async function carregarClientes() {
+      try {
+        const [resA, resI] = await Promise.allSettled([
+          fetch(API_BASE, { headers: { Authorization: JWT() } }),
+          fetch(`${API_BASE}/inativos`, { headers: { Authorization: JWT() } })
+        ]);
+        let ativos = [], inativos = [];
+        if (resA.status === 'fulfilled' && resA.value.ok) ativos = await resA.value.json();
+        if (resI.status === 'fulfilled' && resI.value.ok) inativos = await resI.value.json();
+        clientes = [...ativos, ...inativos];
+      } catch (e) { console.error(e); }
+    }
+
+    function ehFisico(c) {
+      return c.tipoCliente === 'PessoaFisica' || c.$type === 'fisico';
+    }
+
+    function nomeCliente(c) {
+      if (ehFisico(c)) return c.nome || '-';
+      return c.razaoSocial || c.nomeFantasia || c.nome || '-';
+    }
+
+    function docCliente(c) {
+      if (ehFisico(c)) return c.cpf || '';
+      return c.cnpj || '';
+    }
+
+    function buscarPorNome() {
+      const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
+      if (!termo) return;
+      const filtrados = clientes.filter(c =>
+        nomeCliente(c).toLowerCase().includes(termo) ||
+        docCliente(c).includes(termo)
+      ).slice(0, 10);
+      if (filtrados.length === 1) { selecionarEntidade(filtrados[0]); return; }
+      if (filtrados.length === 0) { buscarPorDocumento(); return; }
+      renderSuggestions(filtrados);
+    }
+
+    function renderSuggestions(lista) {
+      renderSuggestionsComExcluidos(lista, []);
+    }
+
+    function renderSuggestionsComExcluidos(lista, excluidos) {
+      const box = document.getElementById('suggestion-box');
+      box.innerHTML = '';
+      const total = lista.length + excluidos.length;
+      if (!total) { box.style.display = 'none'; return; }
+
+      lista.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'px-3 py-2';
+        div.style.cursor = 'pointer';
+        div.innerHTML = `<strong>${nomeCliente(c)}</strong> <span class="text-muted small">${docCliente(c)}</span>${c.ativo === false ? ' <span class="badge bg-danger ms-1">Excluído</span>' : ''}`;
+        div.onmouseover = () => div.classList.add('bg-light');
+        div.onmouseout  = () => div.classList.remove('bg-light');
+        div.onclick = () => { selecionarEntidade(c); box.style.display = 'none'; };
+        box.appendChild(div);
+      });
+
+      excluidos.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'px-3 py-2';
+        div.style.cursor = 'pointer';
+        div.innerHTML = `<strong>${e._nome}</strong> <span class="text-muted small">${e._doc}</span> <span class="badge bg-danger ms-1">Excluído</span>`;
+        div.onmouseover = () => div.classList.add('bg-light');
+        div.onmouseout  = () => div.classList.remove('bg-light');
+        div.onclick = () => {
+          document.getElementById('input-buscar').value = e._nome;
+          box.style.display = 'none';
+          document.getElementById('info-selecionado').classList.remove('d-none');
+          document.getElementById('texto-selecionado').textContent = `${e._nome} — ${e._doc} — cliente excluído`;
+          renderLogs(e._logs);
+        };
+        box.appendChild(div);
+      });
+
+      box.style.display = 'block';
+    }
+
+    async function selecionarEntidade(c) {
+      document.getElementById('input-buscar').value = nomeCliente(c);
+      document.getElementById('suggestion-box').style.display = 'none';
+      document.getElementById('info-selecionado').classList.remove('d-none');
+      document.getElementById('texto-selecionado').textContent = `${nomeCliente(c)} — ${docCliente(c) || 'sem documento'}`;
+      await carregarLogs(c.id);
+    }
+
+    async function carregarLogs(id) {
+      const tbody = document.getElementById('tabela-logs');
+      tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Carregando logs...</td></tr>';
+      try {
+        const res = await fetch(`${API_BASE}/log/${id}`, { headers: { Authorization: JWT() } });
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
+        const logs = await res.json();
+        renderLogs(logs);
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro de conexão.</td></tr>`;
+      }
+    }
+
+    function renderLogs(logs) {
+      const tbody = document.getElementById('tabela-logs');
+      if (!logs.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Nenhum log encontrado para este cliente.</td></tr>'; return; }
+      tbody.innerHTML = logs.map(l => `
+        <tr>
+          <td>${formatarData(l.dataCriacao)}</td>
+          <td>${badgeAcao(l.acao)}</td>
+          <td>${l.campoAlterado ?? '-'}</td>
+          <td class="text-danger">${l.valorAntigo ?? '-'}</td>
+          <td class="text-success">${l.valorNovo ?? '-'}</td>
+        </tr>`).join('');
+    }
+
+    function badgeAcao(acao) {
+      const map = { Criacao: 'success', Atualizacao: 'warning', Exclusao: 'danger' };
+      return `<span class="badge bg-${map[acao] || 'secondary'}">${acao}</span>`;
+    }
+
+    function formatarData(iso) {
+      if (!iso) return '-';
+      return new Date(iso).toLocaleString('pt-BR');
+    }
+
+    async function buscarPorDocumento() {
+      const tipoDocumento = document.querySelector('input[name="tipoDoc"]:checked').value;
+      const numeroDocumento = document.getElementById('input-buscar').value.trim().replace(/\D/g, '');
+
+      if (!numeroDocumento) {
+        document.getElementById('tabela-logs').innerHTML = '<tr><td colspan="5" class="text-muted py-3">Nenhum cliente encontrado com esse termo.</td></tr>';
+        return;
+      }
+
+      const tbody = document.getElementById('tabela-logs');
+      tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Buscando logs...</td></tr>';
+
+      document.getElementById('info-selecionado').classList.remove('d-none');
+      document.getElementById('texto-selecionado').textContent =
+        `${tipoDocumento}: ${document.getElementById('input-buscar').value.trim()} — cliente excluído`;
+
+      try {
+        const res = await fetch(`${API_BASE}/log/documentoIdentificador`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: JWT() },
+          body: JSON.stringify({ tipoDocumento, numeroDocumento })
+        });
+
+        if (!res.ok) {
+          const txt = await res.text();
+          tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro ${res.status}: ${txt || 'Nenhum log encontrado.'}</td></tr>`;
+          return;
+        }
+
+        const logs = await res.json();
+        renderLogs(logs);
+      } catch {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-danger py-3">Erro de conexão.</td></tr>';
+      }
+    }
+
+    const input = document.getElementById('input-buscar');
+    const box   = document.getElementById('suggestion-box');
+
+    input.addEventListener('input', async () => {
+      const termo = input.value.trim();
+      if (!termo) { box.style.display = 'none'; return; }
+
+      const termoLower = termo.toLowerCase();
+      const filtrados = clientes.filter(c =>
+        nomeCliente(c).toLowerCase().includes(termoLower) ||
+        docCliente(c).includes(termoLower)
+      ).slice(0, 10);
+
+      // Busca simultânea na API por documento (para excluídos permanentemente)
+      const tipoDocumento = document.querySelector('input[name="tipoDoc"]:checked').value;
+      const numeroDocumento = termo.replace(/\D/g, '');
+      let excluidos = [];
+      if (numeroDocumento.length >= 5) {
+        try {
+          const res = await fetch(`${API_BASE}/log/documentoIdentificador`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: JWT() },
+            body: JSON.stringify({ tipoDocumento, numeroDocumento })
+          });
+          if (res.ok) {
+            const logs = await res.json();
+            if (logs.length) {
+              // Monta um objeto "fake" para renderizar na sugestão
+              const docValor = logs.find(l => l.campoAlterado === (tipoDocumento === 'Cpf' ? 'Cpf' : 'Cnpj'))?.valorNovo || termo;
+              const nomeValor = logs.find(l => l.campoAlterado === 'Nome')?.valorNovo || 'Cliente excluído';
+              excluidos = [{ _excluido: true, _nome: nomeValor, _doc: docValor, _logs: logs }];
+            }
+          }
+        } catch { /* silencioso */ }
+      }
+
+      renderSuggestionsComExcluidos(filtrados, excluidos);
+    });
+
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') buscarPorNome(); });
+    document.addEventListener('click', e => { if (!input.contains(e.target) && !box.contains(e.target)) box.style.display = 'none'; });
+
+    const sidebar   = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn  = document.getElementById('brandButton');
+    const main      = document.getElementById('mainContent');
+    function updateMargin() { main.style.marginLeft = window.innerWidth >= 768 ? (sidebar.classList.contains('collapsed') ? '80px' : '240px') : '0'; }
+    toggleBtn.addEventListener('click', () => { sidebar.classList.toggle('collapsed'); updateMargin(); });
+    brandBtn.addEventListener('click',  () => { sidebar.classList.remove('collapsed'); updateMargin(); });
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+
+    carregarClientes();
+  </script>
+<script src="js/controle_acesso.js"></script>
+</body>
+</html>

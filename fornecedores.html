@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleCadastro.css" />
+
+  <title>Cadastro de Fornecedor</title>
+</head>
+
+<body>
+
+  <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
+    <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+      <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
+        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <span class="brand-text">BikeCiaSystem</span>
+      </div>
+      <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+    <ul class="nav nav-pills flex-column mt-2 px-2">
+      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
+      <li class="nav-item" data-admin-only><a class="nav-link d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="perfil.html"><i class="bi bi-person-circle me-2"></i><span class="link-text">Meu Perfil</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="d-md-none">
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        <span class="navbar-brand mb-0 h1">BikeCiaSystem</span>
+      </div>
+    </nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link active" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
+          <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
+          <li class="nav-item" data-admin-only><a class="nav-link" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
+          <li class="nav-item"><a class="nav-link" href="perfil.html"><i class="bi bi-person-circle me-2"></i>Meu Perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="main-content">
+    <div class="container">
+      <main class="main">
+
+        <div class="form-box">
+          <form id="formulario-fornecedor">
+            <h4 class="mb-3 text-center">Cadastro de Fornecedor</h4>
+
+            <div id="campos-comuns">
+
+              <div class="mb-3">
+                <label class="form-label">Razão Social:</label>
+                <input type="text" class="form-control" id="input-razaoSocial" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Nome Fantasia:</label>
+                <input type="text" class="form-control" id="input-nomeFantasia" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">CNPJ:</label>
+                <input type="text" class="form-control" id="input-cnpj" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Inscrição Estadual:</label>
+                <input type="text" class="form-control" id="input-inscricaoEstadual" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Telefone:</label>
+                <input type="text" class="form-control" id="input-telefone" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" id="input-email" required />
+              </div>
+
+              <button type="submit" class="btn btn-primary botao-cadastrar">
+                Cadastrar Fornecedor
+              </button>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="div-aviso"></div>
+
+      </main>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const divAviso = document.getElementsByClassName("div-aviso")[0];
+      const formularioFornecedor = document.getElementById("formulario-fornecedor");
+
+      const inputRazaoSocial = document.getElementById("input-razaoSocial");
+      const inputNomeFantasia = document.getElementById("input-nomeFantasia");
+      const inputCnpj = document.getElementById("input-cnpj");
+
+      inputCnpj.addEventListener("input", () => {
+      inputCnpj.value = aplicarMascaraCNPJ(inputCnpj.value);
+    });
+
+      const inputInscricaoEstadual = document.getElementById("input-inscricaoEstadual");
+      const inputTelefone = document.getElementById("input-telefone");
+      const inputEmail = document.getElementById("input-email");
+
+      formularioFornecedor.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        enviarDadosParaCriarFornecedorNaApi(
+          inputTelefone.value,
+          inputEmail.value,
+          inputRazaoSocial.value,
+          inputNomeFantasia.value,
+          inputCnpj.value,
+          inputInscricaoEstadual.value
+        );
+      });
+
+      function limparCNPJ(cnpj) {
+        return cnpj.replace(/\D/g, '');
+      }
+
+      function aplicarMascaraCNPJ(cnpj) {
+        cnpj = limparCNPJ(cnpj);
+
+        cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2");
+        cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2");
+
+        return cnpj;
+      }
+
+      function validarCNPJ(cnpj) {
+        cnpj = limparCNPJ(cnpj);
+
+        if (cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
+
+        let tamanho = cnpj.length - 2;
+        let numeros = cnpj.substring(0, tamanho);
+        let digitos = cnpj.substring(tamanho);
+
+        let soma = 0;
+        let pos = tamanho - 7;
+
+        for (let i = tamanho; i >= 1; i--) {
+          soma += numeros.charAt(tamanho - i) * pos--;
+          if (pos < 2) pos = 9;
+        }
+
+        let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+        if (resultado != digitos.charAt(0)) return false;
+
+        tamanho += 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+
+        for (let i = tamanho; i >= 1; i--) {
+          soma += numeros.charAt(tamanho - i) * pos--;
+          if (pos < 2) pos = 9;
+        }
+
+        resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+
+        return resultado == digitos.charAt(1);
+      }
+
+      function enviarDadosParaCriarFornecedorNaApi(
+  telefone,
+  email,
+  razaoSocial,
+  nomeFantasia,
+  cnpj,
+  inscricaoEstadual
+) {
+  const cnpjLimpo = limparCNPJ(cnpj);
+
+  if (!razaoSocial || !telefone || !email || !cnpjLimpo) {
+    mostrarAviso("Preencha todos os campos obrigatórios", "erro");
+    return;
+  }
+
+  if (!validarCNPJ(cnpjLimpo)) {
+    mostrarAviso("CNPJ inválido", "erro");
+    return;
+  }
+
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    mostrarAviso("Email inválido", "erro");
+    return;
+  }
+
+  let dados = {
+    telefone: telefone,
+    email: email,
+    razaoSocial: razaoSocial,
+    nomeFantasia: nomeFantasia || null,
+    cnpj: cnpjLimpo, 
+    inscricaoEstadual: inscricaoEstadual || null
+  };
+
+  fetch("https://projetoapidevendaestagio.onrender.com/api/Fornecedor", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+    body: JSON.stringify(dados)
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error("Erro no envio");
+
+      mostrarAviso("Fornecedor cadastrado", "sucesso");
+
+      setTimeout(() => {
+        window.location.href = "./buscar_fornecedores.html";
+      }, 1500);
+    })
+    .catch(() => mostrarAviso("Erro no envio de dados", "erro"));
+}
+
+
+      function mostrarAviso(mensagem, tipo) {
+        divAviso.textContent = mensagem;
+        divAviso.classList.add("div-aviso-subir", tipo);
+
+        setTimeout(() => {
+          divAviso.classList.remove("div-aviso-subir");
+
+          setTimeout(() => {
+            divAviso.textContent = "";
+            divAviso.classList.remove(tipo);
+          }, 2000);
+        }, 2000);
+      }
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const brandBtn = document.getElementById('brandButton');
+    const main = document.getElementById('mainContent');
+
+    function updateMargin() {
+      if (window.innerWidth >= 768) {
+        main.style.marginLeft = sidebar.classList.contains('collapsed') ? '80px' : '240px';
+      } else {
+        main.style.marginLeft = '0';
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      updateMargin();
+    });
+
+    brandBtn.addEventListener('click', () => {
+      sidebar.classList.remove('collapsed');
+      updateMargin();
+    });
+
+    updateMargin();
+    window.addEventListener('resize', updateMargin);
+  </script>
+<script src="js/controle_acesso.js"></script>
+</body>
+</html>
