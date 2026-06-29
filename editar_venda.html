@@ -7,7 +7,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="./css/editar_venda.css">
+  <link rel="stylesheet" href="./css/stylevendas.css">
 </head>
 
 <body>
@@ -77,10 +77,10 @@
       <div id="sec-geral" class="card p-3 mb-4">
         <h4>Informações Gerais</h4>
         <div class="row g-3">
-          <div class="col-md-4">
+          <div class="col-md-4 position-relative">
             <label class="form-label">Cliente:</label>
-            <input id="input-cliente" class="form-control">
-            <ul id="listaDeNomesBuscados" style="display: none;position: absolute; z-index: 1000;"></ul>
+            <input type="text" id="input-cliente" class="form-control" placeholder="Digite o nome do Cliente">
+            <ul id="listaDeNomesBuscados" class="autocomplete-list" style="display: none; position: absolute; z-index: 1000;"></ul>
           </div>
 
           <div class="col-md-3">
@@ -91,6 +91,18 @@
           <div class="col-md-2">
             <label class="form-label">Desconto Geral (R$):</label>
             <input id="input-desconto-geral" type="number" class="form-control" min="0" value="0" step="0.01">
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-md-4 position-relative">
+            <label class="form-label">Nome do Vendedor:</label>
+            <input type="text" id="input-nomeVendedor" class="form-control" placeholder="Digite o nome do Vendedor">
+            <ul id="listaDeVendedoresBuscados" class="autocomplete-list" style="display: none; position: absolute; z-index: 1000;"></ul>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">CPF do Vendedor:</label>
+            <input type="text" id="input-cpfVendedor" class="form-control" disabled>
           </div>
         </div>
       </div>
@@ -216,6 +228,7 @@
         <div class="mb-2">
           <label class="form-label">Quantidade</label>
           <input type="number" id="mp-qtd" class="form-control" value="1" min="1">
+          <div class="form-text" id="mp-estoque-atual">Estoque atual: —</div>  
         </div>
 
         <div class="mb-2">
@@ -326,6 +339,8 @@
     let itensNovos    = [];
     let servicosNovos = [];
 
+    let estoqueAtualProduto = null; 
+
     let modalProduto, modalServico, modalExcluirVenda;
 
     function mostrarAviso(msg, tipo) {
@@ -370,6 +385,8 @@
 
       idVendedorAtual    = v.vendedor?.id || null;
       idVendedorOriginal = v.vendedor?.id || null;
+      document.getElementById("input-nomeVendedor").value = v.vendedor?.nomeCompleto || "";
+      document.getElementById("input-cpfVendedor").value  = v.vendedor?.cpf || "";
 
       document.getElementById("input-desconto-geral").value = v.descontoTotalVenda ?? 0;
 
@@ -396,8 +413,20 @@
         preco:              i.precoUnitarioDoProdutoNaVenda,
         desconto:           i.descontoUnitario,
         quantidadeOriginal: i.quantidade,
-        descontoOriginal:   i.descontoUnitario
+        descontoOriginal:   i.descontoUnitario,
+        estoqueAtual:       null  // será preenchido abaixo
       }));
+
+      // Busca estoque atual de cada produto existente para validação client-side
+      itensExistentes.forEach(async (item) => {
+        if (!item.idProduto) return;
+        try {
+          const r = await fetch(`${API_PRODUTO}/${item.idProduto}`, { headers: { Authorization: localStorage.getItem("JWT") } });
+          if (!r.ok) return;
+          const p = await r.json();
+          item.estoqueAtual = p.estoque?.quantidadeEmEstoque ?? null;
+        } catch {}
+      });
 
       servicosExistentes = (v.servicosVenda || []).map(s => ({
         idServicoVenda:   s.id,
@@ -538,6 +567,11 @@
       document.getElementById("mp-desc").value = 0;
       document.getElementById("lista-produtos-buscados").style.display = "none";
       if (!modalProduto) modalProduto = new bootstrap.Modal(document.getElementById("modalProduto"));
+
+      estoqueAtualProduto = null;
+      document.getElementById("mp-qtd").removeAttribute("max");
+      document.getElementById("mp-estoque-atual").textContent = "Estoque atual: —";
+
       modalProduto.show();
     }
 
@@ -560,6 +594,11 @@
             document.getElementById("mp-codigo").value = p.codigoDeBarra || "";
             document.getElementById("mp-preco").value = (p.precoUnitario || 0).toFixed(2);
             document.getElementById("mp-busca").value = p.nomeProduto;
+
+            estoqueAtualProduto = p.estoque?.quantidadeEmEstoque ?? 0;
+            document.getElementById("mp-estoque-atual").textContent = `Estoque atual: ${estoqueAtualProduto}`;
+            document.getElementById("mp-qtd").max = estoqueAtualProduto > 0 ? estoqueAtualProduto : 1;
+
             lista.style.display = "none";
           };
           lista.appendChild(li);
@@ -574,6 +613,13 @@
       const preco   = parseFloat(document.getElementById("mp-preco").value) || 0;
       const desconto = parseFloat(document.getElementById("mp-desc").value) || 0;
       if (desconto > preco) { mostrarAviso("Desconto não pode ser maior que o preço.", "erro"); return; }
+
+      const qtd = parseInt(document.getElementById("mp-qtd").value) || 1;
+      if (estoqueAtualProduto != null && qtd > estoqueAtualProduto) {
+        mostrarAviso(`Quantidade (${qtd}) maior que o estoque disponível (${estoqueAtualProduto}).`, "erro");
+        return;
+      }
+
       itensNovos.push({
         idProduto:  id,
         nome:       document.getElementById("mp-nome").value,
@@ -675,6 +721,8 @@
       itensExistentes.forEach(p => {
         const mudouQtd  = p.quantidade !== p.quantidadeOriginal;
         const mudouDesc = Number(p.desconto) !== Number(p.descontoOriginal);
+        
+
         if (mudouQtd || mudouDesc) {
           itensAtualizados.push({
             idItem:           p.idItem,
@@ -704,6 +752,17 @@
         }
       };
 
+      for (const p of itensExistentes) {
+        const mudouQtd = p.quantidade !== p.quantidadeOriginal;
+        if (mudouQtd && p.estoqueAtual !== null) {
+          const estoqueDisponivel = p.estoqueAtual + p.quantidadeOriginal;
+          if (p.quantidade > estoqueDisponivel) {
+            mostrarAviso(`Estoque insuficiente para "${p.nome}". Disponível: ${estoqueDisponivel}, solicitado: ${p.quantidade}.`, "erro");
+            return;
+          }
+        }
+      }
+
       console.log("PUT venda payload:", JSON.stringify(payload, null, 2));
 
       try {
@@ -720,6 +779,29 @@
           const txt = await resp.text();
           let msg = "Erro ao atualizar venda.";
           try { const j = JSON.parse(txt); msg = Array.isArray(j) ? j.join(" | ") : (typeof j === "string" ? j : msg); } catch { if (txt) msg = txt; }
+
+          // Mensag
+          const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
+          if (/quantidade insuficiente/i.test(msg) && uuidRegex.test(msg)) {
+            const todosItens = [...itensExistentes, ...itensNovos];
+            msg = msg.replace(new RegExp(`(quantidade insuficiente no estoque de produto com id:\\s*)?${uuidRegex.source}`, "gi"), (match) => {
+              const uuidMatch = match.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
+              if (!uuidMatch) return match;
+              const uuid = uuidMatch[0].toLowerCase();
+              const item = todosItens.find(p => p.idProduto?.toLowerCase() === uuid);
+              return item ? `"${item.nome}"` : match;
+            });
+          
+            if (uuidRegex.test(msg)) {
+              msg = msg.replace(uuidRegex, () => {
+                return "produto selecionado";
+              });
+            }
+            if (!/quantidade insuficiente/i.test(msg)) {
+              msg = "Quantidade insuficiente no estoque: " + msg;
+            }
+          }
+
           mostrarAviso(msg, "erro");
         }
       } catch { mostrarAviso("Erro de conexão", "erro"); }
@@ -738,6 +820,168 @@
         else mostrarAviso("Erro ao excluir venda", "erro");
       } catch { mostrarAviso("Erro de conexão", "erro"); }
     }
+
+    const inputNome = document.getElementById("input-cliente");
+    const lista     = document.getElementById("listaDeNomesBuscados");
+    const inputNomeVendedor = document.getElementById("input-nomeVendedor");
+    const listaVendedores   = document.getElementById("listaDeVendedoresBuscados");
+
+    async function BuscarListaQueContemNomeDigitado(nome) {
+      const inputCpf = document.getElementById("input-cpf-cnpj"); 
+
+      if (!nome) {
+        lista.style.display = "none";
+        lista.innerHTML = "";
+        inputCpf.value = "";
+        return;
+      }
+
+      try {
+        const resposta = await fetch(
+          `https://projetoapidevendaestagio.onrender.com/api/cliente/buscar-clientes-por-nome/${nome}`,
+          { headers: { "Authorization": localStorage.getItem("JWT") } }
+        );
+
+        const dados = await resposta.json();
+
+        if (!Array.isArray(dados) || dados.length === 0) {
+          lista.innerHTML = "";
+          const li = document.createElement("li");
+          li.innerHTML = "Nenhum Registro Encontrado";
+          li.classList.add("li-de-clientes");
+          lista.appendChild(li);
+          lista.style.display = "block";
+          return;
+        }
+
+        lista.innerHTML = "";
+
+        dados.forEach(cliente => {
+          const li = document.createElement("li");
+
+          let nomeOuRazaoSocial;
+          let cpfOuCnpj;
+
+          if (cliente.tipoCliente === "PessoaFisica") {
+            nomeOuRazaoSocial = cliente.nome;
+            cpfOuCnpj = cliente.cpf;
+          } else if (cliente.tipoCliente === "PessoaJuridica") {
+            nomeOuRazaoSocial = cliente.razaoSocial;
+            cpfOuCnpj = cliente.cnpj;
+          } else {
+            return;
+          }
+
+          li.innerHTML = nomeOuRazaoSocial + "<br>" + cpfOuCnpj;
+          li.classList.add("li-de-clientes");
+
+          li.addEventListener("click", () => {
+            idClienteAtual = cliente.id;
+            lista.innerHTML = "";
+            inputNome.value = nomeOuRazaoSocial;
+            inputCpf.value  = cpfOuCnpj;
+            lista.style.display = "none";
+          });
+
+          lista.appendChild(li);
+        });
+
+        lista.style.display = "block";
+
+      } catch {
+        mostrarAviso("Erro ao buscar Cliente", "erro");
+      }
+    }
+
+    function debounceCliente(func, delay) {
+      let timeout = null;
+      return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func(...args), delay); };
+    }
+
+    inputNome.addEventListener("input", debounceCliente(() => {
+      BuscarListaQueContemNomeDigitado(inputNome.value);
+    }, 200));
+
+    inputNome.addEventListener("blur", () => {
+      setTimeout(() => { lista.innerHTML = ""; lista.style.display = "none"; }, 200);
+    });
+
+    inputNome.addEventListener("focus", () => {
+      if (inputNome.value) BuscarListaQueContemNomeDigitado(inputNome.value);
+    });
+
+    inputNome.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && idClienteAtual != null) {
+        document.getElementById("input-cpf-cnpj").value = "";        
+        idClienteAtual = null;
+      }
+    });
+
+    async function buscarVendedorPorNome(nome) {
+      const inputCpfVendedor = document.getElementById("input-cpfVendedor");
+      if (!nome) {
+        listaVendedores.style.display = "none";
+        listaVendedores.innerHTML = "";
+        inputCpfVendedor.value = "";
+        return;
+      }
+      try {
+        const resposta = await fetch(
+          `https://projetoapidevendaestagio.onrender.com/api/vendedor/buscar-por-nome/${nome}`,
+          { headers: { "Authorization": localStorage.getItem("JWT") } }
+        );
+        const dados = await resposta.json();
+        listaVendedores.innerHTML = "";
+        if (!Array.isArray(dados) || dados.length === 0) {
+          const li = document.createElement("li");
+          li.innerHTML = "Nenhum vendedor encontrado";
+          li.classList.add("li-de-clientes");
+          listaVendedores.style.display = "block";
+          listaVendedores.appendChild(li);
+          return;
+        }
+        dados.forEach(vendedor => {
+          const li = document.createElement("li");
+          li.classList.add("li-de-clientes");
+          li.innerHTML = `${vendedor.nomeCompleto}<br>${vendedor.cpf}`;
+          li.addEventListener("click", () => {
+            idVendedorAtual = vendedor.id;
+            inputNomeVendedor.value = vendedor.nomeCompleto;
+            inputCpfVendedor.value  = vendedor.cpf;
+            listaVendedores.innerHTML = "";
+            listaVendedores.style.display = "none";
+          });
+          listaVendedores.appendChild(li);
+        });
+        listaVendedores.style.display = "block";
+      } catch {
+        mostrarAviso("Erro ao buscar vendedor", "erro");
+      }
+    }
+
+    function debounceVendedor(func, delay) {
+      let timeout = null;
+      return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func(...args), delay); };
+    }
+
+    inputNomeVendedor.addEventListener("input", debounceVendedor(() => {
+      buscarVendedorPorNome(inputNomeVendedor.value);
+    }, 200));
+
+    inputNomeVendedor.addEventListener("blur", () => {
+      setTimeout(() => { listaVendedores.innerHTML = ""; listaVendedores.style.display = "none"; }, 200);
+    });
+
+    inputNomeVendedor.addEventListener("focus", () => {
+      if (inputNomeVendedor.value) buscarVendedorPorNome(inputNomeVendedor.value);
+    });
+
+    inputNomeVendedor.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && idVendedorAtual != null) {
+        document.getElementById("input-cpfVendedor").value = "";
+        idVendedorAtual = null;
+      }
+    });
 
     document.getElementById("btn-confirmar-exclusao").addEventListener("click", excluirVenda);
     document.getElementById("input-desconto-geral").addEventListener("input", calcularTotal);

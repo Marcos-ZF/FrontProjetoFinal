@@ -98,7 +98,7 @@
       <input type="hidden" id="input-idCliente" value="">
     </form>
 
-    <form id="form-venda" class="mb-4"> <!-- Vendedor -->
+    <form id="form-venda" class="mb-4">
       <div class="row g-3 align-items-end">
         <div class="col-md-4 position-relative">
           <label class="form-label">Nome do Vendedor</label>
@@ -394,7 +394,7 @@
     const inputVencimento = document.getElementById("input-vencimento");
     const labelVencimento = document.getElementById("label-vencimento");
 
-    // Inicializa a data vencimento com hoje
+    // Inicializa o vencimento com hoje
     const hoje = new Date().toISOString().split("T")[0];
     inputVencimento.value = hoje;
 
@@ -585,7 +585,6 @@
     }
   });
 
-  // VENDEDOR
 
   const inputNomeVendedor =
     document.getElementById("input-nomeVendedor");

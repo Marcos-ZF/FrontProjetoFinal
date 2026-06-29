@@ -78,7 +78,7 @@
           <a href="logs.html" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Voltar</a>
         </div>
 
-        <!-- Busca unificada -->
+
         <div class="mb-4">
           <div class="d-flex align-items-center gap-2 mb-2">
             <div class="position-relative flex-grow-1">
@@ -87,7 +87,7 @@
             </div>
             <button class="btn btn-primary" onclick="buscarPorNome()"><i class="bi bi-search me-1"></i>Buscar</button>
           </div>
-          <div class="d-flex align-items-center gap-3">
+          <div class="d-flex align-items-center gap-3 flex-wrap">
             <span class="text-muted small">Tipo de documento:</span>
             <div class="form-check mb-0">
               <input class="form-check-input" type="radio" name="tipoDoc" id="radio-cpf" value="Cpf" checked>
@@ -96,6 +96,12 @@
             <div class="form-check mb-0">
               <input class="form-check-input" type="radio" name="tipoDoc" id="radio-cnpj" value="Cnpj">
               <label class="form-check-label small" for="radio-cnpj">CNPJ</label>
+            </div>
+            <div class="btn-group btn-group-sm ms-auto" role="group">
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-ativos" autocomplete="off" checked onchange="trocarEstado('ativos')">
+              <label class="btn btn-outline-success" for="filtro-ativos"><i class="bi bi-check-circle me-1"></i>Ativos</label>
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
+              <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Inativos</label>
             </div>
           </div>
         </div>
@@ -131,7 +137,21 @@
     const API_BASE = 'https://projetoapidevendaestagio.onrender.com/api/cliente';
     const JWT      = () => localStorage.getItem('JWT');
 
-    let clientes = [];
+    let clientesAtivos = [];
+    let clientesInativos = [];
+    let estadoAtual = 'ativos';
+
+    function listaAtual() {
+      return estadoAtual === 'ativos' ? clientesAtivos : clientesInativos;
+    }
+
+    function trocarEstado(estado) {
+      estadoAtual = estado;
+      document.getElementById('input-buscar').value = '';
+      document.getElementById('suggestion-box').style.display = 'none';
+      document.getElementById('info-selecionado').classList.add('d-none');
+      document.getElementById('tabela-logs').innerHTML = `<tr><td colspan="5" class="text-muted py-4">Busque um cliente ${estado === 'inativos' ? 'excluído' : ''} para visualizar os logs.</td></tr>`;
+    }
 
     async function carregarClientes() {
       try {
@@ -139,10 +159,8 @@
           fetch(API_BASE, { headers: { Authorization: JWT() } }),
           fetch(`${API_BASE}/inativos`, { headers: { Authorization: JWT() } })
         ]);
-        let ativos = [], inativos = [];
-        if (resA.status === 'fulfilled' && resA.value.ok) ativos = await resA.value.json();
-        if (resI.status === 'fulfilled' && resI.value.ok) inativos = await resI.value.json();
-        clientes = [...ativos, ...inativos];
+        if (resA.status === 'fulfilled' && resA.value.ok) clientesAtivos = await resA.value.json();
+        if (resI.status === 'fulfilled' && resI.value.ok) clientesInativos = await resI.value.json();
       } catch (e) { console.error(e); }
     }
 
@@ -163,12 +181,12 @@
     function buscarPorNome() {
       const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
       if (!termo) return;
-      const filtrados = clientes.filter(c =>
+      const filtrados = listaAtual().filter(c =>
         nomeCliente(c).toLowerCase().includes(termo) ||
         docCliente(c).includes(termo)
       ).slice(0, 10);
       if (filtrados.length === 1) { selecionarEntidade(filtrados[0]); return; }
-      if (filtrados.length === 0) { buscarPorDocumento(); return; }
+      if (filtrados.length === 0 && estadoAtual === 'inativos') { buscarPorDocumento(); return; }
       renderSuggestions(filtrados);
     }
 
@@ -301,32 +319,32 @@
       if (!termo) { box.style.display = 'none'; return; }
 
       const termoLower = termo.toLowerCase();
-      const filtrados = clientes.filter(c =>
+      const filtrados = listaAtual().filter(c =>
         nomeCliente(c).toLowerCase().includes(termoLower) ||
         docCliente(c).includes(termoLower)
       ).slice(0, 10);
 
-      // Busca simultânea na API por documento (para excluídos permanentemente)
-      const tipoDocumento = document.querySelector('input[name="tipoDoc"]:checked').value;
-      const numeroDocumento = termo.replace(/\D/g, '');
       let excluidos = [];
-      if (numeroDocumento.length >= 5) {
-        try {
-          const res = await fetch(`${API_BASE}/log/documentoIdentificador`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Authorization: JWT() },
-            body: JSON.stringify({ tipoDocumento, numeroDocumento })
-          });
-          if (res.ok) {
-            const logs = await res.json();
-            if (logs.length) {
-              // Monta um objeto "fake" para renderizar na sugestão
-              const docValor = logs.find(l => l.campoAlterado === (tipoDocumento === 'Cpf' ? 'Cpf' : 'Cnpj'))?.valorNovo || termo;
-              const nomeValor = logs.find(l => l.campoAlterado === 'Nome')?.valorNovo || 'Cliente excluído';
-              excluidos = [{ _excluido: true, _nome: nomeValor, _doc: docValor, _logs: logs }];
+      if (estadoAtual === 'inativos') {
+        const tipoDocumento = document.querySelector('input[name="tipoDoc"]:checked').value;
+        const numeroDocumento = termo.replace(/\D/g, '');
+        if (numeroDocumento.length >= 5) {
+          try {
+            const res = await fetch(`${API_BASE}/log/documentoIdentificador`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Authorization: JWT() },
+              body: JSON.stringify({ tipoDocumento, numeroDocumento })
+            });
+            if (res.ok) {
+              const logs = await res.json();
+              if (logs.length) {
+                const docValor = logs.find(l => l.campoAlterado === (tipoDocumento === 'Cpf' ? 'Cpf' : 'Cnpj'))?.valorNovo || termo;
+                const nomeValor = logs.find(l => l.campoAlterado === 'Nome')?.valorNovo || 'Cliente excluído';
+                excluidos = [{ _excluido: true, _nome: nomeValor, _doc: docValor, _logs: logs }];
+              }
             }
-          }
-        } catch { /* silencioso */ }
+          } catch { }
+        }
       }
 
       renderSuggestionsComExcluidos(filtrados, excluidos);
