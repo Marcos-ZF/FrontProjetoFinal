@@ -23,10 +23,10 @@
       </button>
     </div>
     <ul class="nav nav-pills flex-column mt-2 px-2">
-      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
-      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
@@ -52,10 +52,10 @@
       </div>
       <div class="offcanvas-body p-0">
         <ul class="nav nav-pills flex-column">
-          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
-          <li class="nav-item"><a class="nav-link active" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
@@ -77,6 +77,12 @@
           <h2 class="text-center mb-0">Lista de Serviços</h2>
 
           <div class="d-flex align-items-center gap-2">
+            <div class="btn-group btn-group-sm" role="group">
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-ativos" autocomplete="off" checked onchange="trocarEstado('ativos')">
+              <label class="btn btn-outline-success" for="filtro-ativos"><i class="bi bi-check-circle me-1"></i>Ativos</label>
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
+              <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Inativos</label>
+            </div>
             <input
               type="text"
               id="input-buscar-servicos-por-nome"
@@ -152,6 +158,8 @@
 
   <script>
     const API_URL = "https://projetoapidevendaestagio.onrender.com/api/servico";
+    const API_URL_INATIVOS = API_URL + "/inativos";
+    let estadoAtual = "ativos";
 
     function formatarPreco(valor) {
       if (valor === null || valor === undefined || valor === "" || isNaN(valor)) {
@@ -188,18 +196,43 @@
     }
     let filtroNomeAtual = ""; 
 
+    function trocarEstado(estado) {
+      estadoAtual = estado;
+      document.getElementById("input-buscar-servicos-por-nome").value = "";
+      carregarServico();
+    }
+
+    async function reativarServico(id) {
+      try {
+        const resp = await fetch(`${API_URL}/reativar/${id}`, {
+          method: "PATCH",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+        if (resp.ok) {
+          carregarServico();
+        } else {
+          const txt = await resp.text();
+          alert(`Erro ao reativar: ${txt || resp.status}`);
+        }
+      } catch (e) {
+        alert("Erro de conexão ao reativar serviço.");
+      }
+    }
+
     async function carregarServico(nomeFiltro = "") {
       const tabela = document.getElementById("tabela-servico");
-      tabela.innerHTML = `<tr><td colspan="5" class="text-muted">Carregando...</td></tr>`;
+      tabela.innerHTML = `<tr><td colspan="4" class="text-muted">Carregando...</td></tr>`;
+
+      const url = estadoAtual === "inativos" ? API_URL_INATIVOS : API_URL;
 
       try {
-        const resposta = await fetch(API_URL, {
+        const resposta = await fetch(url, {
           method: "GET",
           headers: { "Authorization": localStorage.getItem("JWT") }
         });
 
         if (!resposta.ok) {
-          tabela.innerHTML = `<tr><td colspan="5" class="text-danger">Erro: ${resposta.status} - ${resposta.statusText}</td></tr>`;
+          tabela.innerHTML = `<tr><td colspan="4" class="text-danger">Erro: ${resposta.status} - ${resposta.statusText}</td></tr>`;
           return;
         }
 
@@ -207,7 +240,7 @@
         servicosCache = servicos;
 
         if (!Array.isArray(servicos) || servicos.length === 0) {
-          tabela.innerHTML = `<tr><td colspan="5" class="text-muted">Nenhum serviço encontrado.</td></tr>`;
+          tabela.innerHTML = `<tr><td colspan="4" class="text-muted">Nenhum serviço encontrado.</td></tr>`;
           return;
         }
 
@@ -220,7 +253,7 @@
         }
 
         if (servicosFiltrados.length === 0) {
-          tabela.innerHTML = `<tr><td colspan="5" class="text-muted">Nenhum serviço encontrado com esse nome.</td></tr>`;
+          tabela.innerHTML = `<tr><td colspan="4" class="text-muted">Nenhum serviço encontrado com esse nome.</td></tr>`;
           return;
         }
 
@@ -229,16 +262,19 @@
         servicosFiltrados.forEach(s => {
           const preco = formatarPreco(s.precoServico);
 
+          const acoes = estadoAtual === "inativos"
+            ? `<button class="btn btn-info btn-sm" onclick="verDetalhesServico('${s.id}')">Detalhes</button>
+               <button class="btn btn-success btn-sm" onclick="reativarServico('${s.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
+            : `<button class="btn btn-info btn-sm" onclick="verDetalhesServico('${s.id}')">Detalhes</button>
+               <button class="btn btn-warning btn-sm" onclick="editarServico('${s.id}')">Editar</button>
+               <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${s.id}', ${s.podeExcluir})">Excluir</button>`;
+
           const linha = `
             <tr>
               <td class="text-start ps-3">${s.nomeServico}</td>
               <td>${s.codigoDoServico}</td>
               <td class="text-end">${preco}</td>
-              <td class="text-center">
-                <button class="btn btn-info btn-sm" onclick="verDetalhesServico('${s.id}')">Detalhes</button>
-                <button class="btn btn-warning btn-sm" onclick="editarServico('${s.id}')">Editar</button>
-                <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${s.id}', ${s.podeExcluir})">Excluir</button>
-              </td>
+              <td class="text-center">${acoes}</td>
             </tr>
           `;
           tabela.innerHTML += linha;
@@ -260,7 +296,12 @@
         return;
       }
 
-      tabela.innerHTML = `<tr><td colspan="5" class="text-muted">Buscando serviço...</td></tr>`;
+      if (estadoAtual === "inativos") {
+        carregarServico(termo);
+        return;
+      }
+
+      tabela.innerHTML = `<tr><td colspan="4" class="text-muted">Buscando serviço...</td></tr>`;
 
       try {
         const respostaCodigo = await fetch(`${API_URL}/busca-por-codigo-do-servico/${encodeURIComponent(termo)}` , {

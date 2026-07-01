@@ -21,8 +21,8 @@
       </button>
     </div>
     <ul class="nav nav-pills flex-column mt-2 px-2">
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
-      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
@@ -50,8 +50,8 @@
       </div>
       <div class="offcanvas-body p-0">
         <ul class="nav nav-pills flex-column">
-          <li class="nav-item"><a class="nav-link" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
+          <li class="nav-item"><a class="nav-link active" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
@@ -77,6 +77,12 @@
           <h2 class="mb-0">Lista de Clientes</h2>
 
           <div class="d-flex align-items-center gap-2">
+            <div class="btn-group btn-group-sm" role="group">
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-ativos" autocomplete="off" checked onchange="trocarEstado('ativos')">
+              <label class="btn btn-outline-success" for="filtro-ativos"><i class="bi bi-check-circle me-1"></i>Ativos</label>
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
+              <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Inativos</label>
+            </div>
             <input
               type="text"
               id="input-buscar-clientes-por-nome"
@@ -147,7 +153,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    const API_URL = "https://projetoapidevendaestagio.onrender.com/api/cliente";
+    const API_URL = "https://localhost:7036/api/cliente";
+    const API_URL_INATIVOS = API_URL + "/inativos";
+    let estadoAtual = "ativos";
     const API_URL_POR_NOME = API_URL + "/buscar-clientes-por-nome/";
     const API_URL_DOCUMENTO = API_URL + "/buscar-cliente-por-documento-indentificador";
 
@@ -194,17 +202,20 @@
         const docRaw = c.tipoCliente === "PessoaFisica" ? c.cpf : c.cnpj;
         const doc    = c.tipoCliente === "PessoaFisica" ? formatarCpf(docRaw) : formatarCnpj(docRaw);
 
+        const acoes = estadoAtual === "inativos"
+          ? `<button class="btn btn-info btn-sm botoes-acoes" onclick="verDetalhes('${c.id}')">Detalhes</button>
+             <button class="btn btn-success btn-sm botoes-acoes" onclick="reativarCliente('${c.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
+          : `<button class="btn btn-info btn-sm botoes-acoes" onclick="verDetalhes('${c.id}')">Detalhes</button>
+             <button class="btn btn-warning btn-sm botoes-acoes" onclick="editarCliente('${c.id}')">Editar</button>
+             <button class="btn btn-danger btn-sm botoes-acoes" onclick="abrirModalExclusao('${c.id}', ${c.podeExcluir})">Excluir</button>`;
+
         const linha = `
           <tr>
             <td>${tipo}</td>
             <td>${nome}</td>
             <td style="text-align: right; padding-right: 12px;">${doc}</td>
             <td>${c.endereco?.cidade || "-"}</td>
-            <td>
-              <button class="btn btn-info btn-sm botoes-acoes" onclick="verDetalhes('${c.id}')">Detalhes</button>
-              <button class="btn btn-warning btn-sm botoes-acoes" onclick="editarCliente('${c.id}')">Editar</button>
-              <button class="btn btn-danger btn-sm botoes-acoes" onclick="abrirModalExclusao('${c.id}', ${c.podeExcluir})">Excluir</button>
-            </td>
+            <td>${acoes}</td>
           </tr>
         `;
         tabela.innerHTML += linha;
@@ -253,6 +264,18 @@
 
       if (termo === "") {
         carregarClientes();
+        return;
+      }
+
+      if (estadoAtual === "inativos") {
+        const termoLower = termo.toLowerCase();
+        const somenteNum = termo.replace(/\D/g, "");
+        const filtrados = clientesCache.filter(c => {
+          const nome = (c.tipoCliente === "PessoaFisica" ? c.nome : c.razaoSocial) || "";
+          const doc = (c.tipoCliente === "PessoaFisica" ? c.cpf : c.cnpj) || "";
+          return nome.toLowerCase().includes(termoLower) || (somenteNum && doc.replace(/\D/g, "").includes(somenteNum));
+        });
+        preencherTabela(filtrados);
         return;
       }
 
@@ -317,12 +340,37 @@
       }
     }
 
+    function trocarEstado(estado) {
+      estadoAtual = estado;
+      document.getElementById("input-buscar-clientes-por-nome").value = "";
+      carregarClientes();
+    }
+
+    async function reativarCliente(id) {
+      try {
+        const resp = await fetch(`${API_URL}/reativar/${id}`, {
+          method: "PATCH",
+          headers: { "Authorization": localStorage.getItem("JWT") }
+        });
+        if (resp.ok) {
+          carregarClientes();
+        } else {
+          const txt = await resp.text();
+          alert(`Erro ao reativar: ${txt || resp.status}`);
+        }
+      } catch (e) {
+        alert("Erro de conexão ao reativar cliente.");
+      }
+    }
+
     async function carregarClientes() {
       const tabela = document.getElementById("tabela-clientes");
       tabela.innerHTML = `<tr><td colspan="10" class="text-muted text-center">Carregando...</td></tr>`;
 
+      const url = estadoAtual === "inativos" ? API_URL_INATIVOS : API_URL;
+
       try {
-        const resposta = await fetch(API_URL, {
+        const resposta = await fetch(url, {
           method: "GET",
           headers: { "Authorization": localStorage.getItem("JWT") }
         });

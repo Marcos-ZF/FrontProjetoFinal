@@ -23,13 +23,13 @@
       </button>
     </div>
     <ul class="nav nav-pills flex-column mt-2 px-2">
-      <li class="nav-item"><a class="nav-link  d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
+      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="home.html"><i class="bi bi-house-door me-2"></i><span class="link-text">Home</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_clientes.html"><i class="bi bi-people me-2"></i><span class="link-text">Clientes</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i><span class="link-text">Produtos</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i><span class="link-text">Serviços</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
-      <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
@@ -52,13 +52,13 @@
       </div>
       <div class="offcanvas-body p-0">
         <ul class="nav nav-pills flex-column">
-          <li class="nav-item"><a class="nav-link  " href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="home.html"><i class="bi bi-house-door me-2"></i>Home</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_clientes.html"><i class="bi bi-people me-2"></i>Clientes</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_produtos.html"><i class="bi bi-box-seam me-2"></i>Produtos</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_serviços.html"><i class="bi bi-tools me-2"></i>Serviços</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
-          <li class="nav-item"><a class="nav-link active" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
           <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
           <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
@@ -77,6 +77,12 @@
           <h2 class="mb-0">Lista de Vendas</h2>
 
           <div class="d-flex align-items-center gap-2">
+            <div class="btn-group btn-group-sm" role="group">
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-ativos" autocomplete="off" checked onchange="trocarEstado('ativos')">
+              <label class="btn btn-outline-success" for="filtro-ativos"><i class="bi bi-check-circle me-1"></i>Ativas</label>
+              <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
+              <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Canceladas</label>
+            </div>
             <input type="text" id="input-buscar-cpf" class="form-control" style="max-width: 250px;" placeholder="Buscar por CPF ou Cod">
             <button class="btn btn-primary" onclick="buscarPorCpf()">Buscar</button>
           </div>
@@ -111,8 +117,16 @@
 
   <script>
     const API_URL = "https://projetoapidevendaestagio.onrender.com/api/venda";
+    const API_URL_INATIVOS = API_URL + "/inativos";
+    let estadoAtual = "ativos";
 
     let filtroVendaAtual = "";
+
+    function trocarEstado(estado) {
+      estadoAtual = estado;
+      document.getElementById("input-buscar-cpf").value = "";
+      carregarVendas();
+    }
 
     function formatarMoeda(valor) {
       if (valor === null || valor === undefined || valor === "" || isNaN(valor)) {
@@ -127,12 +141,10 @@
     }
 
     function obterCliente(venda) {
-      if (!venda || !venda.cliente) return "-";
       return venda.cliente.nome || venda.cliente.razaoSocial || "-";
     }
 
     function obterDocumento(venda) {
-      if (!venda || !venda.cliente) return "-";
       return venda.cliente.cpf || venda.cliente.cnpj || "-";
     }
 
@@ -179,8 +191,10 @@
       const tabela = document.querySelector("#tabela-vendas tbody");
       tabela.innerHTML = `<tr><td colspan="7" class="text-muted">Carregando vendas...</td></tr>`;
 
+      const url = estadoAtual === "inativos" ? API_URL_INATIVOS : API_URL;
+
       try {
-        const resposta = await fetch(API_URL, {
+        const resposta = await fetch(url, {
           method: "GET",
           headers: { "Authorization": localStorage.getItem("JWT") }
         });
@@ -202,15 +216,12 @@
         if (filtro.trim() !== "") {
           const termo = filtro.trim().toLowerCase();
 
-         vendasFiltradas = vendas.filter(v => {
-          const venda = v.venda || v;
-          const codigo = String(venda.codigoDaVenda || venda.codigoVenda || venda.codigo || "").toLowerCase();
-          
-          const cliente = venda.cliente;
-          const documento = cliente ? String(cliente.cpf || cliente.cnpj || "").toLowerCase() : "";
+          vendasFiltradas = vendas.filter(v => {
+            const codigo = String(v.codigoDaVenda || v.codigoVenda || v.codigo || "").toLowerCase();
+            const documento = String(obterDocumento(v)).toLowerCase();
 
-          return codigo.includes(termo) || documento.includes(termo);
-        });
+            return codigo.includes(termo) || documento.includes(termo);
+          });
         }
 
         if (vendasFiltradas.length === 0) {

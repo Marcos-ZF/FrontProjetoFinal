@@ -78,19 +78,12 @@
           <a href="logs.html" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Voltar</a>
         </div>
 
-        <div class="d-flex align-items-center gap-2 mb-2">
+        <div class="d-flex align-items-center gap-2 mb-4">
           <div class="position-relative flex-grow-1">
             <input type="text" id="input-buscar" class="form-control" placeholder="Buscar vendedor por nome ou CPF..." autocomplete="off">
             <div id="suggestion-box" class="position-absolute bg-white border rounded shadow-sm w-100" style="z-index:1000; display:none; max-height:220px; overflow-y:auto;"></div>
           </div>
           <button class="btn btn-primary" onclick="buscarPorNome()"><i class="bi bi-search me-1"></i>Buscar</button>
-        </div>
-
-        <div class="btn-group btn-group-sm mb-4" role="group">
-          <input type="radio" class="btn-check" name="filtro-estado" id="filtro-ativos" autocomplete="off" checked onchange="trocarEstado('ativos')">
-          <label class="btn btn-outline-success" for="filtro-ativos"><i class="bi bi-check-circle me-1"></i>Ativos</label>
-          <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
-          <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Inativos</label>
         </div>
 
         <div id="info-selecionado" class="alert alert-secondary d-none mb-3 py-2">
@@ -124,21 +117,7 @@
     const API_BASE = 'https://projetoapidevendaestagio.onrender.com/api/vendedor';
     const JWT      = () => localStorage.getItem('JWT');
 
-    let vendedoresAtivos = [];
-    let vendedoresInativos = [];
-    let estadoAtual = 'ativos';
-
-    function listaAtual() {
-      return estadoAtual === 'ativos' ? vendedoresAtivos : vendedoresInativos;
-    }
-
-    function trocarEstado(estado) {
-      estadoAtual = estado;
-      document.getElementById('input-buscar').value = '';
-      document.getElementById('suggestion-box').style.display = 'none';
-      document.getElementById('info-selecionado').classList.add('d-none');
-      document.getElementById('tabela-logs').innerHTML = `<tr><td colspan="5" class="text-muted py-4">Busque um vendedor ${estado === 'inativos' ? 'excluído' : ''} para visualizar os logs.</td></tr>`;
-    }
+    let vendedores = [];
 
     async function carregarVendedores() {
       try {
@@ -146,15 +125,17 @@
           fetch(API_BASE, { headers: { Authorization: JWT() } }),
           fetch(`${API_BASE}/inativos`, { headers: { Authorization: JWT() } })
         ]);
-        if (resA.status === 'fulfilled' && resA.value.ok) vendedoresAtivos = await resA.value.json();
-        if (resI.status === 'fulfilled' && resI.value.ok) vendedoresInativos = await resI.value.json();
+        let ativos = [], inativos = [];
+        if (resA.status === 'fulfilled' && resA.value.ok) ativos = await resA.value.json();
+        if (resI.status === 'fulfilled' && resI.value.ok) inativos = await resI.value.json();
+        vendedores = [...ativos, ...inativos];
       } catch (e) { console.error(e); }
     }
 
     function buscarPorNome() {
       const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
       if (!termo) return;
-      const filtrados = listaAtual().filter(v =>
+      const filtrados = vendedores.filter(v =>
         (v.nomeCompleto || '').toLowerCase().includes(termo) ||
         (v.cpf || '').includes(termo)
       ).slice(0, 10);
@@ -228,7 +209,7 @@
     input.addEventListener('input', () => {
       const termo = input.value.trim().toLowerCase();
       if (!termo) { box.style.display = 'none'; return; }
-      const filtrados = listaAtual().filter(v =>
+      const filtrados = vendedores.filter(v =>
         (v.nomeCompleto || '').toLowerCase().includes(termo) ||
         (v.cpf || '').includes(termo)
       ).slice(0, 10);

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html: <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
@@ -67,7 +67,11 @@
       </div>
     </div>
   </div>
-
+  <div id="div-transparente"></div>
+  <div id="div-informa-login-necessario">
+    <h4 style="color: #1e3a5f;">Login necessário para acessar esta funcionalidade.</h4>
+    <button id="botao-fazer-login" onclick="login()">Fazer Login</button>
+  </div>
   <main id="mainContent" class="main-content">
     <div class="container mt-5">
       <div class="form-box">
@@ -76,8 +80,11 @@
           <h2 class="mb-0">Relatórios</h2>
         </div>
 
-        <section class="relatorios-container">
-          <button id="botao-mostar-div-produtos-com-maior-faturamento-por-periodo" onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-produtos-com-maior-faturamento-por-periodo')" class="botao-gerar-relatorio-produtos-mais-vendidos botoes-relatorio btn shortcut-btn d-flex justify-content-center align-items-center">
+        <section class="relatorios-container-superior">
+          <button id="botao-mostar-div-produtos-mais-vendidos-por-periodo" 
+          onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-produtos-mais-vendidos-por-periodo')"
+           class="botao-gerar-relatorio-produtos-mais-vendidos botoes-relatorio btn shortcut-btn d-flex justify-content-center 
+           align-items-center">
             Relatório De Produtos Mais Vendidos Por período
           </button>
 
@@ -85,22 +92,42 @@
             Relatório De Produtos Em Falta
           </button>
 
-          <button id="botao-mostar-div-vendas-por-periodo" onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-vendas-por-periodo')" class="botao-gerar-relatorio-de-vendas-por-periodo botoes-relatorio btn shortcut-btn d-flex justify-content-center align-items-center">
+          <button id="botao-mostar-div-vendas-por-periodo" 
+          onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-vendas-por-periodo')" 
+          class="botao-gerar-relatorio-de-vendas-por-periodo botoes-relatorio btn shortcut-btn d-flex 
+          justify-content-center align-items-center">
             Relatório De Venda Por Período
+          </button>
+        </section>
+        <section class="relatorios-container-inferior">
+          <button id="botao-mostar-div-fornecedores-com-maior-volume-entradas-por-periodo"
+           onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-fornecedores-com-maior-volume-entradas-por-periodo')" 
+           class="botao-gerar-relatorio-fornecedores-com-maior-volume-entradas botoes-relatorio btn shortcut-btn d-flex justify-content-center 
+           align-items-center">
+            Relatório De Fornecedores Com Maior volume de Entradas de Estoque Por Período
+          </button>
+
+          <button id="botao-mostar-div-vendedores-com-maior-faturamento-por-periodoo" 
+          onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-vendedores-com-maior-faturamento-periodo')" 
+          class="botao-gerar-relatorio-vendedores-com-maior-faturamento-por-periodo 
+          botoes-relatorio btn shortcut-btn d-flex justify-content-center 
+          align-items-center">
+            Relatório De Vendedores com maior faturamento por Período
           </button>
         </section>
 
       </div>
     </div>
 
-    <div id="div-gerar-relatorio-produtos-com-maior-faturamento-por-periodo" class="div-relatorios">
+    <div id="div-gerar-relatorio-produtos-mais-vendidos-por-periodo" class="div-relatorios">
       <h3 class="text-center mt-3 mb-3 titulo-relatorio-produtos-mais-vendidos">Relatório De Produtos Mais vendidos Por Período</h3>
-      <i onclick="ocultarDivParaReceberDataPorPeriodo('div-gerar-relatorio-produtos-com-maior-faturamento-por-periodo','input-data-inicio-produtos-com-maior-faturamento','input-data-fim-produtos-com-maior-faturamento')" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
-      <label for="input-data-inicio-produtos-com-maior-faturamento">Data De Inicio Do Período</label>
-      <input class="form-control" id="input-data-inicio-produtos-com-maior-faturamento" type="date" required>
-      <label for="input-data-fim-produtos-com-maior-faturamento">Data De Fim Do Período</label>
-      <input class="form-control" id="input-data-fim-produtos-com-maior-faturamento" type="date" required>
-      <button onclick="gerarRelatorioDeProdutosComMaiorFaturamentoPorPeriodo()" id="botao-gerar-relatorio-produtos-com-maior-faturamento-por-periodo">Gerar Relatório</button>
+      <i onclick="ocultarDivParaReceberDataPorPeriodo('div-gerar-relatorio-produtos-mais-vendidos-por-periodo','input-data-inicio-produtos-mais-vendidos','input-data-fim-produtos-mais-vendidos')" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
+      <label for="input-data-inicio-produtos-mais-vendidos">Data De Inicio Do Período</label>
+      <input class="form-control" id="input-data-inicio-produtos-mais-vendidos" type="date" required>
+      <label for="input-data-fim-produtos-mais-vendidos">Data De Fim Do Período</label>
+      <input class="form-control" id="input-data-fim-produtos-mais-vendidos" type="date" required>
+      <button onclick="gerarRelatorioDeProdutosMaisVendidosPorPeriodo()" 
+      class="botao-gerar-relatorio" >Gerar Relatório</button>
     </div>
 
     <div id="div-gerar-relatorio-produtos-em-falta" class="div-relatorios">
@@ -108,7 +135,7 @@
       <i onclick="ocultarDivParaReceberQuantidadeProdutosEmFalta()" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
       <label id="labe-quantidade-produtos-em-falta" for="input-quantidade-usada-para-busca-produtos-em-falta">Digite a quantidade limite para buscar produtos com estoque menor ou igual ao valor informado:</label>
       <input class="form-control" id="input-quantidade-usada-para-busca-produtos-em-falta" type="number" required>
-      <button onclick="gerarRelatorioDeProdutosEmFalta()" id="botao-gerar-relatorio-produtos-em-falta">Gerar Relatório</button>
+      <button onclick="gerarRelatorioDeProdutosEmFalta()" class="botao-gerar-relatorio" >Gerar Relatório</button>
     </div>
 
     <div id="div-gerar-relatorio-vendas-por-periodo" class="div-relatorios">
@@ -118,7 +145,31 @@
       <input class="form-control" id="input-data-inicio-venda-p-periodo" type="date" required>
       <label for="input-data-Fim-venda-p-periodo">Data De Fim Do Período</label>
       <input class="form-control" id="input-data-Fim-venda-p-periodo" type="date" required>
-      <button onclick="gerarRelatorioDeVendasPorPeriodo()" id="botao-gerar-relatorio-vendas-por-periodo">Gerar Relatório</button>
+      <button onclick="gerarRelatorioDeVendasPorPeriodo()" class="botao-gerar-relatorio" >Gerar Relatório</button>
+    </div>
+
+    <div id="div-gerar-relatorio-fornecedores-com-maior-volume-entradas-por-periodo" class="div-relatorios">
+      <h3 class="text-center mt-3 mb-3">Relatório De Fornecedores Com Maior Volume De Entrada Por Período</h3>
+      <i onclick="ocultarDivParaReceberDataPorPeriodo('div-gerar-relatorio-fornecedores-com-maior-volume-entradas-por-periodo','input-data-inicio-fornecedores-com-maior-volume-entrada-periodo','input-data-Fim-fornecedores-com-maior-volume-entrada-periodo')" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
+      <label for="input-data-inicio-fornecedores-com-maior-volume-entrada-periodo">Data De Inicio Do Período</label>
+      <input class="form-control" id="input-data-inicio-fornecedores-com-maior-volume-entrada-periodo" type="date" required>
+      <label for="input-data-Fim-fornecedores-com-maior-volume-entrada-periodo">Data De Fim Do Período</label>
+      <input class="form-control" id="input-data-Fim-fornecedores-com-maior-volume-entrada-periodo" type="date" required>
+      <button onclick="gerarRelatorioDeFornecedoresComMaiorVolumeDeEntradaPorPeriodo()" class="botao-gerar-relatorio" 
+      >Gerar Relatório</button>
+    </div>
+
+    <div id="div-gerar-relatorio-vendedores-com-maior-faturamento-periodo" class="div-relatorios">
+      <h3 class="text-center mt-3 mb-3">Relatório De Vendedores Com Maior Faturamento Por Período</h3>
+      <i onclick="ocultarDivParaReceberDataPorPeriodo('div-gerar-relatorio-vendedores-com-maior-faturamento-periodo',
+      'input-data-inicio-vendedores-com-maior-faturamento-periodo',
+      'input-data-Fim-vendedores-com-maior-faturamento-periodo')" class="icone-arrow fa-solid fa-arrow-left" style="color: #000000;"></i>
+      <label for="input-data-inicio-vendedores-com-maior-faturamento-periodo">Data De Inicio Do Período</label>
+      <input class="form-control" id="input-data-inicio-vendedores-com-maior-faturamento-periodo" type="date" required>
+      <label for="input-data-Fim-vendedores-com-maior-faturamento-periodo">Data De Fim Do Período</label>
+      <input class="form-control" id="input-data-Fim-vendedores-com-maior-faturamento-periodo" type="date" required>
+      <button onclick="gerarRelatorioVendedoresComMaiorFaturamentoPorPeriodo()" class="botao-gerar-relatorio" 
+      >Gerar Relatório</button>
     </div>
 
     <div class="div-aviso"></div>
@@ -127,11 +178,29 @@
   <script>
     const API_URL_PRODUTOS = "https://projetoapidevendaestagio.onrender.com/api/produto/";
     const API_URL_VENDAS = "https://projetoapidevendaestagio.onrender.com/api/venda/";
+    const API_URL_FORNECEDORES = "https://projetoapidevendaestagio.onrender.com/api/fornecedor/";
+    const API_URL_VENDEDORES = "https://projetoapidevendaestagio.onrender.com/api/vendedor/";
     const divAviso = document.getElementsByClassName("div-aviso")[0];
-    const botaoMostrarDivProdutosComMaiorFaturamentoPorPeriodo = document.getElementById("botao-mostar-div-produtos-com-maior-faturamento-por-periodo");
+    const botaoMostrarDivProdutosComMaiorFaturamentoPorPeriodo = document.getElementById("botao-mostar-div-produtos-mais-vendidos-por-periodo");
     const botaoMostrarDivProdutosEmFalta = document.getElementById("botao-mostar-div-produtos-em-falta");
     const botaoMostrarDivVEndasPorPeriodo = document.getElementById("botao-mostar-div-vendas-por-periodo");
     let algumaDivEstaSendoMostrada = false;
+
+    function mostrarAvisoLogin(){
+      document.querySelectorAll(".div-relatorios").forEach(div => {
+        div.style.display = "none";
+      });
+      algumaDivEstaSendoMostrada = false;
+
+      const divTransparente = document.getElementById("div-transparente");
+      const divInformaLoginNecessario = document.getElementById("div-informa-login-necessario");
+      divTransparente.style.display = "block";
+      divInformaLoginNecessario.style.display = "flex";
+    }
+
+    function login() {
+      window.location.href = "index.html";
+    }
 
     function mostrarDivParaReceberQuantidadeProdutosEmFalta(){
       if(algumaDivEstaSendoMostrada){
@@ -171,39 +240,39 @@
     }
 
     function gerarRelatorioDeVendasPorPeriodo(){
-      let dataDeInicioVendaPorPeriodo = document.getElementById("input-data-inicio-venda-p-periodo").value;
-      let dataDeFimVendaPorPeriodo = document.getElementById("input-data-Fim-venda-p-periodo").value;
+      let dataDeInicioDoPeriodo = document.getElementById("input-data-inicio-venda-p-periodo").value;
+      let dataFinalDoPeriodo = document.getElementById("input-data-Fim-venda-p-periodo").value;
 
-      if(!dataDeInicioVendaPorPeriodo){
+      if(!dataDeInicioDoPeriodo){
         mostrarAviso("Data de início precisa ser informada","erro");
         return;
       }
 
-      if(!dataDeFimVendaPorPeriodo){
+      if(!dataFinalDoPeriodo){
         mostrarAviso("Data de Fim precisa ser informada","erro");
         return;
       }
 
       const regexData = /^\d{4}-\d{2}-\d{2}$/;
 
-      if(!regexData.test(dataDeInicioVendaPorPeriodo)){
+      if(!regexData.test(dataDeInicioDoPeriodo)){
         mostrarAviso("Data de início está em formato inválido.","erro");
         return;
       }
 
-      if(!regexData.test(dataDeFimVendaPorPeriodo)){
+      if(!regexData.test(dataFinalDoPeriodo)){
         mostrarAviso("Data de Fim está em formato inválido.","erro");
         return;
       }
 
-      if(dataDeInicioVendaPorPeriodo > dataDeFimVendaPorPeriodo){
+      if(dataDeInicioDoPeriodo > dataFinalDoPeriodo){
         mostrarAviso("A Data de Início do período não pode ser maior do que a data de Fim do Período","erro");
         return;
       }
 
       let body = {
-        DataDeInicioDoPeriodo : dataDeInicioVendaPorPeriodo,
-        DataDeFimDoPeriodo : dataDeFimVendaPorPeriodo
+        dataDeInicioDoPeriodo,
+        dataFinalDoPeriodo
       };
       
       fetch(API_URL_VENDAS+"relatorio-de-vendas-por-periodo",{
@@ -211,58 +280,85 @@
         headers :{ "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT") },
         body : JSON.stringify(body)
       })
-      .then(response=>response.blob())
+      .then(tratarRespostaRelatorio)
       .then(blob=>{
         const url=URL.createObjectURL(blob);
         window.open(url,"_blank");
       })
-      .catch(erro=>mostrarAviso(erro,"erro"));
+      .catch(tratarErroRelatorio);
     }
 
-    function gerarRelatorioDeProdutosComMaiorFaturamentoPorPeriodo(){
-      let dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo=document.getElementById("input-data-inicio-produtos-com-maior-faturamento").value;
-      let dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo=document.getElementById("input-data-fim-produtos-com-maior-faturamento").value;
+    function tratarRespostaRelatorio(response){
+      if(response.status === 401){
+        mostrarAvisoLogin();
+        throw new Error("NAO_AUTORIZADO");
+      }
+      if(response.status === 500){
+        throw new Error("ERRO_SERVIDOR");
+      }
+      if(!response.ok){
+        throw new Error("ERRO_GENERICO");
+      }
+      return response.blob();
+    }
 
-      if(!dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo){
+  function tratarErroRelatorio(erro){
+    if(erro.message === "NAO_AUTORIZADO") return;
+    if(erro.message === "ERRO_SERVIDOR"){
+      mostrarAviso("Erro interno do servidor. Procure o suporte.","erro");
+      return;
+    }
+    mostrarAviso("Erro ao gerar relatório. Tente novamente.","erro");
+  }
+
+    function gerarRelatorioDeProdutosMaisVendidosPorPeriodo(){
+      let dataDeInicioDoPeriodo=document.getElementById("input-data-inicio-produtos-mais-vendidos").value;
+      let dataFinalDoPeriodo=document.getElementById("input-data-fim-produtos-mais-vendidos").value;
+
+      if(!dataDeInicioDoPeriodo){
         mostrarAviso("Data de início precisa ser informada","erro");
         return;
       }
 
-      if(!dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo){
+      if(!dataFinalDoPeriodo){
         mostrarAviso("Data de Fim precisa ser informada","erro");
         return;
       }
 
       const regexData = /^\d{4}-\d{2}-\d{2}$/;
 
-      if(!regexData.test(dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo)){
+      if(!regexData.test(dataDeInicioDoPeriodo)){
         mostrarAviso("Data de início está em formato inválido.","erro");
         return;
       }
 
-      if(!regexData.test(dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo)){
+      if(!regexData.test(dataFinalDoPeriodo)){
         mostrarAviso("Data de Fim está em formato inválido.","erro");
+        return;
+      }
+      if(dataDeInicioDoPeriodo > dataFinalDoPeriodo){
+        mostrarAviso("A Data de Início do período não pode ser maior do que a data de Fim do Período","erro");
         return;
       }
 
       let body={
-        DataDeInicioDoPeriodo : dataDeInicioProdutosComaMaiorFaturamentoPorPeriodoPeriodo,
-        DataDeFimDoPeriodo : dataDeFimProdutosComaMaiorFaturamentoPorPeriodoPeriodo
+        dataDeInicioDoPeriodo,
+        dataFinalDoPeriodo
       };
       
-      fetch(API_URL_PRODUTOS+"relatorio-produtos-com-maior-faturamento-por-periodo",{
+      fetch(API_URL_PRODUTOS+"relatorio-produtos-mais-vendidos-por-periodo",{
         method : "POST",
         headers :{
           "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT")
         },
         body : JSON.stringify(body)
       })
-      .then(response=>response.blob())
+      .then(tratarRespostaRelatorio)
       .then(blob=>{
         const url=URL.createObjectURL(blob);
         window.open(url,"_blank");
       })
-      .catch(erro=>mostrarAviso(erro,"erro"));
+      .catch(tratarErroRelatorio);
     }
 
     function gerarRelatorioDeProdutosEmFalta(){
@@ -289,12 +385,12 @@
           "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT")
         }
       })
-      .then(response=>response.blob())
+      .then(tratarRespostaRelatorio)
       .then(blob=>{
         const url=URL.createObjectURL(blob);
         window.open(url,"_blank");
       })
-      .catch(erro=>mostrarAviso(erro,"erro"));
+      .catch(tratarErroRelatorio);
     }
 
     function mostrarAviso(mensagem, tipo) {
@@ -310,7 +406,101 @@
         }, 5000);
       }, 2300);
     }
+    function gerarRelatorioDeFornecedoresComMaiorVolumeDeEntradaPorPeriodo(){
+      const dataDeInicioDoPeriodo=document.getElementById("input-data-inicio-fornecedores-com-maior-volume-entrada-periodo").value;
+      const dataFinalDoPeriodo=document.getElementById("input-data-Fim-fornecedores-com-maior-volume-entrada-periodo").value
+
+      if(!dataDeInicioDoPeriodo){
+        mostrarAviso("Data de início precisa ser informada","erro");
+        return;
+      }
+
+      if(!dataFinalDoPeriodo){
+        mostrarAviso("Data de Fim precisa ser informada","erro");
+        return;
+      }
+
+      const regexData = /^\d{4}-\d{2}-\d{2}$/;
+
+      if(!regexData.test(dataDeInicioDoPeriodo)){
+        mostrarAviso("Data de início está em formato inválido.","erro");
+        return;
+      }
+
+      if(!regexData.test(dataFinalDoPeriodo)){
+        mostrarAviso("Data de Fim está em formato inválido.","erro");
+        return;
+      }
+      if(dataDeInicioDoPeriodo > dataFinalDoPeriodo){
+        mostrarAviso("A Data de Início do período não pode ser maior do que a data de Fim do Período","erro");
+        return;
+      }
+      let body={
+        dataDeInicioDoPeriodo,
+        dataFinalDoPeriodo
+      };
+
+      fetch(API_URL_FORNECEDORES+"gerar-relatorio-fornecedores-com-maior-volume-de-entrada-por-periodo",{
+        method : "POST",
+        headers :{ "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT") },
+        body : JSON.stringify(body)
+      })
+      .then(tratarRespostaRelatorio)
+      .then(blob=>{
+        const url=URL.createObjectURL(blob);
+        window.open(url,"_blank");
+      })
+      .catch(tratarErroRelatorio);
+    }
+
+    function gerarRelatorioVendedoresComMaiorFaturamentoPorPeriodo(){
+      const dataDeInicioDoPeriodo=document.getElementById("input-data-inicio-vendedores-com-maior-faturamento-periodo").value;
+      const dataFinalDoPeriodo=document.getElementById("input-data-Fim-vendedores-com-maior-faturamento-periodo").value
+
+      if(!dataDeInicioDoPeriodo){
+        mostrarAviso("Data de início precisa ser informada","erro");
+        return;
+      }
+
+      if(!dataFinalDoPeriodo){
+        mostrarAviso("Data de Fim precisa ser informada","erro");
+        return;
+      }
+
+      const regexData = /^\d{4}-\d{2}-\d{2}$/;
+
+      if(!regexData.test(dataDeInicioDoPeriodo)){
+        mostrarAviso("Data de início está em formato inválido.","erro");
+        return;
+      }
+
+      if(!regexData.test(dataFinalDoPeriodo)){
+        mostrarAviso("Data de Fim está em formato inválido.","erro");
+        return;
+      }
+      if(dataDeInicioDoPeriodo > dataFinalDoPeriodo){
+        mostrarAviso("A Data de Início do período não pode ser maior do que a data de Fim do Período","erro");
+        return;
+      }
+      let body={
+        dataDeInicioDoPeriodo,
+        dataFinalDoPeriodo
+      };
+
+      fetch(API_URL_VENDEDORES+"relatorio-de-vendedores-com-maior-faturamento-por-periodo",{
+        method : "POST",
+        headers :{ "Content-type" : "application/json", "Authorization": localStorage.getItem("JWT") },
+        body : JSON.stringify(body)
+      })
+      .then(tratarRespostaRelatorio)
+      .then(blob=>{
+        const url=URL.createObjectURL(blob);
+        window.open(url,"_blank");
+      })
+      .catch(tratarErroRelatorio);
+    }
   </script>
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -344,7 +534,7 @@
     window.addEventListener('resize', updateMargin);
   </script>
 
-  
+  <script src="js/controle_acesso.js"></script>
 
 </body>
 </html>

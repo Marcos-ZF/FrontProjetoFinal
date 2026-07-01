@@ -86,7 +86,6 @@
               <h2 class="mb-0">Gerenciar Usuários</h2>
               <div class="d-flex align-items-center gap-2">
                 <input type="text" id="input-buscar" class="form-control" placeholder="Buscar por nome ou email">
-                <button class="btn btn-success" onclick="abrirModalCriar()"><i class="bi bi-plus-lg me-1"></i>Novo</button>
               </div>
             </div>
           </div>
@@ -95,6 +94,7 @@
             <table class="table table-striped align-middle text-center">
               <thead class="table-secondary">
                 <tr>
+                  <th>Código</th>
                   <th>Nome</th>
                   <th>Email</th>
                   <th>Perfil</th>
@@ -103,7 +103,7 @@
                 </tr>
               </thead>
               <tbody id="tabela-usuarios">
-                <tr><td colspan="5" class="text-muted">Carregando usuários...</td></tr>
+                <tr><td colspan="6" class="text-muted">Carregando usuários...</td></tr>
               </tbody>
             </table>
           </div>
@@ -111,6 +111,12 @@
 
       </div>
     </div>
+
+    <button
+      onclick="abrirModalCriar()"
+      class="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow"
+      style="width: 60px; height: 60px; font-size: 28px; display: flex; align-items: center; justify-content: center;"
+      title="Novo Usuário">+</button>
   </main>
 
   <div class="modal fade" id="modalUsuario" tabindex="-1" aria-hidden="true">
@@ -212,10 +218,10 @@
 
     async function carregarUsuarios() {
       const tbody = document.getElementById('tabela-usuarios');
-      tbody.innerHTML = '<tr><td colspan="5" class="text-muted">Carregando usuários...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-muted">Carregando usuários...</td></tr>';
       try {
         const res = await fetch(API, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
         usuarios = await res.json();
         renderUsuarios(usuarios);
       } catch {
@@ -225,9 +231,10 @@
 
     function renderUsuarios(lista) {
       const tbody = document.getElementById('tabela-usuarios');
-      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-muted">Nenhum usuário encontrado.</td></tr>'; return; }
+      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted">Nenhum usuário encontrado.</td></tr>'; return; }
       tbody.innerHTML = lista.map(u => `
         <tr>
+          <td>${u.codigoUsuario}</td>
           <td>${u.nome}</td>
           <td>${u.email}</td>
           <td>${badgePerfil(u.perfilUsuario)}</td>
