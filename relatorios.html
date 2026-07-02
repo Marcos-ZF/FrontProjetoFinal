@@ -1,4 +1,4 @@
-html: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
@@ -83,18 +83,20 @@ html: <!DOCTYPE html>
         <section class="relatorios-container-superior">
           <button id="botao-mostar-div-produtos-mais-vendidos-por-periodo" 
           onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-produtos-mais-vendidos-por-periodo')"
-           class="botao-gerar-relatorio-produtos-mais-vendidos botoes-relatorio btn shortcut-btn d-flex justify-content-center 
+           class="botao-gerar-relatorio-produtos-mais-vendidos botoes-relatorio btn shortcut-btn d-none justify-content-center 
            align-items-center">
             Relatório De Produtos Mais Vendidos Por período
           </button>
 
-          <button id="botao-mostar-div-produtos-em-falta" onclick="mostrarDivParaReceberQuantidadeProdutosEmFalta()" class="botao-gerar-relatorio-produtos-em-falta botoes-relatorio btn shortcut-btn d-flex justify-content-center align-items-center">
+          <button id="botao-mostar-div-produtos-em-falta" onclick="mostrarDivParaReceberQuantidadeProdutosEmFalta()" 
+          class="botao-gerar-relatorio-produtos-em-falta botoes-relatorio btn shortcut-btn d-none 
+          justify-content-center align-items-center">
             Relatório De Produtos Em Falta
           </button>
 
           <button id="botao-mostar-div-vendas-por-periodo" 
           onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-vendas-por-periodo')" 
-          class="botao-gerar-relatorio-de-vendas-por-periodo botoes-relatorio btn shortcut-btn d-flex 
+          class="botao-gerar-relatorio-de-vendas-por-periodo botoes-relatorio btn shortcut-btn d-none 
           justify-content-center align-items-center">
             Relatório De Venda Por Período
           </button>
@@ -102,7 +104,8 @@ html: <!DOCTYPE html>
         <section class="relatorios-container-inferior">
           <button id="botao-mostar-div-fornecedores-com-maior-volume-entradas-por-periodo"
            onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-fornecedores-com-maior-volume-entradas-por-periodo')" 
-           class="botao-gerar-relatorio-fornecedores-com-maior-volume-entradas botoes-relatorio btn shortcut-btn d-flex justify-content-center 
+           class="botao-gerar-relatorio-fornecedores-com-maior-volume-entradas 
+           botoes-relatorio btn shortcut-btn d-none justify-content-center 
            align-items-center">
             Relatório De Fornecedores Com Maior volume de Entradas de Estoque Por Período
           </button>
@@ -110,7 +113,7 @@ html: <!DOCTYPE html>
           <button id="botao-mostar-div-vendedores-com-maior-faturamento-por-periodoo" 
           onclick="mostrarDivParaReceberDataParaRelatorio('div-gerar-relatorio-vendedores-com-maior-faturamento-periodo')" 
           class="botao-gerar-relatorio-vendedores-com-maior-faturamento-por-periodo 
-          botoes-relatorio btn shortcut-btn d-flex justify-content-center 
+          botoes-relatorio btn shortcut-btn d-none justify-content-center 
           align-items-center">
             Relatório De Vendedores com maior faturamento por Período
           </button>
@@ -499,6 +502,43 @@ html: <!DOCTYPE html>
       })
       .catch(tratarErroRelatorio);
     }
+    document.addEventListener('DOMContentLoaded', function() {
+      const relatorioProdutosMaisVendidos=document.getElementById("botao-mostar-div-produtos-mais-vendidos-por-periodo");
+      const relatorioProdutosEmFalta=document.getElementById("botao-mostar-div-produtos-em-falta");
+      const relatorioVendasPorPeriodo=document.getElementById("botao-mostar-div-vendas-por-periodo");
+      const relatorioFornecedoresComMaiorVolumeEntradas=
+      document.getElementById("botao-mostar-div-fornecedores-com-maior-volume-entradas-por-periodo");
+      const relatorioVendedoresComMaiorFaturamento=
+      document.getElementById("botao-mostar-div-vendedores-com-maior-faturamento-por-periodoo");
+
+      relatorioProdutosMaisVendidos.classList.remove("d-none");
+      relatorioProdutosMaisVendidos.classList.add("d-flex");
+      relatorioProdutosEmFalta.classList.remove("d-none");
+      relatorioProdutosEmFalta.classList.add("d-flex");
+      relatorioVendasPorPeriodo.classList.remove("d-none");
+      relatorioVendasPorPeriodo.classList.add("d-flex");
+      relatorioFornecedoresComMaiorVolumeEntradas.classList.remove("d-none");
+      relatorioFornecedoresComMaiorVolumeEntradas.classList.add("d-flex");
+      try{
+        const token=localStorage.getItem("JWT");
+      if(!token){
+        mostrarAvisoLogin();
+        return;
+      }
+      const tokenSemPrefixo=token.replace("Bearer ","");
+      const payload=JSON.parse(atob(tokenSemPrefixo.split(".")[1]))
+      const tipoUsuario=payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+      const usuarioEhDoTipoAdmin = tipoUsuario === "Admin";
+      if(usuarioEhDoTipoAdmin){
+        relatorioVendedoresComMaiorFaturamento.classList.remove("d-none");
+        relatorioVendedoresComMaiorFaturamento.classList.add("d-flex");
+      }
+      }
+      catch (erro) {
+        mostrarAvisoLogin();
+      }
+      
+    });
   </script>
   
 

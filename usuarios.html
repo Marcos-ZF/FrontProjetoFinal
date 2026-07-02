@@ -15,7 +15,7 @@
   <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
     <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
       <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
-        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <i class="bi bi-bicycle fs-4"></i>
         <span class="brand-text">BikeCiaSystem</span>
       </div>
       <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
@@ -30,7 +30,7 @@
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i><span class="link-text">Fornecedores</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i><span class="link-text">Vendedores</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i><span class="link-text">Vendas</span></a></li>
-      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center" href="entrada_estoque.html"><i class="bi bi-archive me-2"></i><span class="link-text">Estoque</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i><span class="link-text">Relatórios</span></a></li>
       <li class="nav-item"><a class="nav-link d-flex align-items-center" href="logs.html"><i class="bi bi-clock-history me-2"></i><span class="link-text">Logs</span></a></li>
       <li class="nav-item" id="nav-usuarios"><a class="nav-link active d-flex align-items-center" href="usuarios.html"><i class="bi bi-person-gear me-2"></i><span class="link-text">Usuários</span></a></li>
@@ -59,7 +59,7 @@
           <li class="nav-item"><a class="nav-link" href="buscar_fornecedores.html"><i class="bi bi-truck me-2"></i>Fornecedores</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_vendedores.html"><i class="bi bi-person-badge me-2"></i>Vendedores</a></li>
           <li class="nav-item"><a class="nav-link" href="buscar_vendas.html"><i class="bi bi-cart-check me-2"></i>Vendas</a></li>
-          <li class="nav-item"><a class="nav-link" href="buscar_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
+          <li class="nav-item"><a class="nav-link" href="entrada_estoque.html"><i class="bi bi-archive me-2"></i>Estoque</a></li>
           <li class="nav-item"><a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart me-2"></i>Relatórios</a></li>
           <li class="nav-item"><a class="nav-link" href="logs.html"><i class="bi bi-clock-history me-2"></i>Logs</a></li>
           <li class="nav-item"><a class="nav-link active" href="usuarios.html"><i class="bi bi-person-gear me-2"></i>Usuários</a></li>
@@ -85,7 +85,14 @@
             <div class="d-flex justify-content-between align-items-end flex-wrap mb-3 gap-3">
               <h2 class="mb-0">Gerenciar Usuários</h2>
               <div class="d-flex align-items-center gap-2">
+                <div class="btn-group btn-group-sm" role="group">
+                  <input type="radio" class="btn-check" name="filtro-estado" id="filtro-ativos" autocomplete="off" checked onchange="trocarEstado('ativos')">
+                  <label class="btn btn-outline-success" for="filtro-ativos"><i class="bi bi-check-circle me-1"></i>Ativos</label>
+                  <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
+                  <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Inativos</label>
+                </div>
                 <input type="text" id="input-buscar" class="form-control" placeholder="Buscar por nome ou email">
+                <button class="btn btn-success" onclick="abrirModalCriar()"><i class="bi bi-plus-lg me-1"></i>Novo</button>
               </div>
             </div>
           </div>
@@ -94,7 +101,6 @@
             <table class="table table-striped align-middle text-center">
               <thead class="table-secondary">
                 <tr>
-                  <th>Código</th>
                   <th>Nome</th>
                   <th>Email</th>
                   <th>Perfil</th>
@@ -103,7 +109,7 @@
                 </tr>
               </thead>
               <tbody id="tabela-usuarios">
-                <tr><td colspan="6" class="text-muted">Carregando usuários...</td></tr>
+                <tr><td colspan="5" class="text-muted">Carregando usuários...</td></tr>
               </tbody>
             </table>
           </div>
@@ -111,12 +117,6 @@
 
       </div>
     </div>
-
-    <button
-      onclick="abrirModalCriar()"
-      class="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow"
-      style="width: 60px; height: 60px; font-size: 28px; display: flex; align-items: center; justify-content: center;"
-      title="Novo Usuário">+</button>
   </main>
 
   <div class="modal fade" id="modalUsuario" tabindex="-1" aria-hidden="true">
@@ -177,13 +177,39 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const API = 'https://projetoapidevendaestagio.onrender.com/api/usuario';
+    const API_INATIVOS = API + '/inativos';
     const JWT = () => localStorage.getItem('JWT');
     const ROLE_CLAIM = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+    let estadoAtual = 'ativos';
 
     let usuarios = [];
     let modalUsuario = null;
     let modalExcluir = null;
     let idParaExcluir = null;
+
+    function trocarEstado(estado) {
+      estadoAtual = estado;
+      document.getElementById('input-buscar').value = '';
+      carregarUsuarios();
+    }
+
+    async function reativarUsuario(id) {
+      try {
+        const res = await fetch(`${API}/reativar/${id}`, {
+          method: 'PATCH',
+          headers: { Authorization: JWT() }
+        });
+        if (res.ok) {
+          mostrarAviso('Usuário reativado com sucesso.', 'sucesso');
+          carregarUsuarios();
+        } else {
+          const txt = await res.text();
+          mostrarAviso(`Erro ao reativar: ${txt || res.status}`, 'erro');
+        }
+      } catch {
+        mostrarAviso('Erro de conexão ao reativar usuário.', 'erro');
+      }
+    }
 
     function lerToken() {
       const t = JWT();
@@ -218,10 +244,11 @@
 
     async function carregarUsuarios() {
       const tbody = document.getElementById('tabela-usuarios');
-      tbody.innerHTML = '<tr><td colspan="6" class="text-muted">Carregando usuários...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="text-muted">Carregando usuários...</td></tr>';
+      const url = estadoAtual === 'inativos' ? API_INATIVOS : API;
       try {
-        const res = await fetch(API, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
+        const res = await fetch(url, { headers: { Authorization: JWT() } });
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
         usuarios = await res.json();
         renderUsuarios(usuarios);
       } catch {
@@ -231,19 +258,21 @@
 
     function renderUsuarios(lista) {
       const tbody = document.getElementById('tabela-usuarios');
-      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted">Nenhum usuário encontrado.</td></tr>'; return; }
-      tbody.innerHTML = lista.map(u => `
+      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-muted">Nenhum usuário encontrado.</td></tr>'; return; }
+      tbody.innerHTML = lista.map(u => {
+        const acoes = estadoAtual === 'inativos'
+          ? `<button class="btn btn-success btn-sm" onclick="reativarUsuario('${u.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
+          : `<button class="btn btn-warning btn-sm me-1" onclick='abrirModalEditar(${JSON.stringify(u)})'>Editar</button>
+             <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${u.id}', '${u.nome.replace(/'/g, "")}')">Excluir</button>`;
+        return `
         <tr>
-          <td>${u.codigoUsuario}</td>
           <td>${u.nome}</td>
           <td>${u.email}</td>
           <td>${badgePerfil(u.perfilUsuario)}</td>
           <td>${badgeStatus(u.ativo)}</td>
-          <td>
-            <button class="btn btn-warning btn-sm me-1" onclick='abrirModalEditar(${JSON.stringify(u)})'>Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${u.id}', '${u.nome.replace(/'/g, "")}')">Excluir</button>
-          </td>
-        </tr>`).join('');
+          <td>${acoes}</td>
+        </tr>`;
+      }).join('');
     }
 
     function abrirModalCriar() {

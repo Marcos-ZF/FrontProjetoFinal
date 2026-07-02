@@ -171,6 +171,20 @@
       const pago = formatarMoeda(transacao.pago);
       const situacao = obterSituacao(transacao);
 
+      const cancelada = estadoAtual === "inativos";
+      const podeEditar = !cancelada && transacao.transacaoEmCurso === false;
+
+      let acoes;
+      if (cancelada) {
+        acoes = `<button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>`;
+      } else if (podeEditar) {
+        acoes = `<button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
+           <button class="btn btn-warning btn-sm" onclick="editarVenda('${id}')">Editar</button>`;
+      } else {
+        acoes = `<button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
+           <button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>`;
+      }
+
       return `
         <tr>
           <td class="text-start ps-3">${codigo}</td>
@@ -180,8 +194,7 @@
           <td class="text-end">${pago}</td>
           <td>${situacao}</td>
           <td class="text-center">
-            <button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
-            <button class="btn btn-warning btn-sm" onclick="editarVenda('${id}')">Editar</button>
+            ${acoes}
           </td>
         </tr>
       `;
@@ -256,6 +269,10 @@
       window.location.href = `editar_venda.html?id=${id}`;
     }
 
+    function verDetalhesVenda(id) {
+      window.location.href = `venda_detalhe.html?id=${id}`;
+    }
+
     function verParcelas(id) {
       window.location.href = `pagar_parcelas.html?id=${id}`;
     }
@@ -292,6 +309,6 @@
     updateMargin();
     window.addEventListener('resize', updateMargin);
   </script>
-<script src="js/controle_acesso.js"></script>
+
 </body>
 </html>
