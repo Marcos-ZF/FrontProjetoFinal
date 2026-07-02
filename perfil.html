@@ -131,6 +131,7 @@
   <div id="div-aviso"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/aviso.js"></script>
   <script>
     const API = 'https://projetoapidevendaestagio.onrender.com/api/usuario';
     const JWT = () => localStorage.getItem('JWT');
@@ -146,13 +147,6 @@
       catch { return null; }
     }
 
-    function mostrarAviso(msg, tipo) {
-      const div = document.getElementById('div-aviso');
-      div.textContent = msg;
-      div.className = `alert alert-${tipo === 'erro' ? 'danger' : 'success'} position-fixed top-0 start-50 translate-middle-x mt-3 shadow`;
-      div.style.zIndex = '2000';
-      setTimeout(() => { div.className = ''; div.textContent = ''; }, 3500);
-    }
 
     let usuarioId = null;
 

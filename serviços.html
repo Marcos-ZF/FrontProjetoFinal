@@ -110,6 +110,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
+  <script src="js/aviso.js"></script>
   <script>
     const divAviso = document.getElementsByClassName("div-aviso")[0];
     const formularioServico = document.getElementById("formulario-servico");
@@ -151,17 +152,6 @@
         .catch(() => mostrarAviso("Erro no envio de dados", "erro"));
     }
 
-    function mostrarAviso(mensagem, tipo) {
-      divAviso.textContent = mensagem;
-      divAviso.classList.add("div-aviso-subir", tipo);
-      setTimeout(() => {
-        divAviso.classList.remove("div-aviso-subir");
-        setTimeout(() => {
-          divAviso.textContent = "";
-          divAviso.classList.remove(tipo);
-        }, 2000);
-      }, 2000);
-    }
 
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('toggleSidebar');

@@ -178,6 +178,7 @@
     <div class="div-aviso"></div>
   </main>
 
+  <script src="js/aviso.js"></script>
   <script>
     const API_URL_PRODUTOS = "https://projetoapidevendaestagio.onrender.com/api/produto/";
     const API_URL_VENDAS = "https://projetoapidevendaestagio.onrender.com/api/venda/";
@@ -396,19 +397,6 @@
       .catch(tratarErroRelatorio);
     }
 
-    function mostrarAviso(mensagem, tipo) {
-      divAviso.textContent = mensagem;
-      divAviso.classList.add("div-aviso-subir", tipo);
-
-      setTimeout(() => {
-        divAviso.classList.remove("div-aviso-subir");
-
-        setTimeout(() => {
-          divAviso.textContent = "";
-          divAviso.classList.remove(tipo);
-        }, 5000);
-      }, 2300);
-    }
     function gerarRelatorioDeFornecedoresComMaiorVolumeDeEntradaPorPeriodo(){
       const dataDeInicioDoPeriodo=document.getElementById("input-data-inicio-fornecedores-com-maior-volume-entrada-periodo").value;
       const dataFinalDoPeriodo=document.getElementById("input-data-Fim-fornecedores-com-maior-volume-entrada-periodo").value
