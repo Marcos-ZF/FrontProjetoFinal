@@ -168,10 +168,13 @@
       const cliente = obterCliente(venda);
       const documento = obterDocumento(venda);
       const total = formatarMoeda(venda.valorTotalComDesconto);
-      const pago = formatarMoeda(transacao.pago);
-      const situacao = obterSituacao(transacao);
+      const pago = formatarMoeda(transacao.valorPago);
 
       const cancelada = estadoAtual === "inativos";
+      const situacao = cancelada
+        ? '<span class="badge bg-secondary">Cancelada</span>'
+        : obterSituacao(transacao);
+
       const podeEditar = !cancelada && transacao.transacaoEmCurso === false;
 
       let acoes;
