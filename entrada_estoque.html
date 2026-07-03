@@ -449,28 +449,43 @@
       modalConfirmar.show();
     }
 
-    async function confirmarSalvar() {
-      const payload = {
-        idFornecedor: document.getElementById("input-fornecedor-id").value.trim(),
-        itens: itens.map(it => ({ idProduto: it.idProduto, quantidade: it.quantidade }))
-      };
+    let salvando = false;
 
-      try {
-        const res = await fetch(API_ENTRADA, { method: "POST", headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") }, body: JSON.stringify(payload) });
-        if (modalConfirmar) modalConfirmar.hide();
-        if (res.ok) {
-          mostrarResultado("Sucesso!", "Entrada de estoque registrada com sucesso.", "success");
-          itens = []; renderizarTabela();
-          document.getElementById("input-buscar-fornecedor").value = "";
-          document.getElementById("input-fornecedor-id").value = "";
-        } else {
-          mostrarResultado("Erro ao salvar", (await res.text()) || `Erro ${res.status}`, "danger");
-        }
-      } catch (e) {
-        if (modalConfirmar) modalConfirmar.hide();
-        mostrarResultado("Erro de conexão", e.message, "danger");
-      }
+async function confirmarSalvar() {
+  if (salvando) return;
+  salvando = true;
+
+  const btnConfirmar = document.getElementById("btn-confirmar-salvar");
+  const textoOriginal = btnConfirmar.innerHTML;
+  btnConfirmar.disabled = true;
+  btnConfirmar.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Salvando...';
+
+  const payload = {
+    idFornecedor: document.getElementById("input-fornecedor-id").value.trim(),
+    itens: itens.map(it => ({ idProduto: it.idProduto, quantidade: it.quantidade }))
+  };
+
+  try {
+    const res = await fetch(API_ENTRADA, { method: "POST", headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") }, body: JSON.stringify(payload) });
+    if (modalConfirmar) modalConfirmar.hide();
+    if (res.ok) {
+      mostrarResultado("Sucesso!", "Entrada de estoque registrada com sucesso.", "success");
+      setTimeout(() => location.href = 'buscar_estoque.html', 1500);
+      itens = []; renderizarTabela();
+      document.getElementById("input-buscar-fornecedor").value = "";
+      document.getElementById("input-fornecedor-id").value = "";
+    } else {
+      mostrarResultado("Erro ao salvar", (await res.text()) || `Erro ${res.status}`, "danger");
     }
+    } catch (e) {
+      if (modalConfirmar) modalConfirmar.hide();
+      mostrarResultado("Erro de conexão", e.message, "danger");
+    } finally {
+      salvando = false;
+      btnConfirmar.disabled = false;
+      btnConfirmar.innerHTML = textoOriginal;
+    }
+}
 
     const divAviso = document.getElementsByClassName("div-aviso")[0];
 

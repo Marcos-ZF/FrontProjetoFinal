@@ -73,34 +73,27 @@
 
     <form id="form-venda" class="mb-4">
       <div class="row g-3 align-items-end">
-        <div class="col-md-4 position-relative">
+        <div class="col-md-5 position-relative">
           <label class="form-label">Nome/Razão Social do Cliente:</label>
           <input type="text" id="input-nomeCliente" class="form-control" placeholder="Digite o nome/ Razão Social da venda ">
           <ul id="listaDeNomesBuscados"
               class="autocomplete-list"
               style="display: none; position: absolute; z-index: 1000;"></ul>
         </div>
-        
-        <div class="col-md-3">
+
+        <div class="col-md-4">
           <label class="form-label">CPF/CNPJ do Cliente:</label>
           <input type="text" id="input-cpfCliente" class="form-control" disabled>
           <div class="form-text"></div>
-        </div>
-
-
-        <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-success w-100" onclick="finalizarVenda()">
-             💾 Finalizar Venda
-          </button>
         </div>
       </div>
 
       <input type="hidden" id="input-idCliente" value="">
     </form>
 
-    <form id="form-venda" class="mb-4">
+    <form id="form-venda" class="mb-6">
       <div class="row g-3 align-items-end">
-        <div class="col-md-4 position-relative">
+        <div class="col-md-5 position-relative">
           <label class="form-label">Nome do Vendedor</label>
           <input type="text" id="input-nomeVendedor" class="form-control" placeholder="Digite o nome do Vendedor">
           <ul id="listaDeVendedoresBuscados"
@@ -108,7 +101,7 @@
               style="display: none; position: absolute; z-index: 1000;"></ul>
         </div>
         
-        <div class="col-md-3">
+        <div class="col-md-4">
           <label class="form-label">CPF do Vendedor:</label>
           <input type="text" id="input-cpfVendedor" class="form-control" disabled>
           <div class="form-text"></div>
@@ -215,8 +208,12 @@
     </div>
 
     <hr>
-    <div class="text-end">
-      <h4>Total da Venda: R$ <span id="valor-total">0.00</span></h4>
+    <hr>
+    <div class="d-flex justify-content-end align-items-center gap-3">
+      <h4 class="mb-0">Total da Venda: R$ <span id="valor-total">0.00</span></h4>
+      <button class="btn btn-primary px-4" type="button" onclick="finalizarVenda()">
+        <i class="bi bi-floppy me-2"></i> Finalizar Venda
+      </button>
     </div>
   </div>
 
@@ -367,7 +364,6 @@
     const inputVencimento = document.getElementById("input-vencimento");
     const labelVencimento = document.getElementById("label-vencimento");
 
-    // Inicializa o vencimento com hoje
     const hoje = new Date().toISOString().split("T")[0];
     inputVencimento.value = hoje;
 
@@ -409,8 +405,6 @@
       );
     }
   }
-
-  // CLIENTE
 
   const inputNome =
     document.getElementById("input-nomeCliente");

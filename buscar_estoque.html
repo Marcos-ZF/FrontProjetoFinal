@@ -153,13 +153,13 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow">
         <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title">Confirmar exclusão</h5>
+          <h5 class="modal-title">Confirmar cancelamento</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body" id="texto-excluir"></div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+          <button class="btn btn-danger" id="btn-confirmar-exclusao">Confirmar</button>
         </div>
       </div>
     </div>
@@ -250,7 +250,7 @@
           ? `<button class="btn btn-info btn-sm" onclick="verDetalhes('${ent.id}')">Detalhes</button>`
           : `<button class="btn btn-info btn-sm me-1" onclick="verDetalhes('${ent.id}')">Detalhes</button>
              <button class="btn btn-warning btn-sm me-1" onclick="editarEntrada('${ent.id}')">Editar</button>
-             <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${ent.id}', '${(ent.codigoEntrada || '').replace(/'/g, "")}')">Excluir</button>`;
+             <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${ent.id}', '${(ent.codigoEntrada || '').replace(/'/g, "")}')">Cancelar</button>`;
         return `
           <tr>
             <td>${ent.codigoEntrada || '-'}</td>
@@ -300,14 +300,47 @@
     }
 
     document.getElementById('btn-confirmar-exclusao').addEventListener('click', async () => {
-      if (!idParaExcluir) return;
-      try {
-        const res = await fetch(`${API}/${idParaExcluir}`, { method: 'DELETE', headers: { Authorization: JWT() } });
-        if (modalExcluir) modalExcluir.hide();
-        if (res.ok) { mostrarAviso('Entrada excluída!', 'sucesso'); carregarEntradas(); }
-        else mostrarAviso(`Erro ${res.status} ao excluir.`, 'erro');
-      } catch { mostrarAviso('Erro de conexão.', 'erro'); }
-    });
+  if (!idParaExcluir) return;
+  try {
+    const res = await fetch(`${API}/${idParaExcluir}`, { method: 'DELETE', headers: { Authorization: JWT() } });
+    if (modalExcluir) modalExcluir.hide();
+
+    if (res.ok) {
+      mostrarAviso('Entrada cancelada!', 'sucesso');
+      carregarEntradas();
+      return;
+    }
+
+    let msgErro = null;
+    try {
+      const texto = await res.text();
+      if (texto) {
+        try {
+          const json = JSON.parse(texto);
+          if (typeof json === 'string') msgErro = json;
+          else if (Array.isArray(json)) msgErro = json.join(' | ');
+          else if (json.message) msgErro = json.message;
+          else if (json.title) msgErro = json.title;
+        } catch {
+          msgErro = texto;
+        }
+      }
+    } catch {}
+
+    if (!msgErro) {
+      if (res.status === 400) {
+        msgErro = 'Não é possível cancelar uma entrada já usada no sistema.';
+      } else {
+        msgErro = `Erro ${res.status} ao cancelar.`;
+      }
+    }
+
+    mostrarAviso(msgErro, 'erro');
+
+  } catch {
+    mostrarAviso('Erro de conexão.', 'erro');
+  }
+});
 
     document.getElementById('input-buscar').addEventListener('input', aplicarFiltros);
     document.getElementById('filtro-status').addEventListener('change', aplicarFiltros);

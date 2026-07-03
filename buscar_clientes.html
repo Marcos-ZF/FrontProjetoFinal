@@ -138,11 +138,11 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body" id="texto-modal-exclusao">
-          Deseja excluir este cliente?
+          Deseja inativar este cliente?
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+          <button class="btn btn-danger" id="btn-confirmar-exclusao">Inativar</button>
         </div>
       </div>
     </div>
@@ -206,7 +206,7 @@
              <button class="btn btn-success btn-sm botoes-acoes" onclick="reativarCliente('${c.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
           : `<button class="btn btn-info btn-sm botoes-acoes" onclick="verDetalhes('${c.id}')">Detalhes</button>
              <button class="btn btn-warning btn-sm botoes-acoes" onclick="editarCliente('${c.id}')">Editar</button>
-             <button class="btn btn-danger btn-sm botoes-acoes" onclick="abrirModalExclusao('${c.id}', ${c.podeExcluir})">Excluir</button>`;
+             <button class="btn btn-danger btn-sm botoes-acoes" onclick="abrirModalExclusao('${c.id}', ${c.podeExcluir})">Inativar</button>`;
 
         const linha = `
           <tr>
@@ -391,16 +391,16 @@
         if (podeExcluirDeFato) {
           idParaExcluir = id;
 
-          modalTitulo.textContent = "Confirmar exclusão";
-          modalBody.textContent   = "Deseja excluir este cliente?";
+          modalTitulo.textContent = "Confirmar inativação";
+          modalBody.textContent   = "Deseja inativar este cliente?";
 
           btnConfirmar.classList.remove("d-none");
           btnConfirmar.disabled = false;
         } else {
           idParaExcluir = null;
 
-          modalTitulo.textContent = "Não é possível excluir";
-          modalBody.textContent   = "O cliente está registrado em uma venda e não pode ser excluído.";
+          modalTitulo.textContent = "Não é possível inativar";
+          modalBody.textContent   = "O cliente está registrado em uma venda ativa e não pode ser inativado.";
 
           btnConfirmar.classList.add("d-none");
         }
@@ -424,7 +424,7 @@
         if (resp.ok) carregarClientes(filtroAtual);
       } 
       catch (e) {
-        console.error("Erro ao excluir:", e.message);
+        console.error("Erro ao inativar:", e.message);
       }
       finally {
         if (modalExcluir) modalExcluir.hide();

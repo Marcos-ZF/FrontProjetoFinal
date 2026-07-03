@@ -192,8 +192,8 @@
       <h3 class="text-end">Total: R$ <span id="span-total">0.00</span></h3>
 
       <div class="text-end mt-3">
-        <button class="btn btn-danger" id="btn-excluir" onclick="abrirModalExclusaoVenda()">Excluir</button>
-        <button class="btn btn-secondary" onclick="history.back()">Cancelar</button>
+        <button class="btn btn-danger" id="btn-excluir" onclick="abrirModalExclusaoVenda()">Cancelar Venda</button>
+        <button class="btn btn-secondary" onclick="history.back()">Voltar</button>
         <button class="btn btn-success" onclick="salvarAlteracoes()">Salvar Alterações</button>
       </div>
 
@@ -296,17 +296,17 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow">
         <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title">Confirmar Exclusão</h5>
+          <h5 class="modal-title">Confirmar cancelamento</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
 
         <div class="modal-body">
-          Tem certeza que deseja excluir esta venda?
+          Tem certeza que deseja cancelar/excluir esta venda?
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" id="btn-confirmar-exclusao" class="btn btn-danger">Excluir</button>
+          <button type="button" id="btn-confirmar-exclusao" class="btn btn-danger">Confirmar</button>
         </div>
       </div>
     </div>
@@ -364,6 +364,32 @@
       }
     }
 
+    function vendaPodeSerCancelada() {
+      const t = vendaOriginal?.transacao;
+      if (!t) return true;
+      return t.transacaoEmCurso !== true;
+    }
+
+    function motivoNaoPodeCancelar() {
+      const t = vendaOriginal?.transacao;
+      if (!t) return "";
+      if (t.pago === true) return "esta venda já está paga";
+      return "esta venda já está em andamento (possui parcela(s) paga(s))";
+    }
+
+    function atualizarBotaoExcluir() {
+      const btn = document.getElementById("btn-excluir");
+      if (!vendaPodeSerCancelada()) {
+        btn.disabled = true;
+        btn.classList.add("disabled");
+        btn.title = `Não é possível cancelar esta venda pois ${motivoNaoPodeCancelar()}.`;
+      } else {
+        btn.disabled = false;
+        btn.classList.remove("disabled");
+        btn.removeAttribute("title");
+      }
+    }
+
     function preencherCampos() {
       const v = vendaOriginal.venda;
       const t = vendaOriginal.transacao;
@@ -396,6 +422,7 @@
       }
 
       atualizarCampoParcelas();
+      atualizarBotaoExcluir();
 
       itensExistentes = (v.itensVenda || []).map(i => ({
         idItem:             i.id,
@@ -407,10 +434,9 @@
         desconto:           i.descontoUnitario,
         quantidadeOriginal: i.quantidade,
         descontoOriginal:   i.descontoUnitario,
-        estoqueAtual:       null  // será preenchido abaixo
+        estoqueAtual:       null  
       }));
 
-      // Busca estoque atual de cada produto existente para validação client-side
       itensExistentes.forEach(async (item) => {
         if (!item.idProduto) return;
         try {
@@ -773,7 +799,6 @@
           let msg = "Erro ao atualizar venda.";
           try { const j = JSON.parse(txt); msg = Array.isArray(j) ? j.join(" | ") : (typeof j === "string" ? j : msg); } catch { if (txt) msg = txt; }
 
-          // Mensag
           const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
           if (/quantidade insuficiente/i.test(msg) && uuidRegex.test(msg)) {
             const todosItens = [...itensExistentes, ...itensNovos];
@@ -801,17 +826,46 @@
     }
 
     function abrirModalExclusaoVenda() {
+      if (!vendaPodeSerCancelada()) {
+        mostrarAviso(`Não é possível cancelar essa venda, pois ${motivoNaoPodeCancelar()}.`, "erro");
+        return;
+      }
       if (!modalExcluirVenda) modalExcluirVenda = new bootstrap.Modal(document.getElementById("modalExcluirVenda"));
       modalExcluirVenda.show();
     }
 
     async function excluirVenda() {
+      if (!vendaPodeSerCancelada()) {
+        if (modalExcluirVenda) modalExcluirVenda.hide();
+        mostrarAviso(`Não é possível cancelar essa venda, pois ${motivoNaoPodeCancelar()}.`, "erro");
+        return;
+      }
+
       const id = new URLSearchParams(window.location.search).get("id");
       try {
         const resp = await fetch(`${API_URL}/${id}`, { method: "DELETE", headers: { "Authorization": localStorage.getItem("JWT") } });
-        if (resp.ok) { mostrarAviso("Venda excluída!", "sucesso"); setTimeout(() => location.href = "buscar_vendas.html", 1500); }
-        else mostrarAviso("Erro ao excluir venda", "erro");
+        if (resp.ok) {
+          mostrarAviso("Venda cancelada!", "sucesso");
+          setTimeout(() => location.href = "buscar_vendas.html", 1500);
+        } else {
+          const txt = await resp.text();
+          let msg = "Não foi possível cancelar a venda.";
+          try {
+            const j = JSON.parse(txt);
+            msg = Array.isArray(j) ? j.join(" | ") : (typeof j === "string" ? j : (j?.message || msg));
+          } catch { if (txt) msg = txt; }
+          mostrarAviso(msg, "erro");
+        }
       } catch { mostrarAviso("Erro de conexão", "erro"); }
+    }
+
+    function abrirModalExclusaoVenda() {
+      if (!vendaPodeSerCancelada()) {
+        mostrarAviso(`Não é possível cancelar essa venda, pois ${motivoNaoPodeCancelar()}.`, "erro");
+        return;
+      }
+      if (!modalExcluirVenda) modalExcluirVenda = new bootstrap.Modal(document.getElementById("modalExcluirVenda"));
+      modalExcluirVenda.show();
     }
 
     const inputNome = document.getElementById("input-cliente");
