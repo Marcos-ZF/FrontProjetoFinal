@@ -94,7 +94,7 @@
               <tr>
                 <th class="text-start ps-3">Código da Venda</th>
                 <th class="text-start ps-3">Cliente</th>
-                <th style="text-align: right; padding-right: 12px;">Documento</th>
+                <th style="text-align: right; padding-right: 12px;">Cpf/Cnpj</th>
                 <th class="text-end">Total</th>
                 <th class="text-end">Pago</th>
                 <th>Situação</th>
@@ -182,7 +182,8 @@
         acoes = `<button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>`;
       } else if (podeEditar) {
         acoes = `<button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
-           <button class="btn btn-warning btn-sm" onclick="editarVenda('${id}')">Editar</button>`;
+           <button class="btn btn-warning btn-sm me-1" onclick="editarVenda('${id}')">Editar</button>
+           <button class="btn btn-danger btn-sm" onclick="cancelarVenda('${id}')">Cancelar</button>`;
       } else {
         acoes = `<button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
            <button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>`;
@@ -278,6 +279,10 @@
 
     function verParcelas(id) {
       window.location.href = `pagar_parcelas.html?id=${id}`;
+    }
+
+    function cancelarVenda(id) {
+      console.log("Cancelar venda:", id);
     }
 
     document.addEventListener("DOMContentLoaded", () => {

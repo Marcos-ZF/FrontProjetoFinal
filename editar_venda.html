@@ -499,11 +499,11 @@
           <tr>
             <td>${p.nome}</td><td>${p.codigo}</td>
             <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:70px" min="1" value="${p.quantidade}"
-              onchange="itensExistentes[${i}].quantidade=+this.value; calcularTotal()"></td>
+              onchange="itensExistentes[${i}].quantidade=+this.value; atualizarLinha('existente-produto', ${i})"></td>
             <td>R$ ${formatar(p.preco)}</td>
             <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${p.desconto}"
-              onchange="itensExistentes[${i}].desconto=+this.value; calcularTotal()"></td>
-            <td>R$ ${formatar(total)}</td>
+              onchange="itensExistentes[${i}].desconto=+this.value; atualizarLinha('existente-produto', ${i})"></td>
+            <td id="total-existente-produto-${i}">R$ ${formatar(total)}</td>
             <td><button class="btn btn-danger btn-sm" onclick="removerItemExistente(${i})">Remover</button></td>
           </tr>`;
       });
@@ -514,11 +514,11 @@
           <tr class="table-success">
             <td>${p.nome} <span class="badge bg-success ms-1">Novo</span></td><td>${p.codigo}</td>
             <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:70px" min="1" value="${p.quantidade}"
-              onchange="itensNovos[${i}].quantidade=+this.value; calcularTotal()"></td>
+              onchange="itensNovos[${i}].quantidade=+this.value; atualizarLinha('novo-produto', ${i})"></td>
             <td>R$ ${formatar(p.preco)}</td>
             <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${p.desconto}"
-              onchange="itensNovos[${i}].desconto=+this.value; calcularTotal()"></td>
-            <td>R$ ${formatar(total)}</td>
+              onchange="itensNovos[${i}].desconto=+this.value; atualizarLinha('novo-produto', ${i})"></td>
+            <td id="total-novo-produto-${i}">R$ ${formatar(total)}</td>
             <td><button class="btn btn-danger btn-sm" onclick="removerItemNovo(${i})">Remover</button></td>
           </tr>`;
       });
@@ -539,8 +539,8 @@
             <td>${s.nome}</td><td>${s.codigo}</td>
             <td>R$ ${formatar(s.preco)}</td>
             <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${s.desconto}"
-              onchange="servicosExistentes[${i}].desconto=+this.value; calcularTotal()"></td>
-            <td>R$ ${formatar(total)}</td>
+              onchange="servicosExistentes[${i}].desconto=+this.value; atualizarLinha('existente-servico', ${i})"></td>
+            <td id="total-existente-servico-${i}">R$ ${formatar(total)}</td>
             <td><button class="btn btn-danger btn-sm" onclick="removerServicoExistente(${i})">Remover</button></td>
           </tr>`;
       });
@@ -552,8 +552,8 @@
             <td>${s.nome} <span class="badge bg-success ms-1">Novo</span></td><td>${s.codigo}</td>
             <td>R$ ${formatar(s.preco)}</td>
             <td><input type="number" class="form-control form-control-sm text-center mx-auto" style="width:80px" min="0" step="0.01" value="${s.desconto}"
-              onchange="servicosNovos[${i}].desconto=+this.value; calcularTotal()"></td>
-            <td>R$ ${formatar(total)}</td>
+              onchange="servicosNovos[${i}].desconto=+this.value; atualizarLinha('novo-servico', ${i})"></td>
+            <td id="total-novo-servico-${i}">R$ ${formatar(total)}</td>
             <td><button class="btn btn-danger btn-sm" onclick="removerServicoNovo(${i})">Remover</button></td>
           </tr>`;
       });
@@ -561,6 +561,35 @@
       if (!servicosExistentes.length && !servicosNovos.length) {
         tbody.innerHTML = `<tr><td colspan="6" class="text-muted py-2">Nenhum serviço.</td></tr>`;
       }
+    }
+
+    function atualizarLinha(tipo, i) {
+      let total = 0;
+      let cellId = "";
+
+      switch (tipo) {
+        case 'existente-produto':
+          total = (itensExistentes[i].preco - itensExistentes[i].desconto) * itensExistentes[i].quantidade;
+          cellId = `total-existente-produto-${i}`;
+          break;
+        case 'novo-produto':
+          total = (itensNovos[i].preco - itensNovos[i].desconto) * itensNovos[i].quantidade;
+          cellId = `total-novo-produto-${i}`;
+          break;
+        case 'existente-servico':
+          total = servicosExistentes[i].preco - servicosExistentes[i].desconto;
+          cellId = `total-existente-servico-${i}`;
+          break;
+        case 'novo-servico':
+          total = servicosNovos[i].preco - servicosNovos[i].desconto;
+          cellId = `total-novo-servico-${i}`;
+          break;
+      }
+
+      const cell = document.getElementById(cellId);
+      if (cell) cell.textContent = `R$ ${formatar(total)}`;
+
+      calcularTotal();
     }
 
     function calcularTotal() {
@@ -857,15 +886,6 @@
           mostrarAviso(msg, "erro");
         }
       } catch { mostrarAviso("Erro de conexão", "erro"); }
-    }
-
-    function abrirModalExclusaoVenda() {
-      if (!vendaPodeSerCancelada()) {
-        mostrarAviso(`Não é possível cancelar essa venda, pois ${motivoNaoPodeCancelar()}.`, "erro");
-        return;
-      }
-      if (!modalExcluirVenda) modalExcluirVenda = new bootstrap.Modal(document.getElementById("modalExcluirVenda"));
-      modalExcluirVenda.show();
     }
 
     const inputNome = document.getElementById("input-cliente");
