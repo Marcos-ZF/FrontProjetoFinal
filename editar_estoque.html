@@ -188,7 +188,7 @@
         itensExistentes = (ent.itens || []).map(it => ({
           idItem: it.id,          
           idProduto: it.idProduto, 
-          nome: it.nomeDoProduto, 
+          nome: it.produto.nomeProduto,  
           quantidade: it.quantidade,
           quantidadeOriginal: it.quantidade
         }));
