@@ -106,11 +106,21 @@
           <span id="texto-selecionado"></span>
         </div>
 
+        <div id="filtros-tipo" class="d-none mb-3 d-flex flex-wrap gap-2 align-items-center">
+          <span class="text-muted small me-1">Filtrar por:</span>
+          <select id="filtro-tipo" class="form-select form-select-sm" style="width:auto;" onchange="renderLogs()">
+            <option value="">Todos os tipos</option>
+            <option value="Cliente">Cliente</option>
+            <option value="Endereco">Endereço</option>
+          </select>
+        </div>
+
         <div class="table-scroll-mobile">
           <table class="table table-striped align-middle text-center">
             <thead class="table-secondary">
               <tr>
                 <th>Data</th>
+                <th>Tipo</th>
                 <th>Ação</th>
                 <th>Campo Alterado</th>
                 <th>Valor Antigo</th>
@@ -118,7 +128,7 @@
               </tr>
             </thead>
             <tbody id="tabela-logs">
-              <tr><td colspan="5" class="text-muted py-4">Busque um cliente para visualizar os logs.</td></tr>
+              <tr><td colspan="6" class="text-muted py-4">Busque um cliente para visualizar os logs.</td></tr>
             </tbody>
           </table>
         </div>
@@ -133,6 +143,7 @@
     const JWT      = () => localStorage.getItem('JWT');
 
     let clientes = [];
+    let logsAtuais = [];
 
     async function carregarClientes() {
       try {
@@ -229,28 +240,41 @@
 
     async function carregarLogs(id) {
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Carregando logs...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Carregando logs...</td></tr>';
       try {
         const res = await fetch(`${API_BASE}/log/${id}`, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
-        const logs = await res.json();
-        renderLogs(logs);
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
+        logsAtuais = await res.json();
+        document.getElementById('filtros-tipo').classList.remove('d-none');
+        renderLogs();
       } catch (e) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro de conexão.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro de conexão.</td></tr>`;
       }
     }
 
     function renderLogs(logs) {
+      if (logs) logsAtuais = logs;
       const tbody = document.getElementById('tabela-logs');
-      if (!logs.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Nenhum log encontrado para este cliente.</td></tr>'; return; }
-      tbody.innerHTML = logs.map(l => `
+      const filtro = document.getElementById('filtro-tipo').value;
+      let lista = logsAtuais.slice();
+      if (filtro) lista = lista.filter(l => l.tipoLog === filtro);
+      document.getElementById('filtros-tipo').classList.remove('d-none');
+      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhum log encontrado para este cliente.</td></tr>'; return; }
+      tbody.innerHTML = lista.map(l => `
         <tr>
           <td>${formatarData(l.dataCriacao)}</td>
+          <td>${badgeTipo(l.tipoLog)}</td>
           <td>${badgeAcao(l.acao)}</td>
           <td>${l.campoAlterado ?? '-'}</td>
           <td class="text-danger">${l.valorAntigo ?? '-'}</td>
           <td class="text-success">${l.valorNovo ?? '-'}</td>
         </tr>`).join('');
+    }
+
+    function badgeTipo(tipo) {
+      const map = { Cliente: 'primary', Endereco: 'info' };
+      const label = { Cliente: 'Cliente', Endereco: 'Endereço' };
+      return `<span class="badge bg-${map[tipo] || 'secondary'}">${label[tipo] || tipo}</span>`;
     }
 
     function badgeAcao(acao) {
@@ -268,12 +292,12 @@
       const numeroDocumento = document.getElementById('input-buscar').value.trim().replace(/\D/g, '');
 
       if (!numeroDocumento) {
-        document.getElementById('tabela-logs').innerHTML = '<tr><td colspan="5" class="text-muted py-3">Nenhum cliente encontrado com esse termo.</td></tr>';
+        document.getElementById('tabela-logs').innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhum cliente encontrado com esse termo.</td></tr>';
         return;
       }
 
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Buscando logs...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Buscando logs...</td></tr>';
 
       document.getElementById('info-selecionado').classList.remove('d-none');
       document.getElementById('texto-selecionado').textContent =
@@ -288,14 +312,14 @@
 
         if (!res.ok) {
           const txt = await res.text();
-          tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro ${res.status}: ${txt || 'Nenhum log encontrado.'}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro ${res.status}: ${txt || 'Nenhum log encontrado.'}</td></tr>`;
           return;
         }
 
         const logs = await res.json();
         renderLogs(logs);
       } catch {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-danger py-3">Erro de conexão.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="text-danger py-3">Erro de conexão.</td></tr>';
       }
     }
 

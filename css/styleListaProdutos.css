@@ -167,6 +167,18 @@ table {
   z-index: 2000 !important;
 }
 
+#tabela-vendas th:nth-child(1),
+#tabela-vendas td:nth-child(1) {
+  width: 160px;
+  max-width: 160px;
+}
+
+#tabela-vendas th:nth-child(6),
+#tabela-vendas td:nth-child(6) {
+  width: 100px;
+  max-width: 100px;
+}
+
 .img-logo {
   width: 5%;
   padding-right: 1%;

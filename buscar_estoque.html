@@ -192,6 +192,10 @@
       return f?.nomeFantasia || f?.razaoSocial || '-';
     }
 
+    function documentoFornecedor(ent) {
+      return ent?.fornecedor?.cnpj || ent?.fornecedor?.cpf || '';
+    }
+
     function formatarData(iso) {
       if (!iso) return '-';
       return new Date(iso).toLocaleString('pt-BR');
@@ -226,14 +230,20 @@
 
     function aplicarFiltros() {
       const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
+      const termoDigitos = termo.replace(/\D/g, '');
       const status = document.getElementById('filtro-status').value;
 
       let lista = entradas.slice();
       if (termo) {
-        lista = lista.filter(ent =>
-          (ent.codigoEntrada || '').toLowerCase().includes(termo) ||
-          nomeFornecedor(ent).toLowerCase().includes(termo)
-        );
+        lista = lista.filter(ent => {
+          const codigo = (ent.codigoEntrada || '').toLowerCase();
+          const nome = nomeFornecedor(ent).toLowerCase();
+          const docDigitos = documentoFornecedor(ent).replace(/\D/g, '');
+
+          return codigo.includes(termo) ||
+                 nome.includes(termo) ||
+                 (termoDigitos !== '' && docDigitos.includes(termoDigitos));
+        });
       }
       if (status) lista = lista.filter(ent => ent.status === status);
 

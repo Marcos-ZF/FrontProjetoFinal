@@ -163,11 +163,11 @@
     }
 
     function obterCliente(venda) {
-      return venda.cliente.nome || venda.cliente.razaoSocial || "-";
+      return venda?.cliente?.nome || venda?.cliente?.razaoSocial || "-";
     }
 
     function obterDocumento(venda) {
-      return venda.cliente.cpf || venda.cliente.cnpj || "-";
+      return venda?.cliente?.cpf || venda?.cliente?.cnpj || "-";
     }
 
     function obterSituacao(transacao){
@@ -203,13 +203,9 @@
       if (cancelada) {
         acoes = `<button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>`;
       } else if (podeEditar) {
-        acoes = `<button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
-        <button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>
-           <button class="btn btn-warning btn-sm me-1" onclick="editarVenda('${id}')">Editar</button>
-           <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${id}', '${codigo.replace(/'/g, "")}')">Cancelar</button>`;
+        acoes = `<div class="d-flex justify-content-center flex-nowrap" style="gap:4px;"><button class="btn btn-success btn-sm" onclick="verParcelas('${id}')">Parcelas</button><button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button><button class="btn btn-warning btn-sm" onclick="editarVenda('${id}')">Editar</button><button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${id}', '${codigo.replace(/'/g, "")}')">Cancelar</button></div>`;
       } else {
-        acoes = `<button class="btn btn-success btn-sm me-1" onclick="verParcelas('${id}')">Parcelas</button>
-           <button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button>`;
+        acoes = `<div class="d-flex justify-content-center flex-nowrap" style="gap:4px;"><button class="btn btn-success btn-sm" onclick="verParcelas('${id}')">Parcelas</button><button class="btn btn-info btn-sm" onclick="verDetalhesVenda('${id}')">Detalhes</button></div>`;
       }
 
       return `
@@ -257,8 +253,8 @@
           const termo = filtro.trim().toLowerCase();
 
           vendasFiltradas = vendas.filter(v => {
-            const codigo = String(v.codigoDaVenda || v.codigoVenda || v.codigo || "").toLowerCase();
-            const documento = String(obterDocumento(v)).toLowerCase();
+            const codigo = String(v.venda?.codigoVenda || "").toLowerCase();
+            const documento = String(obterDocumento(v.venda || {})).toLowerCase();
 
             return codigo.includes(termo) || documento.includes(termo);
           });
