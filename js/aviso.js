@@ -11,6 +11,6 @@ function mostrarAviso(mensagem, tipo) {
   el.style.zIndex = "3000";
   el.textContent = mensagem;
   clearTimeout(el._timerAviso);
-  el._timerAviso = setTimeout(() => { el.className = ""; el.textContent = ""; }, 3500);
+  el._timerAviso = setTimeout(() => { el.className = ""; el.textContent = ""; }, 4000);
 }
 window.mostrarAviso = mostrarAviso;
