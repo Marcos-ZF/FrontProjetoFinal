@@ -162,13 +162,16 @@
     }
 
     function buscarPorNome() {
-      const termoDoc = termo.replace(/\D/g, '');
+      const termoBruto = document.getElementById('input-buscar').value.trim().toLowerCase();
+      if (!termoBruto) return;
+      const termoDoc = termoBruto.replace(/\D/g, '');
+
       const filtrados = clientes.filter(c => {
         const nome = nomeCliente(c).toLowerCase();
         const doc = (docCliente(c) || '').replace(/\D/g, '');
 
-        return doc === termoDoc|| nome.includes(termo);
-              
+        return (termoDoc && doc === termoDoc) || nome.includes(termoBruto);
+
       }).slice(0, 10);
       if (filtrados.length === 1) { selecionarEntidade(filtrados[0]); return; }
       if (filtrados.length === 0) { buscarPorDocumento(); return; }
@@ -303,13 +306,14 @@
       const termo = input.value.trim();
       if (!termo) { box.style.display = 'none'; return; }
 
+      const termoLower = termo.toLowerCase();
       const termoDoc = termo.replace(/\D/g, '');
 
       const filtrados = clientes.filter(c => {
         const nome = nomeCliente(c).toLowerCase();
         const doc = (docCliente(c) || '').replace(/\D/g, '');
 
-        return doc === termoDoc || nome.includes(termoLower); 
+        return (termoDoc && doc === termoDoc) || nome.includes(termoLower);
               
       }).slice(0, 10);
 

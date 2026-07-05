@@ -134,13 +134,17 @@
     }
 
     function buscarPorNome() {
-      const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
-      if (!termo) return;
-      const filtrados = fornecedores.filter(f =>
-        (f.cnpj || '').replace(/\D/g, '') === termo ||
-        (f.nomeFantasia || '').toLowerCase().includes(termo) ||
-        (f.razaoSocial || '').toLowerCase().includes(termo)
-      ).slice(0, 10);
+      const termoBruto = document.getElementById('input-buscar').value.trim().toLowerCase();
+      if (!termoBruto) return;
+      const termoDoc = termoBruto.replace(/\D/g, '');
+
+      const filtrados = fornecedores.filter(f => {
+        const cnpjLimpo = (f.cnpj || '').replace(/\D/g, '');
+        return (termoDoc && cnpjLimpo === termoDoc) ||
+               (f.nomeFantasia || '').toLowerCase().includes(termoBruto) ||
+               (f.razaoSocial || '').toLowerCase().includes(termoBruto);
+      }).slice(0, 10);
+
       if (filtrados.length === 1) { selecionarEntidade(filtrados[0]); return; }
       renderSuggestions(filtrados);
     }
@@ -209,16 +213,19 @@
     const box   = document.getElementById('suggestion-box');
 
     input.addEventListener('input', () => {
-      const termoDoc = termo.replace(/\D/g, '');
+    const termo = input.value.trim().toLowerCase();
+    if (!termo) { box.style.display = 'none'; return; }
 
-      const filtrados = fornecedores.filter(f => {
-        const nome = (f.nomeFantasia || f.razaoSocial || '').toLowerCase();
-        const doc = (f.cnpj || '').replace(/\D/g, '');
+    const termoDoc = termo.replace(/\D/g, '');
 
-        return doc === termoDoc|| nome.includes(termo);
-              
-      }).slice(0, 10);
-      renderSuggestions(filtrados);
+    const filtrados = fornecedores.filter(f => {
+      const nome = (f.nomeFantasia || f.razaoSocial || '').toLowerCase();
+      const doc = (f.cnpj || '').replace(/\D/g, '');
+
+      return (termoDoc && doc === termoDoc) || nome.includes(termo);
+            
+    }).slice(0, 10);
+    renderSuggestions(filtrados);
     });
 
     input.addEventListener('keydown', e => { if (e.key === 'Enter') buscarPorNome(); });

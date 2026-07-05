@@ -134,15 +134,20 @@
     }
 
     function buscarPorNome() {
-      const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
-      if (!termo) return;
-      const filtrados = vendedores.filter(v =>
-        (v.cpf || '').replace(/\D/g, '') === termo ||
-        (v.nomeCompleto || '').toLowerCase().includes(termo) 
-      ).slice(0, 10);
+      const termoBruto = document.getElementById('input-buscar').value.trim().toLowerCase();
+      if (!termoBruto) return;
+      const termoCpf = termoBruto.replace(/\D/g, '');
+
+      const filtrados = vendedores.filter(v => {
+        const cpfLimpoBanco = (v.cpf || '').replace(/\D/g, '');
+        return (termoCpf && cpfLimpoBanco === termoCpf) ||
+              (v.nomeCompleto || '').toLowerCase().includes(termoBruto);
+      }).slice(0, 10);
+
       if (filtrados.length === 1) { selecionarEntidade(filtrados[0]); return; }
       renderSuggestions(filtrados);
     }
+
 
     function renderSuggestions(lista) {
       const box = document.getElementById('suggestion-box');
@@ -208,12 +213,16 @@
     const box   = document.getElementById('suggestion-box');
 
     input.addEventListener('input', () => {
-      const termo = input.value.trim().toLowerCase();
-      if (!termo) { box.style.display = 'none'; return; }
-      const filtrados = vendedores.filter(v =>
-        (v.cpf || '').replace(/\D/g, '') === termo ||
-        (v.nomeCompleto || '').toLowerCase().includes(termo)
-      ).slice(0, 10);
+      const termoBruto = input.value.trim().toLowerCase();
+      if (!termoBruto) { box.style.display = 'none'; return; }
+      const termoCpf = termoBruto.replace(/\D/g, '');
+
+      const filtrados = vendedores.filter(v => {
+        const cpfLimpoBanco = (v.cpf || '').replace(/\D/g, '');
+        return (termoCpf && cpfLimpoBanco === termoCpf) ||
+              (v.nomeCompleto || '').toLowerCase().includes(termoBruto);
+      }).slice(0, 10);
+
       renderSuggestions(filtrados);
     });
 
