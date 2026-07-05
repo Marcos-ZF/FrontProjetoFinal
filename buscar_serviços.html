@@ -138,17 +138,17 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="modal-titulo-exclusao-servico">Confirmar exclusão</h5>
+            <h5 class="modal-title" id="modal-titulo-exclusao-servico">Confirmar inativação</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
 
           <div class="modal-body" id="texto-modal-exclusao-servico">
-            Deseja excluir este serviço?
+            Deseja inativar este serviço?
           </div>
 
           <div class="modal-footer">
             <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+            <button class="btn btn-danger" id="btn-confirmar-exclusao">Inativar</button>
           </div>
         </div>
       </div>
@@ -269,7 +269,7 @@
                <button class="btn btn-success btn-sm" onclick="reativarServico('${s.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
             : `<button class="btn btn-info btn-sm" onclick="verDetalhesServico('${s.id}')">Detalhes</button>
                <button class="btn btn-warning btn-sm" onclick="editarServico('${s.id}')">Editar</button>
-               <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${s.id}', ${s.podeExcluir})">Excluir</button>`;
+               <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${s.id}', ${s.podeExcluir})">Inativar</button>`;
 
           const linha = `
             <tr>
@@ -331,7 +331,7 @@
                   <td class="text-center">
                     <button class="btn btn-info btn-sm" onclick="verDetalhesServico('${s.id}')">Detalhes</button>
                     <button class="btn btn-warning btn-sm" onclick="editarServico('${s.id}')">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${s.id}', ${s.podeExcluir})">Excluir</button>
+                    <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${s.id}', ${s.podeExcluir})">Inativar</button>
                   </td>
                 </tr>
               `;
@@ -361,16 +361,16 @@
       if (podeExcluirDeFato) {
         idServicoParaExcluir = id;
 
-        modalTitulo.textContent = "Confirmar exclusão";
-        modalBody.textContent   = "Deseja excluir este serviço?";
+        modalTitulo.textContent = "Confirmar inativação";
+        modalBody.textContent   = "Deseja inativar este serviço?";
 
         btnConfirmar.classList.remove("d-none");
         btnConfirmar.disabled = false;
       } else {
         idServicoParaExcluir = null;
 
-        modalTitulo.textContent = "Não é possível excluir";
-        modalBody.textContent   = "O serviço está registrado em uma venda e não pode ser excluído.";
+        modalTitulo.textContent = "Não é possível inativar";
+        modalBody.textContent   = "O serviço está registrado em uma venda e não pode ser inativado.";
 
         btnConfirmar.classList.add("d-none");
       }
@@ -394,7 +394,7 @@
         if (resposta.ok) {
           carregarServico(filtroNomeAtual);
         } else {
-          console.error("Erro ao excluir serviço:", resposta.statusText);
+          console.error("Erro ao inativar serviço:", resposta.statusText);
         }
       } catch (e) {
         console.error("Erro ao conectar com o servidor:", e.message);

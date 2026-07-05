@@ -124,17 +124,17 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">Confirmar exclusão</h5>
+            <h5 class="modal-title">Confirmar inativação</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
 
           <div class="modal-body">
-            Deseja excluir este vendedor?
+            Deseja inativar este vendedor?
           </div>
 
           <div class="modal-footer">
             <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+            <button class="btn btn-danger" id="btn-confirmar-exclusao">Inativar</button>
           </div>
         </div>
       </div>
@@ -239,7 +239,7 @@
         const acoes = estadoAtual === "inativos"
           ? `<button class="btn btn-success btn-sm" onclick="reativarVendedor('${vid}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
           : `<button class="btn btn-warning btn-sm" onclick="editarVendedor('${vid}')">Editar</button>
-             <button class="btn btn-danger btn-sm" onclick="abrirModal('${vid}')">Excluir</button>`;
+             <button class="btn btn-danger btn-sm" onclick="abrirModal('${vid}')">Inativar</button>`;
 
         tabela.innerHTML += `
           <tr>
@@ -319,7 +319,7 @@
             buscarVendedor();
           }
         } else {
-          console.error("Erro ao excluir:", resposta.status);
+          console.error("Erro ao inativar vendedor:", resposta.status);
         }
       } catch (err) {
         console.error(err);

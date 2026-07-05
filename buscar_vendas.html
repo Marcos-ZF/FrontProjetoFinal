@@ -183,12 +183,34 @@
       return '<span class="badge bg-secondary">-</span>';
     }
 
+    function formatarCpfCnpj(documento) {
+      if (!documento) return "-";
+
+      documento = documento.toString().replace(/\D/g, "");
+
+      if (documento.length === 11) {
+        return documento.replace(
+          /(\d{3})(\d{3})(\d{3})(\d{2})/,
+          "$1.$2.$3-$4"
+        );
+      }
+
+      if (documento.length === 14) {
+        return documento.replace(
+          /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+          "$1.$2.$3/$4-$5"
+        );
+      }
+
+      return documento;
+}
+
     function montarLinhaVenda(vendaTransacao) {
       const { venda, transacao } = vendaTransacao;
       const id = venda.idVenda || "-";
       const codigo = venda.codigoVenda || "-";
       const cliente = obterCliente(venda);
-      const documento = obterDocumento(venda);
+      const documento = formatarCpfCnpj(obterDocumento(venda));
       const total = formatarMoeda(venda.valorTotalComDesconto);
       const pago = formatarMoeda(transacao.valorPago);
 

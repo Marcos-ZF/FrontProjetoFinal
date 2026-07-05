@@ -139,17 +139,17 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="modal-titulo-exclusao-produto">Confirmar exclusão</h5>
+            <h5 class="modal-title" id="modal-titulo-exclusao-produto">Confirmar inativação</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
           </div>
 
           <div class="modal-body" id="texto-modal-exclusao-produto">
-            Deseja excluir este produto?
+            Deseja inativar este produto?
           </div>
 
           <div class="modal-footer">
             <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+            <button class="btn btn-danger" id="btn-confirmar-exclusao">Inativar</button>
           </div>
         </div>
       </div>
@@ -272,7 +272,7 @@
                <button class="btn btn-success btn-sm" onclick="reativarProduto('${p.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
             : `<button class="btn btn-info btn-sm" onclick="verDetalhesProduto('${p.id}')">Detalhes</button>
                <button class="btn btn-warning btn-sm" onclick="editarProduto('${p.id}')">Editar</button>
-               <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${p.id}', ${p.podeExcluir})">Excluir</button>`;
+               <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${p.id}', ${p.podeExcluir})">Inativar</button>`;
 
           const linha = `
             <tr>
@@ -337,7 +337,7 @@
                   <td class="text-center">
                     <button class="btn btn-info btn-sm" onclick="verDetalhesProduto('${p.id}')">Detalhes</button>
                     <button class="btn btn-warning btn-sm" onclick="editarProduto('${p.id}')">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${p.id}', ${p.podeExcluir})">Excluir</button>
+                    <button class="btn btn-danger btn-sm" onclick="abrirModalExclusao('${p.id}', ${p.podeExcluir})">Inativar</button>
                   </td>
                 </tr>
               `;
@@ -367,8 +367,8 @@
       if (podeExcluirDeFato) {
         idProdutoParaExcluir = id;
 
-        modalTitulo.textContent = "Confirmar exclusão";
-        modalBody.textContent = "Deseja excluir este produto?";
+        modalTitulo.textContent = "Confirmar inativação";
+        modalBody.textContent = "Deseja inativar este produto?";
 
         btnConfirmar.classList.remove("d-none");
         btnConfirmar.disabled = false;
@@ -376,9 +376,9 @@
       } else {
         idProdutoParaExcluir = null;
 
-        modalTitulo.textContent = "Não é possível excluir";
+        modalTitulo.textContent = "Não é possível inativar";
         modalBody.textContent =
-          "O produto está registrado em uma venda e não pode ser excluído.";
+          "O produto está registrado em uma venda e não pode ser inativado.";
 
         btnConfirmar.classList.add("d-none");
       }
@@ -402,7 +402,7 @@
         if (resposta.ok) {
           carregarProduto(filtroNomeAtual);
         } else {
-          console.error("Erro ao excluir:", resposta.statusText);
+          console.error("Erro ao inativar produto:", resposta.statusText);
         }
       } catch (e) {
         console.error("Erro ao conectar:", e.message);

@@ -106,8 +106,8 @@
               <input type="hidden" id="input-fornecedor-id">
             </div>
             <div class="col-md-3">
-              <label class="form-label fw-semibold">Data</label>
-              <input type="text" id="input-data" class="form-control bg-light" readonly>
+              <label class="form-label fw-semibold">CNPJ</label>
+              <input type="text" id="input-cnpj-fornecedor" class="form-control bg-light text-muted" readonly placeholder="-">
             </div>
           </div>
         </div>
@@ -221,20 +221,12 @@
     let fornecedoresCache = [];
 
     document.addEventListener("DOMContentLoaded", () => {
-      preencherData();
       carregarFornecedores();
       carregarProdutos();
       configurarBusca();
       configurarBuscaFornecedor();
       document.getElementById("btn-confirmar-salvar").addEventListener("click", confirmarSalvar);
     });
-
-    function preencherData() {
-      const agora = new Date();
-      document.getElementById("input-data").value =
-        agora.toLocaleDateString("pt-BR") + " " +
-        agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-    }
 
     async function carregarFornecedores() {
       try {
@@ -261,6 +253,12 @@
         if (!res.ok) throw new Error(res.statusText);
         produtosCache = await res.json();
       } catch (e) { console.error(e); }
+    }
+
+    function formatarCnpj(cnpj) {
+      const digitos = (cnpj || "").replace(/\D/g, "");
+      if (digitos.length !== 14) return cnpj || "";
+      return digitos.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
     }
 
     function configurarBuscaFornecedor() {
@@ -292,7 +290,7 @@
           div.className = "suggestion-item";
           div.innerHTML = `
             <span>${f.nomeFantasia || f.nome}</span>
-            <span class="cod">${f.cnpj || ""}</span>
+            <span class="cod">${formatarCnpj(f.cnpj)}</span>
           `;
 
           div.addEventListener("click", () => selecionarFornecedor(f));
@@ -363,6 +361,7 @@
 
       document.getElementById("input-buscar-fornecedor").value = f.nomeFantasia || f.nome;
       document.getElementById("input-fornecedor-id").value     =  f.id;
+      document.getElementById("input-cnpj-fornecedor").value   = formatarCnpj(f.cnpj) || "-";
       document.getElementById("suggestion-box-fornecedor").classList.add("d-none");
     }
 

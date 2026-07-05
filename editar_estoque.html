@@ -87,12 +87,12 @@
             <div id="suggestion-box-fornecedor" class="position-absolute bg-white border rounded shadow-sm w-100" style="z-index:1000; display:none; max-height:220px; overflow-y:auto;"></div>
           </div>
           <div class="col-md-3">
-            <label class="form-label fw-semibold">Código</label>
-            <input type="text" id="input-codigo" class="form-control bg-light" readonly>
+            <label class="form-label fw-semibold">CNPJ</label>
+            <input type="text" id="input-cnpj-fornecedor" class="form-control bg-light" readonly>
           </div>
           <div class="col-md-3">
-            <label class="form-label fw-semibold">Status</label>
-            <input type="text" id="input-status" class="form-control bg-light" readonly>
+            <label class="form-label fw-semibold">Código</label>
+            <input type="text" id="input-codigo" class="form-control bg-light" readonly>
           </div>
         </div>
 
@@ -170,6 +170,11 @@
     let idsItensDeletados = [];
     let modalProduto = null;
 
+    function formatarCnpj(cnpj) {
+      const digitos = (cnpj || '').replace(/\D/g, '');
+      if (digitos.length !== 14) return cnpj || '';
+      return digitos.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    }
 
     async function carregarEntrada() {
       const id = new URLSearchParams(window.location.search).get('id');
@@ -184,7 +189,7 @@
         document.getElementById('input-buscar-fornecedor').value = ent.fornecedor?.nomeFantasia || ent.fornecedor?.razaoSocial || '';
         document.getElementById('input-fornecedor-id').value = idFornecedorOriginal || '';
         document.getElementById('input-codigo').value = ent.codigoEntrada || '-';
-        document.getElementById('input-status').value = ent.status || '-';
+        document.getElementById('input-cnpj-fornecedor').value = formatarCnpj(ent.fornecedor?.cnpj) || '-';
 
         itensExistentes = (ent.itens || []).map(it => ({
           idItem: it.id,          
@@ -273,12 +278,13 @@
           const div = document.createElement('div');
           div.className = 'px-3 py-2';
           div.style.cursor = 'pointer';
-          div.innerHTML = `<strong>${f.nomeFantasia || f.razaoSocial}</strong> <span class="text-muted small">${f.cnpj || ''}</span>`;
+          div.innerHTML = `<strong>${f.nomeFantasia || f.razaoSocial}</strong> <span class="text-muted small">${formatarCnpj(f.cnpj)}</span>`;
           div.onmouseover = () => div.classList.add('bg-light');
           div.onmouseout = () => div.classList.remove('bg-light');
           div.onclick = () => {
             document.getElementById('input-fornecedor-id').value = f.id;
             inputForn.value = f.nomeFantasia || f.razaoSocial;
+            document.getElementById('input-cnpj-fornecedor').value = formatarCnpj(f.cnpj) || '-';
             boxForn.style.display = 'none';
           };
           boxForn.appendChild(div);

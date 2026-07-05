@@ -82,6 +82,11 @@
           </div>
 
           <div class="mb-3">
+            <label class="form-label required">Código do Serviço:</label>
+            <input type="text" id="input-codigoServico" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
             <label class="form-label">Descrição:</label>
             <input type="text" id="input-descricao" class="form-control">
           </div>
@@ -131,6 +136,7 @@
         servico = await resp.json();
 
         document.getElementById("input-nomeServico").value = servico.nomeServico || "";
+        document.getElementById("input-codigoServico").value = servico.codigoDoServico || "";
         document.getElementById("input-descricao").value = servico.descricao || "";
         document.getElementById("input-precoServico").value = servico.precoServico || "";
 
@@ -148,7 +154,7 @@
       const dados = {
         nomeServico: document.getElementById("input-nomeServico").value,
         descricao: document.getElementById("input-descricao").value,
-        codigoDoServico: "",
+        codigoDoServico: document.getElementById("input-codigoServico").value,
         precoServico: parseFloat(document.getElementById("input-precoServico").value)
       };
 

@@ -135,7 +135,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow">
         <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title" id="modal-titulo-exclusao">Confirmar exclusão</h5>
+          <h5 class="modal-title" id="modal-titulo-exclusao">Confirmar inativação</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body" id="texto-modal-exclusao">
@@ -256,30 +256,36 @@
     }
 
     async function buscarClientes() {
-      const termo = document.getElementById("input-buscar-clientes-por-nome").value.trim();
-      filtroAtual = termo;
+      const termoOriginal = document.getElementById("input-buscar-clientes-por-nome").value.trim();
+      filtroAtual = termoOriginal;
 
       const tabela = document.getElementById("tabela-clientes");
       tabela.innerHTML = `<tr><td colspan="10" class="text-center text-muted">Buscando...</td></tr>`;
 
-      if (termo === "") {
+      if (termoOriginal === "") {
         carregarClientes();
         return;
       }
 
+      const somenteNumeros = termoOriginal.replace(/\D/g, "");
+
       if (estadoAtual === "inativos") {
-        const termoLower = termo.toLowerCase();
-        const somenteNum = termo.replace(/\D/g, "");
+        const termoLower = termoOriginal.toLowerCase();
+
         const filtrados = clientesCache.filter(c => {
           const nome = (c.tipoCliente === "PessoaFisica" ? c.nome : c.razaoSocial) || "";
           const doc = (c.tipoCliente === "PessoaFisica" ? c.cpf : c.cnpj) || "";
-          return nome.toLowerCase().includes(termoLower) || (somenteNum && doc.replace(/\D/g, "").includes(somenteNum));
+
+          return (
+            nome.toLowerCase().includes(termoLower) ||
+            (somenteNumeros.length > 0 &&
+              doc.replace(/\D/g, "").includes(somenteNumeros))
+          );
         });
+
         preencherTabela(filtrados);
         return;
       }
-
-      const somenteNumeros = termo.replace(/\D/g, "");
 
       try {
         if (somenteNumeros.length === 11) {
@@ -290,7 +296,10 @@
 
           const resp = await fetch(API_URL_DOCUMENTO, {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": localStorage.getItem("JWT")
+            },
             body: JSON.stringify(body)
           });
 
@@ -309,7 +318,10 @@
 
           const resp = await fetch(API_URL_DOCUMENTO, {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": localStorage.getItem("JWT")
+            },
             body: JSON.stringify(body)
           });
 
@@ -320,12 +332,15 @@
           }
         }
 
-        const respNome = await fetch(API_URL_POR_NOME + encodeURIComponent(termo), {
-          method: "GET",
-          headers: { "Authorization": localStorage.getItem("JWT") }
-        });
-
-        
+        const respNome = await fetch(
+          API_URL_POR_NOME + encodeURIComponent(termoOriginal),
+          {
+            method: "GET",
+            headers: {
+              "Authorization": localStorage.getItem("JWT")
+            }
+          }
+        );
 
         if (respNome.ok) {
           const dados = await respNome.json();
@@ -334,8 +349,8 @@
         }
 
         tabela.innerHTML = `<tr><td colspan="10" class="text-center text-muted">Nenhum resultado encontrado.</td></tr>`;
-      } 
-      catch (erro) {
+
+      } catch (erro) {
         tabela.innerHTML = `<tr><td colspan="10" class="text-danger">Erro: ${erro.message}</td></tr>`;
       }
     }

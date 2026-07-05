@@ -675,7 +675,18 @@
         if (!res.ok) return;
         const dados = await res.json();
         lista.innerHTML = "";
-        (Array.isArray(dados) ? dados : []).slice(0, 10).forEach(p => {
+        const listaDados = Array.isArray(dados) ? dados : [];
+
+        if (!listaDados.length) {
+          const li = document.createElement("li");
+          li.className = "li-de-clientes";
+          li.textContent = "Nenhum produto encontrado";
+          lista.appendChild(li);
+          lista.style.display = "block";
+          return;
+        }
+
+        listaDados.slice(0, 10).forEach(p => {
           const li = document.createElement("li");
           li.className = "li-de-clientes";
           li.innerHTML = `${p.nomeProduto}<br><small>${p.codigoDeBarra || ""}</small>`;
@@ -694,7 +705,7 @@
           };
           lista.appendChild(li);
         });
-        lista.style.display = dados.length ? "block" : "none";
+        lista.style.display = "block";
       } catch {}
     });
 
@@ -745,7 +756,19 @@
         if (!res.ok) return;
         const dados = await res.json();
         lista.innerHTML = "";
-        (Array.isArray(dados) ? dados : []).slice(0, 10).forEach(s => {
+
+        const apenasAtivos = (Array.isArray(dados) ? dados : []).filter(s => s.ativo !== false);
+
+        if (!apenasAtivos.length) {
+          const li = document.createElement("li");
+          li.className = "li-de-clientes";
+          li.textContent = "Nenhum serviço encontrado";
+          lista.appendChild(li);
+          lista.style.display = "block";
+          return;
+        }
+
+        apenasAtivos.slice(0, 10).forEach(s => {
           const li = document.createElement("li");
           li.className = "li-de-clientes";
           li.innerHTML = `${s.nomeServico}<br><small>${s.codigoDoServico || ""}</small>`;
@@ -759,7 +782,7 @@
           };
           lista.appendChild(li);
         });
-        lista.style.display = dados.length ? "block" : "none";
+        lista.style.display = "block";
       } catch {}
     });
 

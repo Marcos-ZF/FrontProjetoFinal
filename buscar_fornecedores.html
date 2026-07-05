@@ -138,17 +138,17 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">Confirmar exclusão</h5>
+            <h5 class="modal-title">Confirmar inativação</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
 
           <div class="modal-body">
-            Deseja excluir este fornecedor?
+            Deseja inativar este fornecedor?
           </div>
 
           <div class="modal-footer">
             <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+            <button class="btn btn-danger" id="btn-confirmar-exclusao">Inativar</button>
           </div>
         </div>
       </div>
@@ -246,7 +246,7 @@
              <button class="btn btn-success btn-sm" onclick="reativarFornecedor('${fid}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
           : `<button class="btn btn-info btn-sm" onclick="verDetalhesFornecedor('${fid}')">Detalhes</button>
              <button class="btn btn-warning btn-sm" onclick="editarFornecedor('${fid}')">Editar</button>
-             <button class="btn btn-danger btn-sm" onclick="abrirModal('${fid}')">Excluir</button>`;
+             <button class="btn btn-danger btn-sm" onclick="abrirModal('${fid}')">Inativar</button>`;
 
         tabela.innerHTML += `
           <tr>
@@ -348,7 +348,7 @@
         if (resposta.ok) {
           carregarFornecedor();
         } else {
-          console.error("Erro ao excluir:", resposta.status);
+          console.error("Erro ao inativar fornecedor:", resposta.status);
         }
       } catch (err) {
         console.error(err);
