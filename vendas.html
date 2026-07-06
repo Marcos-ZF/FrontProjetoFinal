@@ -386,6 +386,10 @@
         inputVencimento.readOnly = false;
         inputVencimento.classList.remove("bg-light");
         labelVencimento.textContent = "Vencimento (1ª parcela):";
+
+        const amanha = new Date();
+        amanha.setDate(amanha.getDate() + 1);
+        inputVencimento.value = amanha.toISOString().split("T")[0];
       }
     }
 

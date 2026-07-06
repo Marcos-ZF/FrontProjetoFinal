@@ -476,6 +476,7 @@
       if (tipo === "AVista") {
         inputParc.value    = 1;
         inputParc.disabled = true;
+        inputVenc.value    = new Date().toISOString().split("T")[0];
         inputVenc.readOnly = true;
         inputVenc.classList.add("bg-light");
       } else {
