@@ -196,6 +196,17 @@
       return ent?.fornecedor?.cnpj || ent?.fornecedor?.cpf || '-';
     }
 
+    function formatarDocumento(doc) {
+      const d = (doc || '').replace(/\D/g, '');
+      if (d.length === 14) {
+        return d.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+      }
+      if (d.length === 11) {
+        return d.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+      }
+      return doc || '-';
+    }
+
     function formatarData(iso) {
       if (!iso) return '-';
       return new Date(iso).toLocaleString('pt-BR');
@@ -285,7 +296,7 @@
           <tr>
             <td>${ent.codigoEntrada || '-'}</td>
             <td>${nomeFornecedor(ent)}</td>
-            <td>${documentoFornecedor(ent)}</td>
+            <td>${formatarDocumento(documentoFornecedor(ent))}</td>
             <td>${qtdItens}</td>
             <td>${badgeStatus(ent.status)}</td>
             <td>${badgeSituacao(ent.ativo)}</td>
@@ -303,7 +314,7 @@
       document.getElementById('detalhes-cabecalho').innerHTML = `
         <div class="col-md-6"><strong>Código:</strong> ${ent.codigoEntrada || '-'}</div>
         <div class="col-md-6"><strong>Fornecedor:</strong> ${nomeFornecedor(ent)}</div>
-        <div class="col-md-6"><strong>CNPJ:</strong> ${documentoFornecedor(ent)}</div>
+        <div class="col-md-6"><strong>CNPJ:</strong> ${formatarDocumento(documentoFornecedor(ent))}</div>
         <div class="col-md-6"><strong>Data:</strong> ${formatarData(ent.dataCriacao)}</div>
         <div class="col-md-3"><strong>Status:</strong> ${badgeStatus(ent.status)}</div>
         <div class="col-md-3"><strong>Situação:</strong> ${badgeSituacao(ent.ativo)}</div>`;

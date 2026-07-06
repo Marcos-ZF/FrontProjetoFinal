@@ -421,6 +421,12 @@
       document
         .getElementById("btn-confirmar-exclusao")
         .addEventListener("click", excluirProduto);
+
+      let debounceTimer;
+      document.getElementById("input-buscar-produtos-por-nome").addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(buscarPorNome, 400);
+      });
     });
   </script>
 

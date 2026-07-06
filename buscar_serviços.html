@@ -316,6 +316,8 @@
 
           const servicosCodigo = Array.isArray(dados) ? dados : (dados ? [dados] : []);
 
+          await carregarServico(termo);
+
           if (servicosCodigo.length > 0) {
             tabela.innerHTML = "";
             servicosCache = servicosCodigo;
@@ -413,6 +415,12 @@
       document
         .getElementById("btn-confirmar-exclusao")
         .addEventListener("click", excluirServico);
+
+      let debounceTimer;
+      document.getElementById("input-buscar-servicos-por-nome").addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(buscarPorNome, 400);
+      });
     });
   </script>
 

@@ -453,9 +453,10 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("btn-confirmar-exclusao").addEventListener("click", excluirCliente);
-      carregarClientes();
-    });
+    document.getElementById("btn-confirmar-exclusao").addEventListener("click", excluirCliente);
+    document.getElementById("input-buscar-clientes-por-nome").addEventListener("input", buscarClientes);
+    carregarClientes();
+  });
   </script>
     </div>
   </main>

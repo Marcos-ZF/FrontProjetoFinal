@@ -374,6 +374,12 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       carregarVendas();
+
+      let debounceTimer;
+      document.getElementById("input-buscar-cpf").addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(buscarPorCpf, 400);
+      });
     });
 </script>
 
