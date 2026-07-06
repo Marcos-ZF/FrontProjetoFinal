@@ -132,8 +132,8 @@
             <th>Produto</th>
             <th>Código de Barra</th>
             <th>Qtd</th>
-            <th>Preço</th>
-            <th>Desconto</th>
+            <th>Preço (R$)</th>
+            <th>Desconto Unit. (R$)</th>
             <th>Total</th>
             <th>Ações</th>
           </tr>
@@ -161,7 +161,7 @@
             <th>Serviço</th>
             <th>Código</th>
             <th>Preço</th>
-            <th>Desconto</th>
+            <th>Desconto (R$)</th>
             <th>Total</th>
             <th>Ações</th>
           </tr>
@@ -448,6 +448,8 @@
 
       if (!Array.isArray(dados) || dados.length === 0) {
 
+        lista.innerHTML = "";  
+
         const li = document.createElement("li");
 
         lista.style.display = "block";
@@ -595,14 +597,11 @@
 
       if (!Array.isArray(dados) || dados.length === 0) {
 
+        lista.innerHTML = "";  
         const li = document.createElement("li");
-
         li.innerHTML = "Nenhum vendedor encontrado";
-
         li.classList.add("li-de-clientes");
-
         listaVendedores.style.display = "block";
-
         listaVendedores.appendChild(li);
 
         return;
@@ -611,9 +610,7 @@
       dados.forEach(vendedor => {
 
         const li = document.createElement("li");
-
         li.classList.add("li-de-clientes");
-
         li.innerHTML = `
           ${vendedor.nomeCompleto}<br>
           ${vendedor.cpf}
@@ -625,12 +622,10 @@
 
           inputNomeVendedor.value =
             vendedor.nomeCompleto;
-
           inputCpfVendedor.value =
             vendedor.cpf;
 
           listaVendedores.innerHTML = "";
-
           listaVendedores.style.display = "none";
         });
 
@@ -664,20 +659,15 @@
   inputNomeVendedor.addEventListener("blur", () => {
 
     setTimeout(() => {
-
       listaVendedores.innerHTML = "";
-
       listaVendedores.style.display = "none";
-
     }, 200);
   });
 
   inputNomeVendedor.addEventListener("focus", () => {
 
     if (inputNomeVendedor.value !== "") {
-
       const func = debounce(() => {
-
         buscarVendedorPorNome(
           inputNomeVendedor.value
         );
@@ -701,7 +691,6 @@
       ) {
 
         inputCpfVendedor.value = "";
-
         idVendedor = null;
       }
     }
