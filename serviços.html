@@ -147,14 +147,17 @@
         headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
         body: JSON.stringify(dados)
       })
-        .then((response) => {
-          if (!response.ok) throw new Error("Erro no envio");
+        .then(async (response) => {
+          if (!response.ok) {
+            const mensagemDeErro = await response.text();
+            throw new Error(mensagemDeErro);
+          }
           mostrarAviso("Serviço cadastrado", "sucesso");
           setTimeout(() => {
             window.location.href = "./buscar_serviços.html";
           }, 1500);
         })
-        .catch(() => mostrarAviso("Erro no envio de dados", "erro"));
+        .catch((e) => mostrarAviso(e, "erro"));
     }
 
 
