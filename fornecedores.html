@@ -240,9 +240,9 @@
     telefone: telefone,
     email: email,
     razaoSocial: razaoSocial,
-    nomeFantasia: nomeFantasia || null,
+    nomeFantasia: nomeFantasia || "",
     cnpj: cnpjLimpo, 
-    inscricaoEstadual: inscricaoEstadual || null
+    inscricaoEstadual: inscricaoEstadual || ""
   };
 
   fetch("https://projetoapidevendaestagio.onrender.com/api/Fornecedor", {
@@ -250,8 +250,12 @@
     headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
     body: JSON.stringify(dados)
   })
-    .then((response) => {
-      if (!response.ok) throw new Error("Erro no envio");
+    .then(async(response) => {
+      if (!response.ok){
+        const mensagemDeErro = await response.text();
+        mostrarAviso(mensagemDeErro,"erro")
+        return
+      };
 
       mostrarAviso("Fornecedor cadastrado", "sucesso");
 
@@ -259,7 +263,7 @@
         window.location.href = "./buscar_fornecedores.html";
       }, 1500);
     })
-    .catch(() => mostrarAviso("Erro no envio de dados", "erro"));
+    .catch(() => mostrarAviso("Erro, procure o suporte", "erro"));
 }
 
 

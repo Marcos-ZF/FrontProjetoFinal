@@ -158,7 +158,8 @@
           .then(async response => {
             if (!response.ok) {
               const mensagemDeErro = await response.text();
-              throw new Error(mensagemDeErro);
+              mostrarAviso(mensagemDeErro, "erro");
+              return
             }
             mostrarAviso("Produto Cadastrado", "sucesso");
             setTimeout(() => {
@@ -166,7 +167,7 @@
             }, 1500);
           })
           .catch((e) => {
-            mostrarAviso(e, "erro");
+            mostrarAviso("Erro procure o suporte", "erro");
           });
       }
 

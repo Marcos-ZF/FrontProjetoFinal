@@ -199,15 +199,18 @@
       headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("JWT") },
       body: JSON.stringify(dados)
     })
-      .then((response) => {
-        console.log(response);  
-        if (!response.ok) throw new Error(Response.error);
+      .then(async(response) => { 
+        if (!response.ok){
+          const mensagemDeErro = await response.text();
+          mostrarAviso(mensagemDeErro,"erro")
+          return
+        }
         mostrarAviso("Vendedor cadastrado", "sucesso");
         setTimeout(() => {
           window.location.href = "./buscar_vendedores.html";
         }, 1500);
       })
-      .catch(() => mostrarAviso("Erro no envio de dados", "erro"));
+      .catch(() => mostrarAviso("Erro, procure o suporte", "erro"));
   }
 
   formularioVendedor.addEventListener("submit", (e) => {

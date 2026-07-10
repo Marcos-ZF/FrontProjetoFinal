@@ -169,7 +169,8 @@
           mostrarAviso("Serviço atualizado!", "sucesso");
           setTimeout(() => location.href = "buscar_serviços.html", 1500);
         } else {
-          mostrarAviso("Erro ao atualizar", "erro");
+          const erroTexto = await resp.text();
+          mostrarAviso(`${erroTexto}`, "erro");
         }
 
       } catch {

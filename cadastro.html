@@ -445,14 +445,15 @@
           .then(async response => {
             if (!response.ok) {
               const mensagemDeErro = await response.text();
-              throw new Error(mensagemDeErro);
+              mostrarAviso(mensagemDeErro,"erro")
+              return;
             }
             mostrarAviso("Cliente Cadastrado", "sucesso");
             setTimeout(() => {
               window.location.href = "./buscar_clientes.html";
             }, 1500);
           })
-          .catch((e) => mostrarAviso(e, "erro"));
+          .catch((e) => mostrarAviso("erro procure o suporte", "erro"));
       }
 
       function enviarDadosParaCriarUsuarioJuridicoNaApi(logradouro, numeroDoLocal, cidade, siglaUf, telefone, email,
@@ -482,14 +483,15 @@
           .then(async response => {
             if (!response.ok) {
               const mensagemDeErro = await response.text();
-              throw new Error(mensagemDeErro);
+              mostrarAviso(mensagemDeErro, "erro")
+              return;
             }
             mostrarAviso("Cliente Cadastrado", "sucesso");
             setTimeout(() => {
               window.location.href = "./buscar_clientes.html";
             }, 1500);
           })
-          .catch((e) => mostrarAviso(e, "erro"));
+          .catch((e) => mostrarAviso("erro, procure o suporte", "erro"));
       }
 
 

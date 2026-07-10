@@ -175,7 +175,7 @@
           }, 1500);
         } else {
           const erroTexto = await resp.text();
-          mostrarAviso(`Erro ao atualizar produto: ${resp.status} - ${erroTexto}`, "erro");
+          mostrarAviso(`${erroTexto}`, "erro");
         }
       } catch (erro) {
         mostrarAviso("Falha na conexão com o servidor: " + erro.message, "erro");

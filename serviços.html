@@ -150,14 +150,15 @@
         .then(async (response) => {
           if (!response.ok) {
             const mensagemDeErro = await response.text();
-            throw new Error(mensagemDeErro);
+            mostrarAviso(mensagemDeErro,"erro")
+            return
           }
           mostrarAviso("Serviço cadastrado", "sucesso");
           setTimeout(() => {
             window.location.href = "./buscar_serviços.html";
           }, 1500);
         })
-        .catch((e) => mostrarAviso(e, "erro"));
+        .catch((e) => mostrarAviso("erro procure o suporte", "erro"));
     }
 
 

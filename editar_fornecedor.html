@@ -178,8 +178,8 @@
         telefone: document.getElementById("telefone").value,
         email: document.getElementById("email").value,
         razaoSocial: document.getElementById("razaoSocial").value,
-        nomeFantasia: document.getElementById("nomeFantasia").value || null,
-        inscricaoEstadual: document.getElementById("inscricaoEstadual").value || null
+        nomeFantasia: document.getElementById("nomeFantasia").value || "",
+        inscricaoEstadual: document.getElementById("inscricaoEstadual").value || ""
       };
 
       try {
@@ -196,7 +196,7 @@
           }, 1500);
         } else {
           const erroTexto = await resp.text();
-          mostrarAviso(`Erro: ${erroTexto}`, "erro");
+          mostrarAviso(`${erroTexto}`, "erro");
         }
 
       } catch (erro) {
