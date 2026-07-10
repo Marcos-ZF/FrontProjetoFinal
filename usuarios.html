@@ -91,7 +91,7 @@
                   <input type="radio" class="btn-check" name="filtro-estado" id="filtro-inativos" autocomplete="off" onchange="trocarEstado('inativos')">
                   <label class="btn btn-outline-danger" for="filtro-inativos"><i class="bi bi-x-circle me-1"></i>Inativos</label>
                 </div>
-                <input type="text" id="input-buscar" class="form-control" placeholder="Buscar por nome ou email">
+                <input type="text" id="input-buscar" class="form-control" placeholder="Buscar por código ou email">
                 <button class="btn btn-primary" onclick="filtrarUsuarios()">Buscar</button>
               </div>
             </div>
@@ -131,19 +131,19 @@
         <div class="modal-body">
           <input type="hidden" id="usuario-id">
           <div class="mb-3">
-            <label class="form-label">Nome</label>
+            <label class="form-label">Nome<span style="color: red;">*</span></label>
             <input type="text" id="usuario-nome" class="form-control">
           </div>
           <div class="mb-3">
-            <label class="form-label">Email</label>
+            <label class="form-label">Email<span style="color: red;">*</span></label>
             <input type="email" id="usuario-email" class="form-control">
           </div>
           <div class="mb-3">
-            <label class="form-label">Senha <span id="senha-hint" class="text-muted small"></span></label>
+            <label class="form-label">Senha<span id="span-required-senha" style="color: red;">*</span><span id="senha-hint" class="text-muted small"></span></label>
             <input type="password" id="usuario-senha" class="form-control" autocomplete="new-password">
           </div>
           <div class="mb-3">
-            <label class="form-label">Perfil</label>
+            <label class="form-label">Perfil<span style="color: red;">*</span></label>
             <select id="usuario-perfil" class="form-select">
               <option value="User">Usuário</option>
               <option value="Admin">Admin</option>
@@ -280,6 +280,7 @@
       document.getElementById('usuario-senha').value = '';
       document.getElementById('usuario-perfil').value = 'User';
       document.getElementById('senha-hint').textContent = '';
+      document.getElementById('span-required-senha').textContent="*"
       if (!modalUsuario) modalUsuario = new bootstrap.Modal(document.getElementById('modalUsuario'));
       modalUsuario.show();
     }
@@ -292,6 +293,7 @@
       document.getElementById('usuario-senha').value = '';
       document.getElementById('usuario-perfil').value = u.perfilUsuario;
       document.getElementById('senha-hint').textContent = '(deixe em branco para manter a atual)';
+      document.getElementById('span-required-senha').textContent=""
       if (!modalUsuario) modalUsuario = new bootstrap.Modal(document.getElementById('modalUsuario'));
       modalUsuario.show();
     }
@@ -349,7 +351,7 @@
     function filtrarUsuarios() {
       const termo = document.getElementById('input-buscar').value.trim().toLowerCase();
       const filtrados = usuarios.filter(u =>
-        (u.nome || '').toLowerCase().includes(termo) ||
+        String(u.codigoUsuario ?? '').toLowerCase().includes(termo) ||
         (u.email || '').toLowerCase().includes(termo)
       );
       renderUsuarios(filtrados);

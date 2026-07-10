@@ -101,7 +101,7 @@
                 <th>Campo Alterado</th>
                 <th>Valor Antigo</th>
                 <th>Valor Novo</th>
-                <th>Usuário</th>
+                <th>Código Usuário Responsável</th>
               </tr>
               </tr>
             </thead>
@@ -187,16 +187,27 @@
     function renderLogs(logs) {
       const tbody = document.getElementById('tabela-logs');
       if (!logs.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhum log encontrado para este serviço.</td></tr>'; return; }
-      tbody.innerHTML = logs.map(l => `
+      tbody.innerHTML = logs.map(l => {
+        const numerico = campoENumerico(l.campoAlterado);
+        const alinharAntigo = (numerico && l.valorAntigo != null) ? 'text-end': "" ;
+        const alinharNovo   = (numerico && l.valorNovo != null) ? 'text-end' : "";
+        return `
         <tr>
           <td>${formatarData(l.dataCriacao)}</td>
           <td>${badgeAcao(l.acao)}</td>
           <td>${l.campoAlterado ?? '-'}</td>
-          <td class="text-danger">${l.valorAntigo ?? '-'}</td>
-          <td class="text-success">${l.valorNovo ?? '-'}</td>
+          <td class="text-danger ${alinharAntigo}">${l.valorAntigo ?? '-'}</td>
+          <td class="text-success ${alinharNovo}">${l.valorNovo ?? '-'}</td>
           <td><span class="badge bg-light text-dark border">${l.codigoUsuarioResponsavel ?? '-'}</span></td>
-        </tr>`).join('');
+        </tr>`;
+      }).join('');
     }
+
+    function campoENumerico(campo) {
+    if (!campo) return false;
+    const c = campo.toLowerCase();
+    return c === "preco";
+  }
 
     function badgeAcao(acao) {
       const map = { Criacao: 'success', Atualizacao: 'warning', Exclusao: 'danger' };

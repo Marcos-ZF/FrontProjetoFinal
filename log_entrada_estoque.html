@@ -112,7 +112,7 @@
                 <th>Campo Alterado</th>
                 <th>Valor Antigo</th>
                 <th>Valor Novo</th>
-                <th>Usuário</th>
+                <th>Código Usuário Responsável</th>
               </tr>
               </tr>
             </thead>
@@ -242,17 +242,27 @@
         return;
       }
 
-      tbody.innerHTML = lista.map(l => `
+      tbody.innerHTML = lista.map(l => {
+        const numerico = campoENumerico(l.campoAlterado);
+        const alinharAntigo = (numerico && l.valorAntigo != null) ? 'text-end' : "";
+        const alinharNovo   = (numerico && l.valorNovo != null) ? 'text-end' : "";
+        return `
         <tr>
           <td>${formatarData(l.dataCriacao)}</td>
           <td>${badgeTipo(l.tipoLog)}</td>
           <td>${referencia(l)}</td>
           <td>${badgeAcao(l.acao)}</td>
           <td>${l.campoAlterado ?? '-'}</td>
-          <td class="text-danger">${l.valorAntigo ?? '-'}</td>
-          <td class="text-success">${l.valorNovo ?? '-'}</td>
+          <td class="text-danger ${alinharAntigo}">${l.valorAntigo ?? '-'}</td>
+          <td class="text-success ${alinharNovo}">${l.valorNovo ?? '-'}</td>
           <td><span class="badge bg-light text-dark border">${l.codigoUsuarioResponsavel ?? '-'}</span></td>
-        </tr>`).join('');
+        </tr>`;
+      }).join('');
+    }
+
+    function campoENumerico(campo) {
+      if (!campo) return false;
+      return campo.toLowerCase() === "quantidade";
     }
 
     function referencia(l) {
