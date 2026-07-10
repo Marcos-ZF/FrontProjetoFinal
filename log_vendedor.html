@@ -101,10 +101,11 @@
                 <th>Campo Alterado</th>
                 <th>Valor Antigo</th>
                 <th>Valor Novo</th>
+                <th>Usuário</th>
               </tr>
             </thead>
             <tbody id="tabela-logs">
-              <tr><td colspan="5" class="text-muted py-4">Busque um vendedor para visualizar os logs.</td></tr>
+              <tr><td colspan="6" class="text-muted py-4">Busque um vendedor para visualizar os logs.</td></tr>
             </tbody>
           </table>
         </div>
@@ -176,19 +177,19 @@
 
     async function carregarLogs(id) {
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Carregando logs...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Carregando logs...</td></tr>';
       try {
         const res = await fetch(`${API_BASE}/log/${id}`, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
         renderLogs(await res.json());
       } catch (e) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-danger py-3">Erro de conexão.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro de conexão.</td></tr>`;
       }
     }
 
     function renderLogs(logs) {
       const tbody = document.getElementById('tabela-logs');
-      if (!logs.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-muted py-3">Nenhum log encontrado para este vendedor.</td></tr>'; return; }
+      if (!logs.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhum log encontrado para este vendedor.</td></tr>'; return; }
       tbody.innerHTML = logs.map(l => `
         <tr>
           <td>${formatarData(l.dataCriacao)}</td>
@@ -196,6 +197,7 @@
           <td>${l.campoAlterado ?? '-'}</td>
           <td class="text-danger">${l.valorAntigo ?? '-'}</td>
           <td class="text-success">${l.valorNovo ?? '-'}</td>
+          <td><span class="badge bg-light text-dark border">${l.codigoUsuarioResponsavel ?? '-'}</span></td>
         </tr>`).join('');
     }
 

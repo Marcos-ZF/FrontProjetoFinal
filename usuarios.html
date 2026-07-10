@@ -100,6 +100,7 @@
             <table class="table table-striped align-middle text-center">
               <thead class="table-secondary">
                 <tr>
+                  <th>Código</th>
                   <th>Nome</th>
                   <th>Email</th>
                   <th>Perfil</th>
@@ -108,7 +109,7 @@
                 </tr>
               </thead>
               <tbody id="tabela-usuarios">
-                <tr><td colspan="5" class="text-muted">Carregando usuários...</td></tr>
+                <tr><td colspan="6" class="text-muted">Carregando usuários...</td></tr>
               </tbody>
             </table>
           </div>
@@ -239,21 +240,21 @@
 
     async function carregarUsuarios() {
       const tbody = document.getElementById('tabela-usuarios');
-      tbody.innerHTML = '<tr><td colspan="5" class="text-muted">Carregando usuários...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-muted">Carregando usuários...</td></tr>';
       const url = estadoAtual === 'inativos' ? API_INATIVOS : API;
       try {
         const res = await fetch(url, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="5" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger">Erro ${res.status} ao carregar.</td></tr>`; return; }
         usuarios = await res.json();
         renderUsuarios(usuarios);
       } catch {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-danger">Erro de conexão.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="text-danger">Erro de conexão.</td></tr>';
       }
     }
 
     function renderUsuarios(lista) {
       const tbody = document.getElementById('tabela-usuarios');
-      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-muted">Nenhum usuário encontrado.</td></tr>'; return; }
+      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted">Nenhum usuário encontrado.</td></tr>'; return; }
       tbody.innerHTML = lista.map(u => {
         const acoes = estadoAtual === 'inativos'
           ? `<button class="btn btn-success btn-sm" onclick="reativarUsuario('${u.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
@@ -261,6 +262,7 @@
              <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${u.id}', '${u.nome.replace(/'/g, "")}')">Excluir</button>`;
         return `
         <tr>
+          <td>${u.codigoUsuario ?? '-'}</td>
           <td>${u.nome}</td>
           <td>${u.email}</td>
           <td>${badgePerfil(u.perfilUsuario)}</td>

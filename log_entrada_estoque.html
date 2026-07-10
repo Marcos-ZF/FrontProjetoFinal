@@ -16,7 +16,7 @@
   <nav id="sidebar" class="sidebar d-none d-md-flex flex-column">
     <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
       <div id="brandButton" class="d-flex align-items-center gap-2" style="cursor:pointer;">
-        <img src="./resources/ImagemLogoEmpresaParaEstagio.png" alt="logo" class="sidebar-logo">
+        <i class="bi bi-bicycle fs-4"></i>
         <span class="brand-text">BikeCiaSystem</span>
       </div>
       <button id="toggleSidebar" class="btn btn-sm btn-outline-secondary" aria-label="Minimizar menu">
@@ -112,10 +112,12 @@
                 <th>Campo Alterado</th>
                 <th>Valor Antigo</th>
                 <th>Valor Novo</th>
+                <th>Usuário</th>
+              </tr>
               </tr>
             </thead>
             <tbody id="tabela-logs">
-              <tr><td colspan="7" class="text-muted py-4">Busque uma entrada de estoque para visualizar os logs.</td></tr>
+              <tr><td colspan="8" class="text-muted py-4">Busque uma entrada de estoque para visualizar os logs.</td></tr>
             </tbody>
           </table>
         </div>
@@ -134,7 +136,7 @@
 
     async function carregarEntradas() {
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Carregando entradas...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="text-muted py-3">Carregando entradas...</td></tr>';
       try {
         const [resAtivas, resInativas] = await Promise.allSettled([
           fetch(API_ENTRADA, { headers: { Authorization: JWT() } }),
@@ -147,7 +149,7 @@
         if (resAtivas.status === 'fulfilled' && resAtivas.value.ok) {
           ativas = await resAtivas.value.json();
         } else if (resAtivas.status === 'fulfilled') {
-          tbody.innerHTML = `<tr><td colspan="7" class="text-danger py-3">Erro ${resAtivas.value.status} ao carregar entradas. Faça login novamente se necessário.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="8" class="text-danger py-3">Erro ${resAtivas.value.status} ao carregar entradas. Faça login novamente se necessário.</td></tr>`;
           return;
         }
 
@@ -158,13 +160,13 @@
         entradas = [...ativas, ...inativas];
 
         if (!entradas.length) {
-          tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Nenhuma entrada de estoque cadastrada.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="8" class="text-muted py-3">Nenhuma entrada de estoque cadastrada.</td></tr>';
         } else {
-          tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Busque uma entrada de estoque para visualizar os logs.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="8" class="text-muted py-3">Busque uma entrada de estoque para visualizar os logs.</td></tr>';
         }
       } catch (e) {
         console.error(e);
-        tbody.innerHTML = '<tr><td colspan="7" class="text-danger py-3">Erro de conexão. A API pode estar iniciando (aguarde alguns segundos e recarregue).</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="text-danger py-3">Erro de conexão. A API pode estar iniciando (aguarde alguns segundos e recarregue).</td></tr>';
       }
     }
 
@@ -216,15 +218,15 @@
 
     async function carregarLogs(id) {
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Carregando logs...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="text-muted py-3">Carregando logs...</td></tr>';
       try {
         const res = await fetch(`${API_ENTRADA}/log/${id}`, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="7" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="8" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
         logsAtuais = await res.json();
         document.getElementById('filtros-tipo').classList.remove('d-none');
         renderLogs();
       } catch (e) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-danger py-3">Erro de conexão.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="text-danger py-3">Erro de conexão.</td></tr>`;
       }
     }
 
@@ -236,7 +238,7 @@
       if (filtro) lista = lista.filter(l => l.tipoLog === filtro);
 
       if (!lista.length) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Nenhum log encontrado.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="text-muted py-3">Nenhum log encontrado.</td></tr>';
         return;
       }
 
@@ -249,6 +251,7 @@
           <td>${l.campoAlterado ?? '-'}</td>
           <td class="text-danger">${l.valorAntigo ?? '-'}</td>
           <td class="text-success">${l.valorNovo ?? '-'}</td>
+          <td><span class="badge bg-light text-dark border">${l.codigoUsuarioResponsavel ?? '-'}</span></td>
         </tr>`).join('');
     }
 

@@ -125,10 +125,12 @@
                 <th>Campo Alterado</th>
                 <th>Valor Antigo</th>
                 <th>Valor Novo</th>
+                <th>Usuário</th>
+              </tr>
               </tr>
             </thead>
             <tbody id="tabela-logs">
-              <tr><td colspan="6" class="text-muted py-4">Busque um cliente para visualizar os logs.</td></tr>
+              <tr><td colspan="7" class="text-muted py-4">Busque um cliente para visualizar os logs.</td></tr>
             </tbody>
           </table>
         </div>
@@ -240,15 +242,15 @@
 
     async function carregarLogs(id) {
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Carregando logs...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Carregando logs...</td></tr>';
       try {
         const res = await fetch(`${API_BASE}/log/${id}`, { headers: { Authorization: JWT() } });
-        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
+        if (!res.ok) { tbody.innerHTML = `<tr><td colspan="7" class="text-danger py-3">Erro ao carregar logs: ${res.status}</td></tr>`; return; }
         logsAtuais = await res.json();
         document.getElementById('filtros-tipo').classList.remove('d-none');
         renderLogs();
       } catch (e) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro de conexão.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="text-danger py-3">Erro de conexão.</td></tr>`;
       }
     }
 
@@ -259,7 +261,7 @@
       let lista = logsAtuais.slice();
       if (filtro) lista = lista.filter(l => l.tipoLog === filtro);
       document.getElementById('filtros-tipo').classList.remove('d-none');
-      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhum log encontrado para este cliente.</td></tr>'; return; }
+      if (!lista.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Nenhum log encontrado para este cliente.</td></tr>'; return; }
       tbody.innerHTML = lista.map(l => `
         <tr>
           <td>${formatarData(l.dataCriacao)}</td>
@@ -268,6 +270,7 @@
           <td>${l.campoAlterado ?? '-'}</td>
           <td class="text-danger">${l.valorAntigo ?? '-'}</td>
           <td class="text-success">${l.valorNovo ?? '-'}</td>
+          <td><span class="badge bg-light text-dark border">${l.codigoUsuarioResponsavel ?? '-'}</span></td>
         </tr>`).join('');
     }
 
@@ -292,12 +295,12 @@
       const numeroDocumento = document.getElementById('input-buscar').value.trim().replace(/\D/g, '');
 
       if (!numeroDocumento) {
-        document.getElementById('tabela-logs').innerHTML = '<tr><td colspan="6" class="text-muted py-3">Nenhum cliente encontrado com esse termo.</td></tr>';
+        document.getElementById('tabela-logs').innerHTML = '<tr><td colspan="7" class="text-muted py-3">Nenhum cliente encontrado com esse termo.</td></tr>';
         return;
       }
 
       const tbody = document.getElementById('tabela-logs');
-      tbody.innerHTML = '<tr><td colspan="6" class="text-muted py-3">Buscando logs...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="text-muted py-3">Buscando logs...</td></tr>';
 
       document.getElementById('info-selecionado').classList.remove('d-none');
       document.getElementById('texto-selecionado').textContent =
@@ -312,14 +315,14 @@
 
         if (!res.ok) {
           const txt = await res.text();
-          tbody.innerHTML = `<tr><td colspan="6" class="text-danger py-3">Erro ${res.status}: ${txt || 'Nenhum log encontrado.'}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" class="text-danger py-3">Erro ${res.status}: ${txt || 'Nenhum log encontrado.'}</td></tr>`;
           return;
         }
 
         const logs = await res.json();
         renderLogs(logs);
       } catch {
-        tbody.innerHTML = '<tr><td colspan="6" class="text-danger py-3">Erro de conexão.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="text-danger py-3">Erro de conexão.</td></tr>';
       }
     }
 
