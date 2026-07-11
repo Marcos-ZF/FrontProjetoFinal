@@ -142,11 +142,18 @@
     const ROLE_CLAIM   = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
 
     function lerToken() {
-      const t = JWT();
-      if (!t) return null;
-      try { return JSON.parse(atob(t.replace('Bearer ', '').split('.')[1])); }
-      catch { return null; }
-    }
+      const token = JWT();
+      if (!token) return null;
+
+      const payload = token.replace("Bearer ", "").split(".")[1];
+
+      const bytes = Uint8Array.from(
+          atob(payload.replace(/-/g, "+").replace(/_/g, "/")),
+          c => c.charCodeAt(0)
+      );
+
+      return JSON.parse(new TextDecoder("utf-8").decode(bytes));
+  }
 
 
     let usuarioId = null;
