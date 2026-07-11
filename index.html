@@ -91,7 +91,7 @@
 
           if (!response.ok) {
             const erroTexto = await response.text();
-            throw new Error(`Erro ${response.status}: ${erroTexto}`);
+            throw new Error(`${erroTexto}`);
           }
 
           const resposta = await response.json();
