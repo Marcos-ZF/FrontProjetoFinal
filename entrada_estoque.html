@@ -94,7 +94,7 @@
                   type="text"
                   id="input-buscar-fornecedor"
                   class="form-control"
-                  placeholder="Buscar fornecedor por nome ou CNPJ..."
+                  placeholder="Buscar fornecedor por Razão Social ou CNPJ..."
                   autocomplete="off"
                 >
                 <div
@@ -267,16 +267,19 @@
 
       input.addEventListener("input", () => {
         const termo = input.value.trim().toLowerCase();
+        const termoDigitos = termo.replace(/\D/g, "");
         box.innerHTML = "";
 
         if (termo.length < 1) {
           box.classList.add("d-none");
           return;
         }
-        const filtrados = fornecedoresCache.filter(f =>
-          (f.nomeFantasia || "").toLowerCase().includes(termo) ||
-          (f.nome || "").toLowerCase().includes(termo) ||
-          (f.cnpj || "").toLowerCase().includes(termo)
+        const filtrados = fornecedoresCache.filter(f =>{
+          const cnpjDigitos = (f.cnpj || "").replace(/\D/g, "");
+          return(
+          (f.razaoSocial || "").toLowerCase().includes(termo) ||
+          (cnpjDigitos || "").includes(termoDigitos));
+        } 
         ).slice(0, 10);
 
         if (!filtrados.length) {
@@ -289,7 +292,7 @@
           const div = document.createElement("div");
           div.className = "suggestion-item";
           div.innerHTML = `
-            <span>${f.nomeFantasia || f.nome}</span>
+            <span>${f.razaoSocial}</span>
             <span class="cod">${formatarCnpj(f.cnpj)}</span>
           `;
 
@@ -359,7 +362,7 @@
 
     function selecionarFornecedor(f) {
 
-      document.getElementById("input-buscar-fornecedor").value = f.nomeFantasia || f.nome;
+      document.getElementById("input-buscar-fornecedor").value = f.razaoSocial ;
       document.getElementById("input-fornecedor-id").value     =  f.id;
       document.getElementById("input-cnpj-fornecedor").value   = formatarCnpj(f.cnpj) || "-";
       document.getElementById("suggestion-box-fornecedor").classList.add("d-none");
