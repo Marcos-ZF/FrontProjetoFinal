@@ -259,7 +259,7 @@
         const acoes = estadoAtual === 'inativos'
           ? `<button class="btn btn-success btn-sm" onclick="reativarUsuario('${u.id}')"><i class="bi bi-arrow-counterclockwise me-1"></i>Reativar</button>`
           : `<button class="btn btn-warning btn-sm me-1" onclick='abrirModalEditar(${JSON.stringify(u)})'>Editar</button>
-             <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${u.id}', '${u.nome.replace(/'/g, "")}')">Excluir</button>`;
+             <button class="btn btn-danger btn-sm" onclick="abrirModalExcluir('${u.id}', '${u.nome.replace(/'/g, "")}')">Inativar</button>`;
         return `
         <tr>
           <td>${u.codigoUsuario ?? '-'}</td>
