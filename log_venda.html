@@ -257,7 +257,7 @@
     }
 
     function referencia(l) {
-      if (l.nomeProdutoRelacionado) return l.nomeProdutoRelacionado;
+      if (l.nomeProdutoDoItem) return l.nomeProdutoDoItem;
       if (l.nomeServicoRelacionado) return l.nomeServicoRelacionado;
       if (l.numeroDaParcelaDaVenda != null) return `Parcela ${l.numeroDaParcelaDaVenda}ª`;
       return '-';
