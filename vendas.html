@@ -370,14 +370,18 @@
     const inputVencimento = document.getElementById("input-vencimento");
     const labelVencimento = document.getElementById("label-vencimento");
 
-    const hoje = new Date().toISOString().split("T")[0];
+    const hoje = new Date().toLocaleDateString("en-CA", {
+        timeZone: "America/Sao_Paulo"
+    });
     inputVencimento.value = hoje;
 
     function atualizarCampoParcelas() {
       if (selectTipoPagamento.value === "AVista") {
         inputParcelas.value = 1;
         inputParcelas.disabled = true;
-        inputVencimento.value = new Date().toISOString().split("T")[0];
+        inputVencimento.value = new Date().toLocaleDateString("en-CA", {
+            timeZone: "America/Sao_Paulo"
+        });
         inputVencimento.readOnly = true;
         inputVencimento.classList.add("bg-light");
         labelVencimento.textContent = "Vencimento (à vista):";
@@ -389,7 +393,9 @@
 
         const amanha = new Date();
         amanha.setDate(amanha.getDate() + 1);
-        inputVencimento.value = amanha.toISOString().split("T")[0];
+        inputVencimento.value = amanha.toLocaleDateString("en-CA", {
+            timeZone: "America/Sao_Paulo"
+        });
       }
     }
 
